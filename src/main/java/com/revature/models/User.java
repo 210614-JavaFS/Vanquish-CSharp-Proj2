@@ -142,7 +142,4 @@ public class User {
 		this.invoices = invoices;
 	}
 	
-	
-	
-	
 }
