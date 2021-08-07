@@ -9,8 +9,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 @Entity
+@Table(name="users")
 public class User {
 
 	@Id
@@ -18,9 +20,10 @@ public class User {
 	@Column(name="user_id")
 	private int id;
 	
+	@Column(name="username", unique=true)
 	private String username;
 	
-	@Column(name="user_email")
+	@Column(name="user_email", unique=true)
 	private String userEmail;
 	
 	@Column(name="user_pw")
@@ -32,6 +35,10 @@ public class User {
 	@Column(name="last_name")
 	private String lastName;
 	
+	@Column(name="currency_id")
+	private String currencyID;
+	
+	@Column(name="user_address")
 	private String address;
 	
 	@Column(name="user_role")
@@ -46,25 +53,14 @@ public class User {
 	}
 
 	public User(String username, String userEmail, String userPassword, String firstName, String lastName,
-			String address, String userRole) {
+			String currencyID, String address, String userRole, List<Invoice> invoices) {
 		super();
 		this.username = username;
 		this.userEmail = userEmail;
 		this.userPassword = userPassword;
 		this.firstName = firstName;
 		this.lastName = lastName;
-		this.address = address;
-		this.userRole = userRole;
-	}
-
-	public User(String username, String userEmail, String userPassword, String firstName, String lastName,
-			String address, String userRole, List<Invoice> invoices) {
-		super();
-		this.username = username;
-		this.userEmail = userEmail;
-		this.userPassword = userPassword;
-		this.firstName = firstName;
-		this.lastName = lastName;
+		this.currencyID = currencyID;
 		this.address = address;
 		this.userRole = userRole;
 		this.invoices = invoices;
@@ -118,6 +114,14 @@ public class User {
 		this.lastName = lastName;
 	}
 
+	public String getCurrencyID() {
+		return currencyID;
+	}
+
+	public void setCurrencyID(String currencyID) {
+		this.currencyID = currencyID;
+	}
+
 	public String getAddress() {
 		return address;
 	}
@@ -141,5 +145,83 @@ public class User {
 	public void setInvoices(List<Invoice> invoices) {
 		this.invoices = invoices;
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((address == null) ? 0 : address.hashCode());
+		result = prime * result + ((currencyID == null) ? 0 : currencyID.hashCode());
+		result = prime * result + ((firstName == null) ? 0 : firstName.hashCode());
+		result = prime * result + id;
+		result = prime * result + ((invoices == null) ? 0 : invoices.hashCode());
+		result = prime * result + ((lastName == null) ? 0 : lastName.hashCode());
+		result = prime * result + ((userEmail == null) ? 0 : userEmail.hashCode());
+		result = prime * result + ((userPassword == null) ? 0 : userPassword.hashCode());
+		result = prime * result + ((userRole == null) ? 0 : userRole.hashCode());
+		result = prime * result + ((username == null) ? 0 : username.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		User other = (User) obj;
+		if (address == null) {
+			if (other.address != null)
+				return false;
+		} else if (!address.equals(other.address))
+			return false;
+		if (currencyID == null) {
+			if (other.currencyID != null)
+				return false;
+		} else if (!currencyID.equals(other.currencyID))
+			return false;
+		if (firstName == null) {
+			if (other.firstName != null)
+				return false;
+		} else if (!firstName.equals(other.firstName))
+			return false;
+		if (id != other.id)
+			return false;
+		if (invoices == null) {
+			if (other.invoices != null)
+				return false;
+		} else if (!invoices.equals(other.invoices))
+			return false;
+		if (lastName == null) {
+			if (other.lastName != null)
+				return false;
+		} else if (!lastName.equals(other.lastName))
+			return false;
+		if (userEmail == null) {
+			if (other.userEmail != null)
+				return false;
+		} else if (!userEmail.equals(other.userEmail))
+			return false;
+		if (userPassword == null) {
+			if (other.userPassword != null)
+				return false;
+		} else if (!userPassword.equals(other.userPassword))
+			return false;
+		if (userRole == null) {
+			if (other.userRole != null)
+				return false;
+		} else if (!userRole.equals(other.userRole))
+			return false;
+		if (username == null) {
+			if (other.username != null)
+				return false;
+		} else if (!username.equals(other.username))
+			return false;
+		return true;
+	}
+
+	
 	
 }

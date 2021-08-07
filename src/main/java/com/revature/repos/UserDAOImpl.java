@@ -49,5 +49,13 @@ public class UserDAOImpl implements UserDAO {
 		
 		return user;
 	}
+	
+	@Override
+	public User findByEmail(String email) {
+		Session session = sessionFactory.getCurrentSession();
+		User user = session.get(User.class, email);
+		
+		return user;
+	}
 
 }
