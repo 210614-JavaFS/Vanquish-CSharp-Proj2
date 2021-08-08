@@ -142,6 +142,8 @@ const GetBooks: React.FC<Props> = ({ getRate }) => {
                                 <div className="">
                                     <strong>Converted Price: </strong>
                                     &nbsp;$ <strong style={{ color: "gold" }}> {convertedPrice} </strong>
+                                    &nbsp;
+                                    <button className="btn btn-primary btn-sm">Add to Cart</button>
                                 </div>
 
 

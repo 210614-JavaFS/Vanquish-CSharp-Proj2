@@ -4,8 +4,8 @@
 }
 
 .header {
-  background-color: royalblue;
-  /* background: linear-gradient(to right, steelblue, royalblue); */
+  /* background-color: royalblue; */
+  background: linear-gradient(to right, #493e8a, royalblue);
   width: 100vw;
   /* background-color: steelblue; */
   height: 50vh;
@@ -20,17 +20,17 @@
 }
 
 .headerImage {
-  width: 80vw;
+  min-width: 1200px;
   height: 50vh;
-  background-image: url("./pics/book3.jpg");
+  background-image: url("../pics/book3.jpg");
   /* background-image: url("../pics/book2.jpg"); */
-  /* background-image: url("./pics/undrawBooks.png"); */
+  /* background-image: url("../pics/undrawBooks.png"); */
   background-position: center;
   /* background-position: bottom; */
   background-repeat: no-repeat;
 
   /* background-size: contain; */
-  /* background-size: cover; */
+  background-size: cover;
   /* display: flex;
   flex-shrink: 0;
   flex-grow: 0; */
@@ -42,9 +42,9 @@
 .awningImage {
   width: 120vw;
   height: 9vh;
-  background-image: url("./pics/awning2.png");
+  background-image: url("../pics/awning2.png");
   /* background-image: url("../pics/book2.jpg"); */
-  /* background-image: url("./pics/undrawBooks.png"); */
+  /* background-image: url("../pics/undrawBooks.png"); */
   background-position: center;
   /* background-position: bottom; */
   background-repeat: no-repeat;
@@ -311,7 +311,7 @@ body {
   position: absolute;
   top: 0%;
   /* right: 50%; */
-  left: 50%;
+  left: 54%;
 }
 
 .absolutebottom {

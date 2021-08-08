@@ -20,7 +20,7 @@ export const SideNav = () => {
 
                         <br></br>
                         <label style={{ fontSize: ".9rem" }}>Option 2</label>
-                        <Link to="/test" >   <il><button style={{ borderRadius: "50px", width: "10rem" }} className="btn btn-primary">Option 2</button></il></Link>
+                        <Link to="/test" > <il><button style={{ borderRadius: "50px", width: "10rem" }} className="btn btn-primary">Option 2</button></il></Link>
 
                         <br></br>
                         <label style={{ fontSize: ".9rem" }}>Option 3</label>
