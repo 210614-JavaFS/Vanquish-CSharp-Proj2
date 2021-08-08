@@ -8,8 +8,8 @@ type Props = {
 
 const GetCurrencies: React.FC<Props> = ({ getCurrencyRate }) => {
     const [currencies, setCurrencies] = useState([]);
-    const [defaultCurrency, setDefaultCurrency] = useState("USD_");
-    const [converyCurrency, setConvertCurrency] = useState("MYR");
+    const [defaultCurrency, setDefaultCurrency] = useState<string>("USD_");
+    const [converyCurrency, setConvertCurrency] = useState<string>("MYR");
     const [rate, setRate] = useState({});
 
 
@@ -73,19 +73,8 @@ const GetCurrencies: React.FC<Props> = ({ getCurrencyRate }) => {
     }, [])
     console.log(rate);
 
-    return (
-        <div>
-
-            {/* <div className="">
-                {rate.map(r => {
-                    const { USD_EUR } = r
-                    return ({ USD_EUR })
-                }
-
-                )}
-            </div> */}
-
-        </div>
+    return (<div>
+    </div>
     )
 }
 
