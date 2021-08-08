@@ -1,17 +1,31 @@
 import React from 'react';
-import { BrowserRouter } from 'react-router-dom';
 import './App.css';
-import { Provider } from 'react-redux';
-import store from './store';
+
+import 'bootstrap/dist/css/bootstrap.min.css';
+import AppRoutes from './routes/AppRoutes';
+import { BrowserRouter } from 'react-router-dom';
+import { Switch } from "react-router";
+import { Footer } from './views/Footer';
+import { NavBar } from './views/NavBar';
+
+
+// import './default.css';
 
 function App() {
   return (
     <div className="App">
-      <Provider store ={store}>
-        <BrowserRouter>
-        
-        </BrowserRouter>
-     </Provider>
+      <BrowserRouter>
+
+        <NavBar />
+        <Switch>
+          <header className="App-header relative">
+            <AppRoutes />
+          </header>
+
+        </Switch>
+
+        <Footer />
+      </BrowserRouter>
     </div>
   );
 }
