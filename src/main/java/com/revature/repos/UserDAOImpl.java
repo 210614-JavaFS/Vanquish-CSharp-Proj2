@@ -6,6 +6,7 @@ import javax.persistence.criteria.CriteriaQuery;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
@@ -52,10 +53,20 @@ public class UserDAOImpl implements UserDAO {
 	
 	@Override
 	public User findByEmail(String email) {
+		System.out.println("running query");
 		Session session = sessionFactory.getCurrentSession();
-		User user = session.get(User.class, email);
+//		User user = session.get(User.class, email);
 		
-		return user;
+		String hql = "FROM User WHERE user_email = :input_email";
+		System.out.println("creating query");
+		Query query = session.createQuery(hql);
+		query.setParameter("input_email",email);
+		System.out.println("query created...");
+		List results = query.list();
+		System.out.println("found results");
+		System.out.println(results);
+		
+		return (User) results.get(0);
 	}
 
 }

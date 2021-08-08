@@ -2,6 +2,7 @@ package com.revature.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.mindrot.jbcrypt.BCrypt;
@@ -52,7 +53,6 @@ public class UserController {
 	@PostMapping
 	public ResponseEntity<User> addUser(@RequestBody User user) {
 		System.out.println("got post request adduser");
-		System.out.println(user);
 		
 		int workload = 12;
 		String salt = BCrypt.gensalt(workload);
@@ -66,11 +66,16 @@ public class UserController {
 	
 	//Login
 	@PostMapping("/login")
-	public ResponseEntity<User> validateUser(@RequestBody User userInput) {
+	public ResponseEntity<User> validateUser(@RequestBody User userInput, HttpServletRequest request) {
+		System.out.println("Check1");
 		String passwordInput = userInput.getUserPassword();
+		System.out.println("userInput email is: " + userInput.getUserEmail());
+		System.out.println("userInput email is: " + userInput.getUserPassword());
 		
+		System.out.println("Check2");
 		User foundUser = userService.findByEmail(userInput.getUserEmail());
 		
+		System.out.println("Check3");
 		if (foundUser==null) {
 			System.out.println("Can't find user.");
 			return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
@@ -85,7 +90,13 @@ public class UserController {
 			return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
 		}
 		
-//		HttpSession session = request.getSession();
+		HttpSession session = request.getSession();
+		session.setAttribute("userID", foundUser.getUserId());
+		session.setAttribute("userEmail", foundUser.getUserEmail());
+		session.setAttribute("username", foundUser.getUsername());
+		System.out.println("I got session ID: " + session.getAttribute("userID"));
+		System.out.println("User is logged in. Username is: " + session.getAttribute("username"));
+		System.out.println("User is logged in. Email is: " + session.getAttribute("userEmail"));
 		
 		return ResponseEntity.status(HttpStatus.CREATED).build();
 	}

@@ -18,7 +18,7 @@ public class User {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="user_id")
-	private int id;
+	private int userId;
 	
 	@Column(name="username", unique=true)
 	private String username;
@@ -66,12 +66,12 @@ public class User {
 		this.invoices = invoices;
 	}
 
-	public int getId() {
-		return id;
+	public int getUserId() {
+		return userId;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public void setUserId(int userId) {
+		this.userId = userId;
 	}
 
 	public String getUsername() {
@@ -153,10 +153,10 @@ public class User {
 		result = prime * result + ((address == null) ? 0 : address.hashCode());
 		result = prime * result + ((currencyID == null) ? 0 : currencyID.hashCode());
 		result = prime * result + ((firstName == null) ? 0 : firstName.hashCode());
-		result = prime * result + id;
 		result = prime * result + ((invoices == null) ? 0 : invoices.hashCode());
 		result = prime * result + ((lastName == null) ? 0 : lastName.hashCode());
 		result = prime * result + ((userEmail == null) ? 0 : userEmail.hashCode());
+		result = prime * result + userId;
 		result = prime * result + ((userPassword == null) ? 0 : userPassword.hashCode());
 		result = prime * result + ((userRole == null) ? 0 : userRole.hashCode());
 		result = prime * result + ((username == null) ? 0 : username.hashCode());
@@ -187,8 +187,6 @@ public class User {
 				return false;
 		} else if (!firstName.equals(other.firstName))
 			return false;
-		if (id != other.id)
-			return false;
 		if (invoices == null) {
 			if (other.invoices != null)
 				return false;
@@ -203,6 +201,8 @@ public class User {
 			if (other.userEmail != null)
 				return false;
 		} else if (!userEmail.equals(other.userEmail))
+			return false;
+		if (userId != other.userId)
 			return false;
 		if (userPassword == null) {
 			if (other.userPassword != null)
@@ -222,6 +222,7 @@ public class User {
 		return true;
 	}
 
+	
 	
 	
 }
