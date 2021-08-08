@@ -1,13 +1,10 @@
 import React, { useState } from "react";
 import { Switch } from "react-router";
-import { BrowserRouter, Route } from "react-router-dom";
-import booksClient from "../remote/BooksClient";
+import { Route } from "react-router-dom";
 import { CurrencyConverter } from "../components/CurrencyConverter";
-// import { NavBar } from "../views/NavBar";
 import { SideNav } from "../views/SideNav";
 import GetBooks from "../components/GetBooks";
 import GetCurrencies from "../remote/GetCurrencies";
-// import { BookMapper } from "../components/BookMapper"
 
 
 const AppRoutes: React.FC<any> = (): JSX.Element => {
@@ -34,10 +31,11 @@ const AppRoutes: React.FC<any> = (): JSX.Element => {
                 </div>
 
 
-                <Route exact path="/"><GetCurrencies getCurrencyRate={getCurrencyRate} />
+                <Route exact path="/">
+                    <GetCurrencies getCurrencyRate={getCurrencyRate} />
                     <GetBooks getRate={getRate} />
                 </Route>
-                {/* <Route exact path="/" component={GetBooks} /> */}
+
                 <Route exact path="/currency" component={CurrencyConverter} />
 
 
