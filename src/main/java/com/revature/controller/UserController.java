@@ -50,7 +50,7 @@ public class UserController {
 	}
 	
 	//Register
-	@PostMapping
+	@PostMapping("/register")
 	public ResponseEntity<User> addUser(@RequestBody User user) {
 		System.out.println("got post request adduser");
 		
