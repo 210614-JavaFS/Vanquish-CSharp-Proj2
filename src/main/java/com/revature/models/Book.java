@@ -1,5 +1,6 @@
 package com.revature.models;
 
+
 import java.util.Arrays;
 
 import javax.persistence.Column;
@@ -36,8 +37,12 @@ public class Book {
 	@Column(name = "book_description")
 	private String bookDescription;
 	
-	@Column(name = "book_category")
-	private String[] category; 
+    @Column(
+        name = "book_category",
+        columnDefinition = "text[]"
+    )
+    private String[] bookCategory;
+	
 	
 	@Column(name = "book_cost_USD", nullable = false)
 	private double costUSD;
@@ -47,23 +52,33 @@ public class Book {
 	
 	@Column(name = "book_img_URL")
 	private String imgURL;
+	
+	@Column(name = "book_img")
+	private String[] bookImg;
 
-	
-	
-	
 	public Book() {
 		super();
 	}
 
-	public Book(String bookName, String bookDescription, String[] category, double costUSD, String author,
-			String imgURL) {
+	public Book(String bookName, String bookDescription, String[] bookCategory, double costUSD, String author) {
 		super();
 		this.bookName = bookName;
 		this.bookDescription = bookDescription;
-		this.category = category;
+		this.bookCategory = bookCategory;
+		this.costUSD = costUSD;
+		Author = author;
+	}
+
+	public Book(String bookName, String bookDescription, String[] bookCategory, double costUSD, String author,
+			String imgURL, String[] bookImg) {
+		super();
+		this.bookName = bookName;
+		this.bookDescription = bookDescription;
+		this.bookCategory = bookCategory;
 		this.costUSD = costUSD;
 		Author = author;
 		this.imgURL = imgURL;
+		this.bookImg = bookImg;
 	}
 
 	public int getBookId() {
@@ -90,12 +105,12 @@ public class Book {
 		this.bookDescription = bookDescription;
 	}
 
-	public String[] getCategory() {
-		return category;
+	public String[] getBookCategory() {
+		return bookCategory;
 	}
 
-	public void setCategory(String[] category) {
-		this.category = category;
+	public void setBookCategory(String[] bookCategory) {
+		this.bookCategory = bookCategory;
 	}
 
 	public double getCostUSD() {
@@ -122,15 +137,24 @@ public class Book {
 		this.imgURL = imgURL;
 	}
 
+	public String[] getBookImg() {
+		return bookImg;
+	}
+
+	public void setBookImg(String[] bookImg) {
+		this.bookImg = bookImg;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((Author == null) ? 0 : Author.hashCode());
+		result = prime * result + Arrays.hashCode(bookCategory);
 		result = prime * result + ((bookDescription == null) ? 0 : bookDescription.hashCode());
 		result = prime * result + bookId;
+		result = prime * result + Arrays.hashCode(bookImg);
 		result = prime * result + ((bookName == null) ? 0 : bookName.hashCode());
-		result = prime * result + Arrays.hashCode(category);
 		long temp;
 		temp = Double.doubleToLongBits(costUSD);
 		result = prime * result + (int) (temp ^ (temp >>> 32));
@@ -152,6 +176,8 @@ public class Book {
 				return false;
 		} else if (!Author.equals(other.Author))
 			return false;
+		if (!Arrays.equals(bookCategory, other.bookCategory))
+			return false;
 		if (bookDescription == null) {
 			if (other.bookDescription != null)
 				return false;
@@ -159,12 +185,12 @@ public class Book {
 			return false;
 		if (bookId != other.bookId)
 			return false;
+		if (!Arrays.equals(bookImg, other.bookImg))
+			return false;
 		if (bookName == null) {
 			if (other.bookName != null)
 				return false;
 		} else if (!bookName.equals(other.bookName))
-			return false;
-		if (!Arrays.equals(category, other.category))
 			return false;
 		if (Double.doubleToLongBits(costUSD) != Double.doubleToLongBits(other.costUSD))
 			return false;
@@ -179,21 +205,9 @@ public class Book {
 	@Override
 	public String toString() {
 		return "Book [bookId=" + bookId + ", bookName=" + bookName + ", bookDescription=" + bookDescription
-				+ ", category=" + Arrays.toString(category) + ", costUSD=" + costUSD + ", Author=" + Author
-				+ ", imgURL=" + imgURL + "]";
-	}
+				+ ", bookCategory=" + Arrays.toString(bookCategory) + ", costUSD=" + costUSD + ", Author=" + Author
+				+ ", imgURL=" + imgURL + ", bookImg=" + Arrays.toString(bookImg) + "]";
+	} 
 	
 	
-	
-	
-	
-	
-	
-
-	
-	
-	
-	
-	
-
 }
