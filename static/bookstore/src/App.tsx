@@ -6,25 +6,38 @@ import { BrowserRouter } from 'react-router-dom';
 import { Switch } from "react-router";
 import { Footer } from './views/Footer';
 import { NavBar } from './views/NavBar';
-
+import { Provider } from 'react-redux';
+import store from './store';
+import Login from './components/register-login/Login';
 
 // import './default.css';
 
 function App() {
   return (
     <div className="App">
-      <BrowserRouter>
+      <Provider store={store}>
+        <BrowserRouter>
 
-        <NavBar />
-        <Switch>
-          <header className="App-header relative">
-            <AppRoutes />
-          </header>
+          {/* 
+          
+          <NavBar />
 
-        </Switch>
+          
+          <Switch>
+            <header className="App-header relative">
+              <AppRoutes />
+            </header>
+          </Switch>
+          
+          */}
+          
+          <Login/>
 
-        <Footer />
-      </BrowserRouter>
+          {/* NOTE. Footer */}
+          <Footer />
+        </BrowserRouter>
+        
+      </Provider>
     </div>
   );
 }

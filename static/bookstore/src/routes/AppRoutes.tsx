@@ -30,7 +30,6 @@ const AppRoutes: React.FC<any> = (): JSX.Element => {
                     <h1>Welcome customer it is nice to meet you</h1>
                 </div>
 
-
                 <Route exact path="/">
                     <GetCurrencies getCurrencyRate={getCurrencyRate} />
                     <GetBooks getRate={getRate} />
