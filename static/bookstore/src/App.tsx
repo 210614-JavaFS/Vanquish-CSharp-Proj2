@@ -31,8 +31,10 @@ function App() {
           
           */}
 
-          <div className="flex alignitems" style={{ height: "70vh" }}>
-            <Login />
+          <div className="flex justify alignitems " style={{ height: "70vh" }}>
+            <div className="width30">
+              <Login />
+            </div>
           </div>
 
           {/* NOTE. Footer */}
