@@ -118,6 +118,16 @@
 			<artifactId>spring-webmvc</artifactId>
 			<version>5.2.3.RELEASE</version>
 		</dependency>
+<!-- https://mvnrepository.com/artifact/com.vladmihalcea/hibernate-types-52 -->
+		<dependency>
+		    <groupId>com.vladmihalcea</groupId>
+		    <artifactId>hibernate-types-52</artifactId>
+		    <version>2.12.1</version>
+		</dependency>		
+		
+		
+		
+		
 	</dependencies>
 	
 </project>
