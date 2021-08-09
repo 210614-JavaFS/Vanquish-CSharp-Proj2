@@ -30,13 +30,15 @@ function App() {
           </Switch>
           
           */}
-          
-          <Login/>
+
+          <div className="flex alignitems" style={{ height: "70vh" }}>
+            <Login />
+          </div>
 
           {/* NOTE. Footer */}
           <Footer />
         </BrowserRouter>
-        
+
       </Provider>
     </div>
   );

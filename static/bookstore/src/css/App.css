@@ -5,7 +5,7 @@
 
 .header {
   /* background-color: royalblue; */
-  background: linear-gradient(to right, #493e8a, royalblue);
+  background: linear-gradient(to right, steelblue, royalblue);
   width: 100vw;
   /* background-color: steelblue; */
   height: 50vh;
