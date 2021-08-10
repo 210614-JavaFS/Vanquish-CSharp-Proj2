@@ -6,13 +6,15 @@ import { BrowserRouter } from 'react-router-dom';
 import { Switch } from "react-router";
 import { Footer } from './views/Footer';
 import { NavBar } from './views/NavBar';
-import { Provider } from 'react-redux';
+import { Provider, useSelector } from 'react-redux';
 import store from './store';
 import Login from './components/register-login/Login';
+import { selectUser } from './features/userSlice';
 
 // import './default.css';
 
 function App() {
+  // const user = useSelector(selectUser);
   return (
     <div className="App">
       <Provider store={store}>
@@ -38,6 +40,7 @@ function App() {
           </div>
 
           {/* NOTE. Footer */}
+          
           <Footer />
         </BrowserRouter>
 

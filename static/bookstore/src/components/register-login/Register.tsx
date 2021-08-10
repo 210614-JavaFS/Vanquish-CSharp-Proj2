@@ -36,7 +36,6 @@ export default function Register()  {
             undefined,
         );
         
-        console.log(newUserForm);
         apiRegisterUser(newUserForm);
     }
 
