@@ -8,11 +8,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
-public class Orders {
+@Table(name = "orders")
+public class Order {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -35,7 +37,7 @@ public class Orders {
 	@JsonBackReference
 	private Book bookId;
 	
-	public Orders(int orderItemsId, int quantity, String  shippingAddress, Invoice invoice, Book book) {
+	public Order(int orderItemsId, int quantity, String  shippingAddress, Invoice invoice, Book book) {
 		super();
 		this.orderItemsId = orderItemsId;
 		this.quantity = quantity;
@@ -44,7 +46,7 @@ public class Orders {
 		this.bookId = book;
 	}
 
-	public Orders() {
+	public Order() {
 		super();
 	}
 

@@ -38,10 +38,10 @@ public class AdminController {
 		return adminService.getAllInvoice();
 	}
 	
-	@RequestMapping(method = RequestMethod.GET)
-	public List<Book> allBook(){
-		return adminService.getAllBook();
-	}
+//	@RequestMapping(method = RequestMethod.GET)
+//	public List<Book> allBook(){
+//		return adminService.getAllBook();
+//	}
 	
 	@PostMapping
 	public ResponseEntity<Book> addBook(@RequestBody Book book){
@@ -54,18 +54,18 @@ public class AdminController {
 		adminService.updateBook(book);
 		return ResponseEntity.status(HttpStatus.ACCEPTED).build();
 	}
-	
-	@PutMapping
-	public ResponseEntity<Order> updateOrder(@RequestBody Order order){
-		adminService.updateOrder(order);
-		return ResponseEntity.status(HttpStatus.ACCEPTED).build();
-	}
-	
-	@PutMapping
-	public ResponseEntity<Invoice> updateInvoiceStatus(@RequestBody Invoice invoice){
-		adminService.reviewInvoice(invoice);
-		return ResponseEntity.status(HttpStatus.ACCEPTED).build();
-	}
+//	
+//	@PutMapping
+//	public ResponseEntity<Order> updateOrder(@RequestBody Order order){
+//		adminService.updateOrder(order);
+//		return ResponseEntity.status(HttpStatus.ACCEPTED).build();
+//	}
+//	
+//	@PutMapping
+//	public ResponseEntity<Invoice> updateInvoiceStatus(@RequestBody Invoice invoice){
+//		adminService.reviewInvoice(invoice);
+//		return ResponseEntity.status(HttpStatus.ACCEPTED).build();
+//	}
 	
 	@DeleteMapping
 	public ResponseEntity<Book> deleteBook(@RequestBody Book book){
