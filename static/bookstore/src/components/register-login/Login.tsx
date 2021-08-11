@@ -1,4 +1,6 @@
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { login, selectUser } from '../../features/userSlice';
 import User from '../../models/User';
 import { apiLoginUser } from '../../remote/userApi';
 import Register from './Register';
@@ -6,10 +8,14 @@ import { useForm } from './useForm';
 
 export default function Login(): JSX.Element {
 
+    const user = useSelector(selectUser);
+    
     const initialState:any = {
         userEmail: "",
         userPassword: "",
     }
+
+    const dispatch = useDispatch();
 
     const {onChange, onSubmit, values} = useForm(
         loginCallback,
@@ -29,9 +35,19 @@ export default function Login(): JSX.Element {
             undefined,
             undefined,
         );
-        
-        console.log(newUserForm);
-        apiLoginUser(newUserForm);
+
+        let userObject = await apiLoginUser(newUserForm);
+
+        if (userObject) {
+            alert("Login is successful")
+            console.log("login successful")
+            console.log(userObject);
+            
+            dispatch(login(userObject));
+        } else {
+            alert("Login is not successful");
+            console.log("login failed")
+        }
     }
 
     return (
@@ -48,6 +64,7 @@ export default function Login(): JSX.Element {
 
                         <form onSubmit={onSubmit}>
                             <div className="form-control transparent-div white-txt" id="loginForm">
+                                {user ? <p> Logged in, {user.username} </p> : <p> Nah</p>}
                                 <h3>Login</h3>
                                 <p>
                                     <label htmlFor="email">Email</label>
