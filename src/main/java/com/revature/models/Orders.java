@@ -12,48 +12,48 @@ import javax.persistence.ManyToOne;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
-public class Order {
+public class Orders {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="order_items_id")
-	private int order_items_id;
+	private int orderItemsId;
 	
 	@Column(name="quantity")
 	private int quantity;
 	
-	@Column(name="shipping_address")
-	private String shipping_address;
+	@Column(name=" shipping_address")
+	private String shippingAddress;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn
+	@JoinColumn(name = "invoice_id")
 	@JsonBackReference
-	private Invoice invoice_id;
+	private Invoice invoiceId;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn
+	@JoinColumn(name = "book_id")
 	@JsonBackReference
-	private Book book_id;
+	private Book bookId;
 	
-	public Order(int order_items_id, int quantity, String shipping_address, Invoice invoice, Book book) {
+	public Orders(int orderItemsId, int quantity, String  shippingAddress, Invoice invoice, Book book) {
 		super();
-		this.order_items_id = order_items_id;
+		this.orderItemsId = orderItemsId;
 		this.quantity = quantity;
-		this.shipping_address = shipping_address;
-		this.invoice_id = invoice;
-		this.book_id = book;
+		this. shippingAddress =  shippingAddress;
+		this.invoiceId = invoice;
+		this.bookId = book;
 	}
 
-	public Order() {
+	public Orders() {
 		super();
 	}
 
-	public int getOrder_items_id() {
-		return order_items_id;
+	public int getOrders_items_id() {
+		return orderItemsId;
 	}
 
-	public void setOrder_items_id(int order_items_id) {
-		this.order_items_id = order_items_id;
+	public void setOrders_items_id(int orderItemsId) {
+		this.orderItemsId = orderItemsId;
 	}
 
 	public int getQuantity() {
@@ -65,35 +65,35 @@ public class Order {
 	}
 
 	public String getShipping_address() {
-		return shipping_address;
+		return  shippingAddress;
 	}
 
-	public void setShipping_address(String shipping_address) {
-		this.shipping_address = shipping_address;
+	public void setShipping_address(String  shippingAddress) {
+		this. shippingAddress =  shippingAddress;
 	}
 
 	public Invoice getInvoice() {
-		return invoice_id;
+		return invoiceId;
 	}
 
 	public void setInvoice(Invoice invoice) {
-		this.invoice_id = invoice;
+		this.invoiceId = invoice;
 	}
 
 	public Book getBook() {
-		return book_id;
+		return bookId;
 	}
 
 	public void setBook(Book book) {
-		this.book_id = book;
+		this.bookId = book;
 	}
 	
 	//hashcode and equals
 
 	@Override
 	public String toString() {
-		return "Order [order_items_id=" + order_items_id + ", quantity=" + quantity + ", shipping_address="
-				+ shipping_address + ", invoice=" + invoice_id + ", book=" + book_id + ", toString()=" + super.toString()
+		return "Orders [orderItemsId=" + orderItemsId + ", quantity=" + quantity + ",  shippingAddress="
+				+  shippingAddress + ", invoice=" + invoiceId + ", book=" + bookId + ", toString()=" + super.toString()
 				+ "]";
 	}
 	
