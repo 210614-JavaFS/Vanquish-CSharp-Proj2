@@ -40,6 +40,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import com.revature.models.User;
 import com.revature.services.UserService;
 
+import jdk.internal.org.jline.utils.Log;
+
 @RestController
 @RequestMapping(value="user")
 @CrossOrigin("http://localhost:3000")
@@ -54,31 +56,27 @@ public class UserController {
 		this.userService = userService;
 	}
 	
-//	@Bean
-//    CorsConfigurationSource corsConfigurationSource() {
-//        CorsConfiguration cors = new CorsConfiguration();
-//        cors.setAllowedMethods(Arrays.asList("POST", "GET", "PUT", "HEAD", "DELETE"));
-//        UrlBasedCorsConfigurationSource source = new
-//                UrlBasedCorsConfigurationSource();
-//        source.registerCorsConfiguration("/**", cors.applyPermitDefaultValues());
-//        return source;
-//    }
 	
-
-	
-	
-	@GetMapping("/")
+	@GetMapping("/getcurrentuser")
 	public ResponseEntity<User> returnSession(HttpSession mySession) {
-		User currentUser = new User();
+		System.out.println("got GET request coming in...");
 		
-		
-		System.out.println(mySession.getAttribute("username"));
-		
-		currentUser.setUsername(mySession.getAttribute("username").toString());
-		System.out.println("got normal request");
+		if (mySession == null) {
+			System.out.println("session is null");
+			Log.warn("session is null");
+			return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+		} else {
+			User currentUser = new User();
+			
+			System.out.println(mySession);
+			System.out.println(mySession.getAttribute("username"));
+			
+			currentUser.setUsername(mySession.getAttribute("username").toString());
+			System.out.println("end of the line...");
+			return ResponseEntity.status(HttpStatus.OK).body(currentUser);
+		}
 		
 			
-		return ResponseEntity.status(HttpStatus.OK).body(currentUser);
 	}
 	
 	
@@ -133,19 +131,18 @@ public class UserController {
 		}
 		
 		HttpSession session = request.getSession();
+		
 		//create session
-		
-//		model.addFlashAttribute("user", foundUser);
 		session.setAttribute("username", foundUser.getUsername());
-		System.out.println("Checking model");
-//		session.getAttribute("username").toString();
-		
-//		System.out.println("I got session ID: " + session.getAttribute("userID"));
+
 		System.out.println("User is logged in. Username is: " + session.getAttribute("username"));
-//		System.out.println("User is logged in. Email is: " + session.getAttribute("userEmail"));
-		
+
 		return ResponseEntity.status(HttpStatus.OK).body(foundUser);
 	}
 	
-	
+	@GetMapping("/logout")
+	public void logoutUser(HttpSession session) {
+		session.invalidate();
+		System.out.println("session is invalidated.");
+	}
 }
