@@ -3,6 +3,7 @@ import { composeWithDevTools } from "redux-devtools-extension";
 import reduxThunk, { ThunkDispatch } from "redux-thunk";
 import logger from 'redux-logger'; 
 import reducerController from "./reducers/reducerController";
+import userReducer from "./reducers/UserReducer";
 
 
 const store = createStore(

@@ -58,13 +58,9 @@ public class UserDAOImpl implements UserDAO {
 //		User user = session.get(User.class, email);
 		
 		String hql = "FROM User WHERE user_email = :input_email";
-		System.out.println("creating query");
 		Query query = session.createQuery(hql);
 		query.setParameter("input_email",email);
-		System.out.println("query created...");
 		List results = query.list();
-		System.out.println("found results");
-		System.out.println(results);
 		
 		return (User) results.get(0);
 	}
