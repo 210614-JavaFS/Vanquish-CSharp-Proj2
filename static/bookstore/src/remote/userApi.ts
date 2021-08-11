@@ -26,3 +26,16 @@ export const apiLoginUser = async (user: User):Promise<User[]> => {
         return [];
     }
 }
+
+//get Current User Information
+export const apiGetCurrentUser = async ():Promise<User[]> => {
+    const response = await userClient.post<User[]>('/');
+
+    console.log(response.status)
+    // console.log(`Response status is: ${response.status}`)
+    if (response.status === 200) {
+        return response.data;
+    } else {
+        return [];
+    }
+}

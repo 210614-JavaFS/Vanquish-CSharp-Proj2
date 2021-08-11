@@ -3,61 +3,79 @@ package com.revature.controller;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.hibernate.internal.build.AllowSysOut;
 import org.mindrot.jbcrypt.BCrypt;
+import org.springframework.context.annotation.Bean;
 //import org.slf4j.Logger;
 //import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.revature.models.User;
 import com.revature.services.UserService;
 
 @RestController
 @RequestMapping(value="user")
-@SessionAttributes("validateUser")
+@SessionAttributes("user")
 @CrossOrigin
 public class UserController {
 //	Logger log = LoggerFactory.getLogger(UserController.class);
 	private UserService userService;
+	
+	public HttpSession session;
 	
 	public UserController(UserService userService) {
 		super();
 		this.userService = userService;
 	}
 	
-//	@GetMapping()
-//	public List<User> findAllUsers() {
-//		System.out.println("I run findAllUsers");
-//		return userService.findAllUsers();
-//	}
+	@Bean
+	public WebMvcConfigurer corsConfigurer() {
+		return new WebMvcConfigurer() {
+			@Override
+			public void addCorsMappings(CorsRegistry registry) {
+				registry.addMapping("/**").allowedOrigins("http://localhost:3000");
+			}
+		};
+	}
 	
-	@GetMapping()
-	public ResponseEntity<User> returnSession(HttpServletRequest request, @ModelAttribute User validateUser) {
-		if (validateUser == null ) {
-			System.out.println("session is null");
-			return null;
-		} else {
-			System.out.println(validateUser);
-			System.out.println("session is not null. I got: ");
-			System.out.println(validateUser.getUserEmail());
-			return ResponseEntity.status(HttpStatus.OK).body(validateUser);
-		}
+	@ModelAttribute("user")
+	public User user() {
+	    return new User();
+	}
+	
+	
+	@GetMapping("/")
+	public ResponseEntity<Model> returnSession(Model model) {
+		
+		System.out.println("got normal request");
+		model.addAttribute("user", new User());
+		System.out.println(model);
+		System.out.println(model.getAttribute("username"));
+			
+		return ResponseEntity.status(HttpStatus.OK).body(model);
+		
 		
 	}
+	
 	
 	@GetMapping("/{id}")
 	public ResponseEntity<User> findUser(@PathVariable("id") int id) {
@@ -87,17 +105,14 @@ public class UserController {
 	
 	//Login
 	@PostMapping("/login")
-	@ModelAttribute("validateUser")
-	public ResponseEntity<User> validateUser(@RequestBody User userInput, HttpServletRequest request) {
-		System.out.println("Check1");
+	public ResponseEntity<User> validateUser(@RequestBody User userInput, Model model) {
 		String passwordInput = userInput.getUserPassword();
 		System.out.println("userInput email is: " + userInput.getUserEmail());
 		System.out.println("userInput email is: " + userInput.getUserPassword());
 		
-		System.out.println("Check2");
 		User foundUser = userService.findByEmail(userInput.getUserEmail());
 		
-		System.out.println("Check3");
+		//return error user not found
 		if (foundUser==null) {
 			System.out.println("Can't find user.");
 			return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
@@ -112,13 +127,15 @@ public class UserController {
 			return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
 		}
 		
-		HttpSession session = request.getSession();
-		session.setAttribute("userID", foundUser.getUserId());
-		session.setAttribute("userEmail", foundUser.getUserEmail());
-		session.setAttribute("username", foundUser.getUsername());
-		System.out.println("I got session ID: " + session.getAttribute("userID"));
-		System.out.println("User is logged in. Username is: " + session.getAttribute("username"));
-		System.out.println("User is logged in. Email is: " + session.getAttribute("userEmail"));
+		//create session
+		
+//		model.addFlashAttribute("user", foundUser);
+		model.addAttribute("username", foundUser.getUsername());
+		System.out.println("Checking model");
+		
+//		System.out.println("I got session ID: " + session.getAttribute("userID"));
+//		System.out.println("User is logged in. Username is: " + session.getAttribute("username"));
+//		System.out.println("User is logged in. Email is: " + session.getAttribute("userEmail"));
 		
 		return ResponseEntity.status(HttpStatus.OK).body(foundUser);
 	}

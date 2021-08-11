@@ -87,7 +87,7 @@ export default function Register()  {
                                 <p>
                                     <label htmlFor="usertype">Select User Type:</label>
                                     <select className="form-select" id="userTypeSignup" name="userRole" onChange={onChange} >
-                                        <option selected>Please Select Your User Type</option>
+                                        <option >Please Select Your User Type</option>
                                         <option value="customer">Customer</option>
                                         <option value="admin">Admin</option>
                                     </select>
