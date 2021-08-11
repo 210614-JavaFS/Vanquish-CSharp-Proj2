@@ -39,40 +39,19 @@ public class BookDAOImpl implements BookDAO{
 		return session.createQuery("FROM Book").list();
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Book> findAllBookByInvoice(int userId,int invoiceId) {
 		Session session = sessionFactory.getCurrentSession();
-//		String sql = "SELECT orders.BOOK_ID \r\n"
-//				+ "FROM USERS \r\n"
-//				+ "LEFT JOIN invoice ON users.USER_ID = invoice.USER_USER_ID\r\n"
-//				+ "LEFT JOIN orders ON invoice.INVOICE_ID = orders.invoice_id WHERE users.USER_ID  = 3 AND invoice.INVOICE_ID  = 1;";
-//		TypedQuery<Book> query  = session.createQuery("SELECT orders.book_id "
-//				+ " FROM users "
-//				+ " LEFT JOIN invoice ON users.USER_ID = invoice.USER_USER_ID "
-//				+ " LEFT JOIN orders ON invoice.INVOICE_ID = orders.invoice_id WHERE users.USER_ID  = :user_id AND invoice.INVOICE_ID  = :invoice_id  "
-//				, Book.class);
-//		
-//		
-//		
-//		 List<Book> list = query.setParameter("user_id", userId ).setParameter("invoice_id", invoiceId).getResultList();
-//		 return list;
 		
-		String sql = "Select book.BOOK_ID , book.BOOK_NAME , book.BOOK_COST_USD "
+		String sql = "Select book.* "
 				+ " FROM users "
 				+ " LEFT JOIN invoice ON users.USER_ID = invoice.USER_USER_ID "
 				+ " LEFT JOIN orders ON invoice.INVOICE_ID = orders.invoice_id"
 				+ " LEFT JOIN book ON book.BOOK_ID = orders.BOOK_ID WHERE users.USER_ID  = :user_id AND invoice.INVOICE_ID  = :invoice_id ;";
-//		SQLQuery query = session.createSQLQuery(sql);
-//		query.addEntity(Book.class);
-//		query.setParameter("user_id", userId );
-//		query.setParameter("invoice_id", invoiceId);
-//		List<Book> list = query.list();
-//		log.warn("Are we here?");
-//		System.out.println("made it here");
-		@SuppressWarnings("unchecked")
-		Query<Book> query = session.createNativeQuery(sql);
+		Query<Book> query = session.createNativeQuery(sql, Book.class);
 		query.setParameter("user_id", userId).setParameter("invoice_id", invoiceId);
-		//query.setParameter( "invoiceInput", invoiceId);
+		log.info("Find all Books");
 		List<Book> list = query.getResultList();
 		
 		return list;
