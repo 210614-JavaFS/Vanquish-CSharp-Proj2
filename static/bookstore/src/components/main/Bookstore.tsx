@@ -15,6 +15,7 @@ export default function Bookstore(): JSX.Element {
 
     
     async function getCurrentUser() {
+
         let userObject = await apiGetCurrentUser();
 
         if (userObject) {
@@ -26,7 +27,7 @@ export default function Bookstore(): JSX.Element {
         
     }
 
-    // getCurrentUser()
+    getCurrentUser();
 
     return (
         
@@ -44,7 +45,7 @@ export default function Bookstore(): JSX.Element {
                 </Switch>
                 
                 */}
-
+                
                 <Login />
                 {/* <Footer /> */}
                 

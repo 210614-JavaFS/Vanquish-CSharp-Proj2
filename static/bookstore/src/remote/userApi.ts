@@ -3,11 +3,15 @@ import userClient from "./userClient"
 
 // Register
 export const apiRegisterUser = async (user: User):Promise<User[]> => {
+    console.log("hit register route")
     const response = await userClient.post<User[]>('/register', user);
 
-    if (response.status === 201) {
+    console.log(`Register response status is ${response.status}`)
+    if (response.status === 200) {
+        console.log("successfully registered")
         return response.data;
     } else {
+        console.log("failed to register")
         return [];
     }
 
@@ -29,7 +33,7 @@ export const apiLoginUser = async (user: User):Promise<User[]> => {
 
 //get Current User Information
 export const apiGetCurrentUser = async ():Promise<User[]> => {
-    const response = await userClient.post<User[]>('/');
+    const response = await userClient.get<User[]>('/getcurrentuser');
 
     console.log(response.status)
     // console.log(`Response status is: ${response.status}`)
