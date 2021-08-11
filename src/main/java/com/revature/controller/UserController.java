@@ -1,5 +1,6 @@
 package com.revature.controller;
 
+import java.util.Arrays;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -9,10 +10,13 @@ import javax.servlet.http.HttpSession;
 import org.hibernate.internal.build.AllowSysOut;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Scope;
 //import org.slf4j.Logger;
 //import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -26,7 +30,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.revature.models.User;
@@ -34,8 +42,7 @@ import com.revature.services.UserService;
 
 @RestController
 @RequestMapping(value="user")
-@SessionAttributes("user")
-@CrossOrigin
+@CrossOrigin("http://localhost:3000")
 public class UserController {
 //	Logger log = LoggerFactory.getLogger(UserController.class);
 	private UserService userService;
@@ -47,33 +54,31 @@ public class UserController {
 		this.userService = userService;
 	}
 	
-	@Bean
-	public WebMvcConfigurer corsConfigurer() {
-		return new WebMvcConfigurer() {
-			@Override
-			public void addCorsMappings(CorsRegistry registry) {
-				registry.addMapping("/**").allowedOrigins("http://localhost:3000");
-			}
-		};
-	}
+//	@Bean
+//    CorsConfigurationSource corsConfigurationSource() {
+//        CorsConfiguration cors = new CorsConfiguration();
+//        cors.setAllowedMethods(Arrays.asList("POST", "GET", "PUT", "HEAD", "DELETE"));
+//        UrlBasedCorsConfigurationSource source = new
+//                UrlBasedCorsConfigurationSource();
+//        source.registerCorsConfiguration("/**", cors.applyPermitDefaultValues());
+//        return source;
+//    }
 	
-	@ModelAttribute("user")
-	public User user() {
-	    return new User();
-	}
+
 	
 	
 	@GetMapping("/")
-	public ResponseEntity<Model> returnSession(Model model) {
+	public ResponseEntity<User> returnSession(HttpSession mySession) {
+		User currentUser = new User();
 		
+		
+		System.out.println(mySession.getAttribute("username"));
+		
+		currentUser.setUsername(mySession.getAttribute("username").toString());
 		System.out.println("got normal request");
-		model.addAttribute("user", new User());
-		System.out.println(model);
-		System.out.println(model.getAttribute("username"));
+		
 			
-		return ResponseEntity.status(HttpStatus.OK).body(model);
-		
-		
+		return ResponseEntity.status(HttpStatus.OK).body(currentUser);
 	}
 	
 	
@@ -105,7 +110,7 @@ public class UserController {
 	
 	//Login
 	@PostMapping("/login")
-	public ResponseEntity<User> validateUser(@RequestBody User userInput, Model model) {
+	public ResponseEntity<User> validateUser(@RequestBody User userInput, Model model, HttpServletRequest request) {
 		String passwordInput = userInput.getUserPassword();
 		System.out.println("userInput email is: " + userInput.getUserEmail());
 		System.out.println("userInput email is: " + userInput.getUserPassword());
@@ -127,14 +132,16 @@ public class UserController {
 			return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
 		}
 		
+		HttpSession session = request.getSession();
 		//create session
 		
 //		model.addFlashAttribute("user", foundUser);
-		model.addAttribute("username", foundUser.getUsername());
+		session.setAttribute("username", foundUser.getUsername());
 		System.out.println("Checking model");
+//		session.getAttribute("username").toString();
 		
 //		System.out.println("I got session ID: " + session.getAttribute("userID"));
-//		System.out.println("User is logged in. Username is: " + session.getAttribute("username"));
+		System.out.println("User is logged in. Username is: " + session.getAttribute("username"));
 //		System.out.println("User is logged in. Email is: " + session.getAttribute("userEmail"));
 		
 		return ResponseEntity.status(HttpStatus.OK).body(foundUser);

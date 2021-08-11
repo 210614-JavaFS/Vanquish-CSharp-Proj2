@@ -26,7 +26,7 @@ export default function Bookstore(): JSX.Element {
         
     }
 
-    getCurrentUser()
+    // getCurrentUser()
 
     return (
         
