@@ -44,7 +44,7 @@ import jdk.internal.org.jline.utils.Log;
 
 @RestController
 @RequestMapping(value="user")
-@CrossOrigin("http://localhost:3000")
+@CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true")
 public class UserController {
 //	Logger log = LoggerFactory.getLogger(UserController.class);
 	private UserService userService;
@@ -111,7 +111,7 @@ public class UserController {
 	public ResponseEntity<User> validateUser(@RequestBody User userInput, Model model, HttpServletRequest request) {
 		String passwordInput = userInput.getUserPassword();
 		System.out.println("userInput email is: " + userInput.getUserEmail());
-		System.out.println("userInput email is: " + userInput.getUserPassword());
+		System.out.println("userInput password is: " + userInput.getUserPassword());
 		
 		User foundUser = userService.findByEmail(userInput.getUserEmail());
 		

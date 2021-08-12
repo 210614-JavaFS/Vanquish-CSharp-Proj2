@@ -7,7 +7,7 @@ export const apiRegisterUser = async (user: User):Promise<User[]> => {
     const response = await userClient.post<User[]>('/register', user);
 
     console.log(`Register response status is ${response.status}`)
-    if (response.status === 200) {
+    if (response.status === 201) {
         console.log("successfully registered")
         return response.data;
     } else {
@@ -19,7 +19,9 @@ export const apiRegisterUser = async (user: User):Promise<User[]> => {
 
 //login
 export const apiLoginUser = async (user: User):Promise<User[]> => {
-    const response = await userClient.post<User[]>('/login', user);
+    const response = await userClient.post<User[]>('/login', user,
+    {withCredentials: true}
+    );
 
     console.log(response.status)
     // console.log(`Response status is: ${response.status}`)
@@ -33,7 +35,7 @@ export const apiLoginUser = async (user: User):Promise<User[]> => {
 
 //get Current User Information
 export const apiGetCurrentUser = async ():Promise<User[]> => {
-    const response = await userClient.get<User[]>('/getcurrentuser');
+    const response = await userClient.get<User[]>('/getcurrentuser', {withCredentials: true});
 
     console.log(response.status)
     // console.log(`Response status is: ${response.status}`)
