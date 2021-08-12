@@ -82,7 +82,7 @@ export default function Register()  {
                                 </p>
                                 <p>
                                     <label htmlFor="password">Password:</label>
-                                    <input type="password" onChange={onChange} className="form-control" name="password" maxLength={25} minLength={4} placeholder="Enter Your Password. Max 25 characters. Minimum of 4 characters is required." required/>
+                                    <input type="password" onChange={onChange} className="form-control" name="userPassword" maxLength={25} minLength={4} placeholder="Enter Your Password. Max 25 characters. Minimum of 4 characters is required." required/>
                                 </p>
                                 <p>
                                     <label htmlFor="usertype">Select User Type:</label>
