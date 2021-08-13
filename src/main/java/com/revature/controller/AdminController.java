@@ -33,15 +33,18 @@ public class AdminController {
 		this.adminService = adminService;
 	}
 	
-	@RequestMapping(method = RequestMethod.GET)
-	public List<Invoice> allInvoice(){
-		return adminService.getAllInvoice();
-	}
+	//@RequestMapping(method = RequestMethod.GET)
+	//public List<Invoice> allInvoice(){
+		//return adminService.getAllInvoice();
+	//}
 	
-	@RequestMapping(method = RequestMethod.GET)
+
+	//@RequestMapping(method = RequestMethod.GET)
+	@GetMapping("/allbook")
 	public List<Book> allBook(){
 		return adminService.getAllBook();
 	}
+
 	
 	@PostMapping
 	public ResponseEntity<Book> addBook(@RequestBody Book book){
@@ -66,6 +69,7 @@ public class AdminController {
 		adminService.reviewInvoice(invoice);
 		return ResponseEntity.status(HttpStatus.ACCEPTED).build();
 	}
+
 	
 	@DeleteMapping
 	public ResponseEntity<Book> deleteBook(@RequestBody Book book){

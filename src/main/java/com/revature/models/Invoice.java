@@ -27,6 +27,7 @@ public class Invoice {
 	
 	@Column(name="native_amount")
 	private double nativeAmount;
+
 	
 	@Column(name="usd_amount")
 	private double usdAmount;
@@ -35,6 +36,9 @@ public class Invoice {
 	@JoinColumn
 	@JsonBackReference
 	private User user;
+
+
+
 
 	public Invoice() {
 		super();
