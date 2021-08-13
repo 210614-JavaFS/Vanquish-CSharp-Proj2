@@ -28,7 +28,7 @@ export const apiLoginUser = async (user: User):Promise<User[]> => {
     console.log(response.status)
     // console.log(`Response status is: ${response.status}`)
     if (response.status === 200) {
-        alert("Login is successful");
+
         window.location.reload();
         return response.data;
     } else {

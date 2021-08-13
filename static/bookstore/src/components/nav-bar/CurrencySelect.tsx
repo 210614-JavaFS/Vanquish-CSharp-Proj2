@@ -11,7 +11,7 @@ export default function CurrencySelect(): JSX.Element {
                     Currency Change
                 </a>
                 <ul className="dropdown-menu" aria-labelledby="currencyDropdown">
-                    <li><a className="dropdown-item" >USD</a></li>
+                    <li><a className="dropdown-item" >USD</a></li> 
                     <li><a className="dropdown-item" >CND</a></li>
                     <li><a className="dropdown-item" >EUR</a></li>
                     <li><a className="dropdown-item" >JPY</a></li>

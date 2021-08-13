@@ -9,7 +9,7 @@ export default function NavbarJ(): JSX.Element {
     const user = useSelector(selectUser);
     
     return (
-        <nav className="navbar navbar-dark navbar-expand-lg fixed-top transparent-nav font-size-md arima-font">
+        <nav className="navbar navbar-light navbar-expand-lg fixed-top transparent-nav font-size-md arima-font ">
                 
                 <a className="navbar-brand" href="/">
                     <img src={logo} width={45} height={45} />
@@ -33,18 +33,29 @@ export default function NavbarJ(): JSX.Element {
                             <ul className="dropdown-menu zindex" aria-labelledby="navbarDropdown">
                                 <li><a className="dropdown-item zindex" href="/userProfile">My Profile</a></li>
 
-                                <li><a className="dropdown-item zindex" href="/customerOrderHistory">My Order</a></li>
+                                <li><a className="dropdown-item zindex" href="/customerOrderHistory">My Orders</a></li>
 
                             </ul>
                         </li>
+
+                        {/* TODO ADMIN STUFF ONLY */}
                         <li className="nav-item ">
                             <li className="nav-item">
-                                { user.userRole == "customer" ? 
+                                { user.userRole === "admin" ? 
                                 <NavLink className="nav-link" aria-current="page" href="/adminOrderView">Customer Orders </NavLink>
                                 : null
                                 }
                             </li>
                         </li>
+                        <li className="nav-item ">
+                            <li className="nav-item">
+                                { user.userRole === "admin" ? 
+                                <NavLink className="nav-link" aria-current="page" href="/addBook">Add Book </NavLink>
+                                : null
+                                }
+                            </li>
+                        </li>
+                        
 
                         <li className="nav-item">
                             <NavLink className="nav-link" href="/aboutUs">About Us</NavLink>
