@@ -39,12 +39,13 @@ public class AdminController {
 	//}
 	
 
+
 	//@RequestMapping(method = RequestMethod.GET)
+
 	@GetMapping("/allbook")
 	public List<Book> allBook(){
 		return adminService.getAllBook();
 	}
-
 	
 	@PostMapping
 	public ResponseEntity<Book> addBook(@RequestBody Book book){
