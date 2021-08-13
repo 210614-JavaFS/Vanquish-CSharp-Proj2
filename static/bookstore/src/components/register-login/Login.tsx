@@ -15,8 +15,6 @@ export default function Login(): JSX.Element {
         userPassword: "",
     }
 
-    const dispatch = useDispatch();
-
     const {onChange, onSubmit, values} = useForm(
         loginCallback,
         initialState

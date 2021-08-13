@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -135,6 +136,7 @@ public class UserController {
 		//return error user not found
 		if (foundUser==null) {
 			System.out.println("Can't find user.");
+			log.warn("User is not found in database.");
 			return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
 		}
 		
@@ -144,6 +146,7 @@ public class UserController {
 		
 		if (passwordVerified == false) {
 			System.out.println("Wrong password");
+			log.warn("user put in wrong password");
 			return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
 		}
 		
@@ -162,8 +165,16 @@ public class UserController {
 //		session.setAttribute("invoices", foundUser.getInvoices());
 
 		System.out.println("User is logged in. Username is: " + session.getAttribute("username"));
-
+		log.info("User is Logged in, user name is " +  session.getAttribute("username"));
 		return ResponseEntity.status(HttpStatus.OK).body(foundUser);
+	}
+	
+	@PutMapping("/profileUpdate")
+	public ResponseEntity<User> updateUser(@RequestBody User user) {
+		System.out.println("User Update PUT route is hit.");
+		userService.updateUser(user);
+		log.info("User controller route receives user update.");
+		return ResponseEntity.status(HttpStatus.ACCEPTED).build();
 	}
 	
 	@GetMapping("/logout")
