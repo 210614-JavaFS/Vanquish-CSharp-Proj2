@@ -37,7 +37,6 @@ public class Invoice {
 	private double nativeAmount;
 
 
-
 	public Invoice() {
 		super();
 	}
