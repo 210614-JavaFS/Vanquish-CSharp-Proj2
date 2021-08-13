@@ -41,9 +41,7 @@ export default function Login(): JSX.Element {
         if (userObject) {
             alert("Login is successful")
             console.log("login successful")
-            console.log(userObject);
-            
-            dispatch(login(userObject));
+
         } else {
             alert("Login is not successful");
             console.log("login failed")
@@ -72,16 +70,16 @@ export default function Login(): JSX.Element {
                                 </p>
                                 <p>
                                     <label htmlFor="password">Password</label>
-                                    <input id="passwordLogin" type="password" name="password" onChange={onChange} className="form-control" maxLength={100} minLength={4} required/>
+                                    <input id="passwordLogin" type="password" name="userPassword" onChange={onChange} className="form-control" maxLength={100} minLength={4} required/>
                                 </p>
                             </div>
 
 
                             <div className="modal-footer">
-                                <Register />
                                 <button className="bttn-fill bttn-sm bttn-primary bttn-no-outline" id="loginButton">Login</button>
                             </div>
                         </form>
+                        <Register />
                     </div>
 
                 </div>
