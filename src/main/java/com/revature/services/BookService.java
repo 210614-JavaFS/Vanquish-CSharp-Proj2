@@ -11,18 +11,18 @@ import com.revature.repos.BookDAO;
 @Service
 public class BookService {
 
-	private BookDAO bookDAO;
+	//private BookDAO bookDAO;
 
-	@Autowired
-	public BookService(BookDAO bookDAO) {
-		super();
-		this.bookDAO = bookDAO;
-	}
+	//@Autowired
+	//public BookService(BookDAO bookDAO) {
+	//	super();
+	//	this.bookDAO = bookDAO;
+	//}
 
 	
-	public List<Book> findBookByInvoice(int userId, int invoiceId) {
-		return bookDAO.findAllBookByInvoice(userId, invoiceId);
-	}
+	//public List<Book> findBookByInvoice(int userId, int invoiceId) {
+		//return bookDAO.findAllBookByInvoice(userId, invoiceId);
+	//}
 	
 	
 	
