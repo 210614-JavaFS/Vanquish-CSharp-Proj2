@@ -33,7 +33,22 @@ public class AdminController {
 		this.adminService = adminService;
 	}
 	
+<<<<<<< HEAD
 	@RequestMapping(method = RequestMethod.GET)
+=======
+//	@RequestMapping(method = RequestMethod.GET)
+//	public List<Invoice> allInvoice(){
+//		return adminService.getAllInvoice();
+//	}
+//	
+//	@RequestMapping(method = RequestMethod.GET)
+//	public List<Book> allBook(){
+//		return adminService.getAllBook();
+//	}
+	
+	//comment from Jack. I didn't do anything.
+	@GetMapping("/allinvoice")
+>>>>>>> debugging
 	public List<Invoice> allInvoice(){
 		return adminService.getAllInvoice();
 	}
