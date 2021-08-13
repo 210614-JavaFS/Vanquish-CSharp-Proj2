@@ -61,7 +61,7 @@ export const apiLogout = async ():Promise<unknown> => {
     console.log(response.status)
     // console.log(`Response status is: ${response.status}`)
     if (response.status === 200) {
-        window.location.reload();
+        // window.location.reload();
         return response.data;
     } else {
         return [];
