@@ -43,7 +43,7 @@ public class AdminController {
 //		return adminService.getAllBook();
 //	}
 	
-	
+	//comment from Jack. I didn't do anything.
 	@GetMapping("/allinvoice")
 	public List<Invoice> allInvoice(){
 		return adminService.getAllInvoice();
