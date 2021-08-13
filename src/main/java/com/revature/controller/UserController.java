@@ -64,6 +64,7 @@ public class UserController {
 	@GetMapping("/getcurrentuser")
 	public ResponseEntity<User> returnSession(HttpSession mySession) {
 		System.out.println("got GET request coming in....");
+		User currentUser = new User();
 		
 		if (mySession.getAttribute("username") == null) {
 			System.out.println("session is null");

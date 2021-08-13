@@ -39,11 +39,7 @@ export const apiLoginUser = async (user: User):Promise<User[]> => {
 
 //get Current User Information
 export const apiGetCurrentUser = async ():Promise<User[]> => {
-    const response = await userClient.get<User[]>('/getcurrentuser', {
-        headers: {
-            'Access-Control-Allow-Credentials':true
-        }
-    });
+    const response = await userClient.get<User[]>('/getcurrentuser', {withCredentials: true});
 
     console.log(response.status)
     // console.log(`Response status is: ${response.status}`)

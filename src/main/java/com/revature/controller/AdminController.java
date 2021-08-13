@@ -33,9 +33,6 @@ public class AdminController {
 		this.adminService = adminService;
 	}
 	
-<<<<<<< HEAD
-	@RequestMapping(method = RequestMethod.GET)
-=======
 //	@RequestMapping(method = RequestMethod.GET)
 //	public List<Invoice> allInvoice(){
 //		return adminService.getAllInvoice();
@@ -48,7 +45,6 @@ public class AdminController {
 	
 	//comment from Jack. I didn't do anything.
 	@GetMapping("/allinvoice")
->>>>>>> debugging
 	public List<Invoice> allInvoice(){
 		return adminService.getAllInvoice();
 	}
@@ -59,25 +55,26 @@ public class AdminController {
 		return adminService.getAllBook();
 	}
 	
-	@PostMapping
+	
+	@PostMapping("/addbook")
 	public ResponseEntity<Book> addBook(@RequestBody Book book){
 		adminService.addBook(book);
 		return ResponseEntity.status(HttpStatus.CREATED).build();
 	}
 	
-	@PutMapping
+	@PutMapping("/updatebook")
 	public ResponseEntity<Book> updateBook(@RequestBody Book book){
 		adminService.updateBook(book);
 		return ResponseEntity.status(HttpStatus.ACCEPTED).build();
 	}
 	
-	@PutMapping
+	@PutMapping("/updateorder")
 	public ResponseEntity<Order> updateOrder(@RequestBody Order order){
 		adminService.updateOrder(order);
 		return ResponseEntity.status(HttpStatus.ACCEPTED).build();
 	}
 	
-	@PutMapping
+	@PutMapping("/updateinvoice")
 	public ResponseEntity<Invoice> updateInvoiceStatus(@RequestBody Invoice invoice){
 		adminService.reviewInvoice(invoice);
 		return ResponseEntity.status(HttpStatus.ACCEPTED).build();
