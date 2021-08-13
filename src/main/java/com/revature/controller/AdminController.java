@@ -33,39 +33,53 @@ public class AdminController {
 		this.adminService = adminService;
 	}
 	
-	@RequestMapping(method = RequestMethod.GET)
-	public List<Invoice> allInvoice(){
-		return adminService.getAllInvoice();
-	}
-	
+//	@RequestMapping(method = RequestMethod.GET)
+//	public List<Invoice> allInvoice(){
+//		return adminService.getAllInvoice();
+//	}
+//	
 //	@RequestMapping(method = RequestMethod.GET)
 //	public List<Book> allBook(){
 //		return adminService.getAllBook();
 //	}
 	
-	@PostMapping
+	
+	@GetMapping("/allinvoice")
+	public List<Invoice> allInvoice(){
+		return adminService.getAllInvoice();
+	}
+	
+	@GetMapping("/allbook")
+	public List<Book> allBook(){
+		return adminService.getAllBook();
+	}
+
+	
+	
+	@PostMapping("/addbook")
 	public ResponseEntity<Book> addBook(@RequestBody Book book){
 		adminService.addBook(book);
 		return ResponseEntity.status(HttpStatus.CREATED).build();
 	}
 	
-	@PutMapping
+	@PutMapping("/updatebook")
 	public ResponseEntity<Book> updateBook(@RequestBody Book book){
 		adminService.updateBook(book);
 		return ResponseEntity.status(HttpStatus.ACCEPTED).build();
 	}
-//	
-//	@PutMapping
-//	public ResponseEntity<Order> updateOrder(@RequestBody Order order){
-//		adminService.updateOrder(order);
-//		return ResponseEntity.status(HttpStatus.ACCEPTED).build();
-//	}
-//	
-//	@PutMapping
-//	public ResponseEntity<Invoice> updateInvoiceStatus(@RequestBody Invoice invoice){
-//		adminService.reviewInvoice(invoice);
-//		return ResponseEntity.status(HttpStatus.ACCEPTED).build();
-//	}
+	
+	@PutMapping("/updateorder")
+	public ResponseEntity<Order> updateOrder(@RequestBody Order order){
+		adminService.updateOrder(order);
+		return ResponseEntity.status(HttpStatus.ACCEPTED).build();
+	}
+	
+	@PutMapping("/updateinvoice")
+	public ResponseEntity<Invoice> updateInvoiceStatus(@RequestBody Invoice invoice){
+		adminService.reviewInvoice(invoice);
+		return ResponseEntity.status(HttpStatus.ACCEPTED).build();
+	}
+
 	
 	@DeleteMapping
 	public ResponseEntity<Book> deleteBook(@RequestBody Book book){
