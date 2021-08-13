@@ -18,89 +18,131 @@ public class Order {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="order_items_id")
-	private int orderItemsId;
+	@Column(name="order_id")
+	private int orderId;
 	
-	@Column(name="quantity")
-	private int quantity;
+	@Column(name="order_quantity")
+	private int orderQuantity;
 	
-	@Column(name=" shipping_address")
-	private String shippingAddress;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "invoice_id")
 	@JsonBackReference
-	private Invoice invoiceId;
+	private Invoice invoice;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "book_id")
 	@JsonBackReference
-	private Book bookId;
+	private Book book;
 	
-	public Order(int orderItemsId, int quantity, String  shippingAddress, Invoice invoice, Book book) {
-		super();
-		this.orderItemsId = orderItemsId;
-		this.quantity = quantity;
-		this. shippingAddress =  shippingAddress;
-		this.invoiceId = invoice;
-		this.bookId = book;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "user_id")
+	@JsonBackReference
+	private User user;
+
+	public int getOrderId() {
+		return orderId;
 	}
 
-	public Order() {
-		super();
+	public void setOrderId(int orderId) {
+		this.orderId = orderId;
 	}
 
-	public int getOrders_items_id() {
-		return orderItemsId;
+	public int getOrderQuantity() {
+		return orderQuantity;
 	}
 
-	public void setOrders_items_id(int orderItemsId) {
-		this.orderItemsId = orderItemsId;
-	}
-
-	public int getQuantity() {
-		return quantity;
-	}
-
-	public void setQuantity(int quantity) {
-		this.quantity = quantity;
-	}
-
-	public String getShipping_address() {
-		return  shippingAddress;
-	}
-
-	public void setShipping_address(String  shippingAddress) {
-		this. shippingAddress =  shippingAddress;
+	public void setOrderQuantity(int orderQuantity) {
+		this.orderQuantity = orderQuantity;
 	}
 
 	public Invoice getInvoice() {
-		return invoiceId;
+		return invoice;
 	}
 
 	public void setInvoice(Invoice invoice) {
-		this.invoiceId = invoice;
+		this.invoice = invoice;
 	}
 
 	public Book getBook() {
-		return bookId;
+		return book;
 	}
 
 	public void setBook(Book book) {
-		this.bookId = book;
+		this.book = book;
 	}
-	
-	//hashcode and equals
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public Order(int orderQuantity, Invoice invoice, Book book, User user) {
+		super();
+		this.orderQuantity = orderQuantity;
+		this.invoice = invoice;
+		this.book = book;
+		this.user = user;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((book == null) ? 0 : book.hashCode());
+		result = prime * result + ((invoice == null) ? 0 : invoice.hashCode());
+		result = prime * result + orderId;
+		result = prime * result + orderQuantity;
+		result = prime * result + ((user == null) ? 0 : user.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Order other = (Order) obj;
+		if (book == null) {
+			if (other.book != null)
+				return false;
+		} else if (!book.equals(other.book))
+			return false;
+		if (invoice == null) {
+			if (other.invoice != null)
+				return false;
+		} else if (!invoice.equals(other.invoice))
+			return false;
+		if (orderId != other.orderId)
+			return false;
+		if (orderQuantity != other.orderQuantity)
+			return false;
+		if (user == null) {
+			if (other.user != null)
+				return false;
+		} else if (!user.equals(other.user))
+			return false;
+		return true;
+	}
 
 	@Override
 	public String toString() {
-		return "Orders [orderItemsId=" + orderItemsId + ", quantity=" + quantity + ",  shippingAddress="
-				+  shippingAddress + ", invoice=" + invoiceId + ", book=" + bookId + ", toString()=" + super.toString()
-				+ "]";
+		return "Order [orderId=" + orderId + ", orderQuantity=" + orderQuantity + ", invoice=" + invoice + ", book="
+				+ book + ", user=" + user + "]";
 	}
+
+
 	
 	
 	
+
+
 	
 
 }
