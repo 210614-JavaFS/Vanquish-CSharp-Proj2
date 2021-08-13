@@ -39,7 +39,11 @@ export const apiLoginUser = async (user: User):Promise<User[]> => {
 
 //get Current User Information
 export const apiGetCurrentUser = async ():Promise<User[]> => {
-    const response = await userClient.get<User[]>('/getcurrentuser', {withCredentials: true});
+    const response = await userClient.get<User[]>('/getcurrentuser', {
+        headers: {
+            'Access-Control-Allow-Credentials':true
+        }
+    });
 
     console.log(response.status)
     // console.log(`Response status is: ${response.status}`)
@@ -73,7 +77,7 @@ export const apiUpdateUser = async (user: User):Promise<User[]> => {
     console.log(`Update response status is ${response.status}`)
     if (response.status === 201) {
         console.log("successfully updated")
-        window.location.reload();
+        // window.location.reload();
         return response.data;
     } else {
         console.log("failed to update")
