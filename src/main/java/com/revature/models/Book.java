@@ -31,6 +31,10 @@ public class Book {
 	@Column(name="book_id")
 	private int bookId;
 	
+	@Column(name = "book_author")
+	private String Author;
+	
+	
 	@Column(name = "book_name", nullable = false)
 	private String bookName;
 	
@@ -47,8 +51,6 @@ public class Book {
 	@Column(name = "book_cost_USD", nullable = false)
 	private double costUSD;
 	
-	@Column(name = "book_author")
-	private String Author;
 	
 	@Column(name = "book_img_URL")
 	private String imgURL;
