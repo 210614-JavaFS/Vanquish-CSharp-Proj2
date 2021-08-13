@@ -13,6 +13,7 @@ import UserProfile from "../components/user/UserProfile";
 import OrderHistory from "../components/user/customer/OrderHistory";
 import CustomerOrders from "../components/user/admin/CustomerOrders";
 import AboutUs from "../components/about-us/AboutUs";
+import AddBook from "../components/user/admin/AddBook";
 
 const AppRoutes: React.FC<any> = (): JSX.Element => {
     const user = useSelector(selectUser);
@@ -44,15 +45,27 @@ const AppRoutes: React.FC<any> = (): JSX.Element => {
                 <UserProfile/>
             </Route>
             
-            {/* TODO. CustomerOrderHistory */}
+            {/* TODO. Customer Order History */}
             <Route path="/customerOrderHistory">
                 <OrderHistory/>
             </Route>
 
-            {/* TODO. AdminOrderHistory */}
+            {/* TODO. Admin Order View */}
             <Route path="/adminOrderView">
-                <CustomerOrders/>
+                { user.userRole === "admin" ? <CustomerOrders/> : null }
             </Route>
+
+            {/* TODO. Admin Add Book View */}
+            { user.userRole === "admin" ? 
+            <Route path="/addBook">
+                <AddBook/>
+            </Route>
+            : null }
+
+            {/* TODO. Admin Edit Book View */}
+            {/* <Route path="/editBook">
+                <CustomerOrders/>
+            </Route> */}
 
             <Route path="/aboutUs">
                 <AboutUs/>
