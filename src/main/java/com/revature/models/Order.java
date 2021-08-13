@@ -136,13 +136,4 @@ public class Order {
 		return "Order [orderId=" + orderId + ", orderQuantity=" + orderQuantity + ", invoice=" + invoice + ", book="
 				+ book + ", user=" + user + "]";
 	}
-
-
-	
-	
-	
-
-
-	
-
 }

@@ -1,17 +1,13 @@
 package com.revature.repos;
 
-import java.util.List;
-
 import com.revature.models.Book;
 
 public interface BookDAO {
 	
+	public void addBook(Book book);
 	
-	public Book findBookById();
-
-	public List<Book> findAllBook();
+	public void updateBook(Book book);
 	
-
-	public List<Book> findAllBookByInvoice(int userId, int invoiceId);
+	public void deleteBook(Book book);
 	
 }
