@@ -1,3 +1,4 @@
+import { Redirect } from "react-router-dom";
 import User from "../models/User";
 import userClient from "./userClient"
 
@@ -9,6 +10,7 @@ export const apiRegisterUser = async (user: User):Promise<User[]> => {
     console.log(`Register response status is ${response.status}`)
     if (response.status === 201) {
         console.log("successfully registered")
+        window.location.reload();
         return response.data;
     } else {
         console.log("failed to register")
@@ -26,6 +28,8 @@ export const apiLoginUser = async (user: User):Promise<User[]> => {
     console.log(response.status)
     // console.log(`Response status is: ${response.status}`)
     if (response.status === 200) {
+        alert("Login is successful");
+        window.location.reload();
         return response.data;
     } else {
         alert("Login is not successful");
@@ -40,6 +44,20 @@ export const apiGetCurrentUser = async ():Promise<User[]> => {
     console.log(response.status)
     // console.log(`Response status is: ${response.status}`)
     if (response.status === 200) {
+        return response.data;
+    } else {
+        return [];
+    }
+}
+
+//get Current User Information
+export const apiLogout = async ():Promise<unknown> => {
+    const response = await userClient.get<unknown>('/logout', {withCredentials: true});
+    console.log('Calling Logout');
+    console.log(response.status)
+    // console.log(`Response status is: ${response.status}`)
+    if (response.status === 200) {
+        window.location.reload();
         return response.data;
     } else {
         return [];

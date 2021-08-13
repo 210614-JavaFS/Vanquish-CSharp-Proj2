@@ -42,7 +42,7 @@ export default function Register()  {
     return (
         <div>
 
-            <button className="bttn-fill bttn-sm bttn-warning bttn-no-outline" data-bs-toggle="modal" data-bs-target="#signupModal">Register</button>
+            <button className="bttn-fill bttn-block bttn-sm bttn-warning bttn-no-outline user-box" data-bs-toggle="modal" data-bs-target="#signupModal">Register</button>
             
             <div className="modal" id="signupModal" tabIndex={-1} role="dialog" aria-labelledby="SignupModalLabel" aria-hidden="true">
                 <div className="modal-dialog" role="document">
@@ -95,14 +95,17 @@ export default function Register()  {
 
 
                                 <div className="modal-footer">
+                                    <button 
+                                        className="bttn-fill bttn-sm bttn-primary bttn-no-outline float-left" 
+                                        type="submit"
+                                        value="Submit"
+                                        data-bs-dismiss="modal"
+                                        >Sign up
+                                    </button>
                                     <button type="button" className="bttn-fill bttn-sm bttn-danger bttn-no-outline" data-bs-dismiss="modal">Close</button>
                                 </div>
                             </div>
-                            <button 
-                                className="bttn-fill bttn-sm bttn-primary bttn-no-outline" 
-                                type="submit"
-                                value="Submit"
-                                >Sign up</button>
+                            
                         </form>
 
                     </div>

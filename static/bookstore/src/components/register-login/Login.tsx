@@ -56,14 +56,14 @@ export default function Login(): JSX.Element {
             <div className="col">
                 <div className="justify-content-center">
                     <div className="row">
-                        <p className="font-size-md">Welcome to Bookstore</p>
+                        <p className="font-size-lg orange-txt font-caps">Welcome to Vanquish Bookstore</p>
                     </div>
                     <div className="row">
-
+                        <Register />
                         <form onSubmit={onSubmit}>
                             <div className="form-control transparent-div white-txt" id="loginForm">
-                                {user ? <p> Logged in, {user.username} </p> : <p> Nah</p>}
-                                <h3>Login</h3>
+                                
+                                <h3 className="font-caps">Login</h3>
                                 <p>
                                     <label htmlFor="email">Email</label>
                                     <input id="emailLogin" type="text" name="userEmail" onChange={onChange} className="form-control" maxLength={100} minLength={2} required/>
@@ -72,14 +72,14 @@ export default function Login(): JSX.Element {
                                     <label htmlFor="password">Password</label>
                                     <input id="passwordLogin" type="password" name="userPassword" onChange={onChange} className="form-control" maxLength={100} minLength={4} required/>
                                 </p>
+                                <button className="bttn-fill bttn-sm bttn-primary bttn-no-outline bttn-block" id="loginButton">Login</button>
                             </div>
 
 
-                            <div className="modal-footer">
-                                <button className="bttn-fill bttn-sm bttn-primary bttn-no-outline" id="loginButton">Login</button>
-                            </div>
+                            
+                            
                         </form>
-                        <Register />
+                        
                     </div>
 
                 </div>

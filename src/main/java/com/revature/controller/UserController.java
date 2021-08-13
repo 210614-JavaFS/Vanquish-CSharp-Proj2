@@ -10,6 +10,8 @@ import javax.servlet.http.HttpSession;
 
 import org.hibernate.internal.build.AllowSysOut;
 import org.mindrot.jbcrypt.BCrypt;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
@@ -47,7 +49,7 @@ import jdk.internal.org.jline.utils.Log;
 @RequestMapping(value="user")
 @CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true")
 public class UserController {
-//	Logger log = LoggerFactory.getLogger(UserController.class);
+	Logger log = LoggerFactory.getLogger(UserController.class);
 	private UserService userService;
 	
 	public HttpSession session;
@@ -61,13 +63,13 @@ public class UserController {
 	@GetMapping("/getcurrentuser")
 	public ResponseEntity<User> returnSession(HttpSession mySession) {
 		System.out.println("got GET request coming in...");
+		User currentUser = new User();
 		
 		if (mySession.getAttribute("username") == null) {
 			System.out.println("session is null");
-			Log.warn("session is null");
-			return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
+			log.warn("session is null");
+			return ResponseEntity.status(HttpStatus.OK).body(null);
 		} else {
-			User currentUser = new User();
 			
 			System.out.println(mySession);
 			System.out.println(mySession.getAttribute("username"));
@@ -84,9 +86,9 @@ public class UserController {
 			currentUser.setUserRole(mySession.getAttribute("userRole").toString());
 			
 			//NOTE. Needs testing to return invoices List correctly.
-			List userList = new ArrayList();
-			userList = (List) mySession.getAttribute("invoices");
-			currentUser.setInvoices(userList);
+//			List userList = new ArrayList();
+//			userList = (List) mySession.getAttribute("invoices");
+//			currentUser.setInvoices(userList);
 			
 			System.out.println("end of the line...");
 			return ResponseEntity.status(HttpStatus.OK).body(currentUser);
@@ -157,7 +159,7 @@ public class UserController {
 		session.setAttribute("address", foundUser.getAddress());
 		session.setAttribute("userRole", foundUser.getUserRole());
 		//untested. This is invoice list
-		session.setAttribute("invoices", foundUser.getInvoices());
+//		session.setAttribute("invoices", foundUser.getInvoices());
 
 		System.out.println("User is logged in. Username is: " + session.getAttribute("username"));
 
