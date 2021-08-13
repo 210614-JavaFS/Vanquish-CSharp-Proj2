@@ -49,11 +49,11 @@ public class AdminController {
 		return adminService.getAllInvoice();
 	}
 	
+
 	@GetMapping("/allbook")
 	public List<Book> allBook(){
 		return adminService.getAllBook();
 	}
-
 	
 	
 	@PostMapping("/addbook")
