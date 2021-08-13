@@ -50,16 +50,35 @@ export const apiGetCurrentUser = async ():Promise<User[]> => {
     }
 }
 
-//get Current User Information
+//Logout user
 export const apiLogout = async ():Promise<unknown> => {
     const response = await userClient.get<unknown>('/logout', {withCredentials: true});
     console.log('Calling Logout');
     console.log(response.status)
     // console.log(`Response status is: ${response.status}`)
     if (response.status === 200) {
-        window.location.reload();
+        // window.location.reload();
         return response.data;
     } else {
         return [];
     }
 }
+
+// update User information
+export const apiUpdateUser = async (user: User):Promise<User[]> => {
+    console.log("hit updated route");
+    
+    const response = await userClient.put<User[]>('/profileUpdate', user, {withCredentials: true});
+
+    console.log(`Update response status is ${response.status}`)
+    if (response.status === 201) {
+        console.log("successfully updated")
+        // window.location.reload();
+        return response.data;
+    } else {
+        console.log("failed to update")
+        return [];
+    }
+
+}
+

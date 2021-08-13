@@ -33,39 +33,53 @@ public class AdminController {
 		this.adminService = adminService;
 	}
 	
-	@RequestMapping(method = RequestMethod.GET)
+//	@RequestMapping(method = RequestMethod.GET)
+//	public List<Invoice> allInvoice(){
+//		return adminService.getAllInvoice();
+//	}
+//	
+//	@RequestMapping(method = RequestMethod.GET)
+//	public List<Book> allBook(){
+//		return adminService.getAllBook();
+//	}
+	
+	//comment from Jack. I didn't do anything.
+	@GetMapping("/allinvoice")
 	public List<Invoice> allInvoice(){
 		return adminService.getAllInvoice();
 	}
 	
-	@RequestMapping(method = RequestMethod.GET)
+
+	@GetMapping("/allbook")
 	public List<Book> allBook(){
 		return adminService.getAllBook();
 	}
 	
-	@PostMapping
+	
+	@PostMapping("/addbook")
 	public ResponseEntity<Book> addBook(@RequestBody Book book){
 		adminService.addBook(book);
 		return ResponseEntity.status(HttpStatus.CREATED).build();
 	}
 	
-	@PutMapping
+	@PutMapping("/updatebook")
 	public ResponseEntity<Book> updateBook(@RequestBody Book book){
 		adminService.updateBook(book);
 		return ResponseEntity.status(HttpStatus.ACCEPTED).build();
 	}
 	
-	@PutMapping
+	@PutMapping("/updateorder")
 	public ResponseEntity<Order> updateOrder(@RequestBody Order order){
 		adminService.updateOrder(order);
 		return ResponseEntity.status(HttpStatus.ACCEPTED).build();
 	}
 	
-	@PutMapping
+	@PutMapping("/updateinvoice")
 	public ResponseEntity<Invoice> updateInvoiceStatus(@RequestBody Invoice invoice){
 		adminService.reviewInvoice(invoice);
 		return ResponseEntity.status(HttpStatus.ACCEPTED).build();
 	}
+
 	
 	@DeleteMapping
 	public ResponseEntity<Book> deleteBook(@RequestBody Book book){
