@@ -1,15 +1,15 @@
 /* eslint-disable no-cond-assign */
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { login, selectUser } from "../../features/userSlice";
+import { login, logout, selectUser } from "../../features/userSlice";
 import { apiGetCurrentUser } from "../../remote/userApi";
-import { Footer } from "../../views/Footer";
-import { NavBar } from "../../views/NavBar";
 import Login from "../register-login/Login";
+import MainSite from "./MainSite";
 
 export default function Bookstore(): JSX.Element {
     //execute contact user URI and get user information
     let user = useSelector(selectUser);
+    const blankPage = null;
     const dispatch = useDispatch();
     
     async function getCurrentUser() {
@@ -23,6 +23,7 @@ export default function Bookstore(): JSX.Element {
             dispatch(login(user));
         } else {
             console.log("I haven't got current user");
+            dispatch(logout());
         }
         
     }
@@ -31,28 +32,20 @@ export default function Bookstore(): JSX.Element {
         getCurrentUser();
       }, []);
 
+    
     // getCurrentUser();
 
     return (
-        <div className="flex justify alignitems " style={{ height: "70vh" }} >
-            <div className="width30">
-                {/* 
-          
-                <NavBar />
-
+        <div className="container-fluid">
+                {/* if user is available <MainSite/> appears otherwise show Login page */}
                 
-                <Switch>
-                    <header className="App-header relative">
-                    <AppRoutes />
-                    </header>
-                </Switch>
-                
-                */}
-                {/* <button onClick={getCurrentUser}>Call me</button> */}
-                <Login />
-                {/* <Footer /> */}
-                
-            </div>
-          </div>
+                {user === 'loading' ? (
+                    null
+                    ) : user ? (
+                    <MainSite />
+                    ) : (
+                    <Login />
+                )}
+        </div>
     )
 }
