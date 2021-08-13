@@ -24,10 +24,10 @@ public class BookController {
 		this.bookService = bookService;
 	}
 	
-	@RequestMapping(method = RequestMethod.GET)
-	public List<Book> allBooks(){
+	//@RequestMapping(method = RequestMethod.GET)
+	//public List<Book> allBooks(){
 		
-		return bookService.findBookByInvoice(3, 1);
+		//return bookService.findBookByInvoice(3, 1);
 	}
 	
-}
+
