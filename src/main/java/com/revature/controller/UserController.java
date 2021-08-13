@@ -1,5 +1,6 @@
 package com.revature.controller;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -40,9 +41,11 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import com.revature.models.User;
 import com.revature.services.UserService;
 
+import jdk.internal.org.jline.utils.Log;
+
 @RestController
 @RequestMapping(value="user")
-@CrossOrigin("http://localhost:3000")
+@CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true")
 public class UserController {
 //	Logger log = LoggerFactory.getLogger(UserController.class);
 	private UserService userService;
@@ -54,31 +57,41 @@ public class UserController {
 		this.userService = userService;
 	}
 	
-//	@Bean
-//    CorsConfigurationSource corsConfigurationSource() {
-//        CorsConfiguration cors = new CorsConfiguration();
-//        cors.setAllowedMethods(Arrays.asList("POST", "GET", "PUT", "HEAD", "DELETE"));
-//        UrlBasedCorsConfigurationSource source = new
-//                UrlBasedCorsConfigurationSource();
-//        source.registerCorsConfiguration("/**", cors.applyPermitDefaultValues());
-//        return source;
-//    }
 	
-
-	
-	
-	@GetMapping("/")
+	@GetMapping("/getcurrentuser")
 	public ResponseEntity<User> returnSession(HttpSession mySession) {
-		User currentUser = new User();
+		System.out.println("got GET request coming in...");
 		
-		
-		System.out.println(mySession.getAttribute("username"));
-		
-		currentUser.setUsername(mySession.getAttribute("username").toString());
-		System.out.println("got normal request");
-		
+		if (mySession.getAttribute("username") == null) {
+			System.out.println("session is null");
+			Log.warn("session is null");
+			return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
+		} else {
+			User currentUser = new User();
 			
-		return ResponseEntity.status(HttpStatus.OK).body(currentUser);
+			System.out.println(mySession);
+			System.out.println(mySession.getAttribute("username"));
+			
+			//get the session information and set it to the userObject
+			int useridSession = (Integer) mySession.getAttribute("userId");
+			currentUser.setUserId(useridSession);
+			currentUser.setUsername(mySession.getAttribute("username").toString());
+			currentUser.setUserEmail(mySession.getAttribute("userEmail").toString());
+			currentUser.setFirstName(mySession.getAttribute("firstName").toString());
+			currentUser.setLastName(mySession.getAttribute("lastName").toString());
+			currentUser.setCurrencyID(mySession.getAttribute("currencyID").toString());
+			currentUser.setAddress(mySession.getAttribute("address").toString());
+			currentUser.setUserRole(mySession.getAttribute("userRole").toString());
+			
+			//NOTE. Needs testing to return invoices List correctly.
+			List userList = new ArrayList();
+			userList = (List) mySession.getAttribute("invoices");
+			currentUser.setInvoices(userList);
+			
+			System.out.println("end of the line...");
+			return ResponseEntity.status(HttpStatus.OK).body(currentUser);
+		}
+
 	}
 	
 	
@@ -113,7 +126,7 @@ public class UserController {
 	public ResponseEntity<User> validateUser(@RequestBody User userInput, Model model, HttpServletRequest request) {
 		String passwordInput = userInput.getUserPassword();
 		System.out.println("userInput email is: " + userInput.getUserEmail());
-		System.out.println("userInput email is: " + userInput.getUserPassword());
+		System.out.println("userInput password is: " + userInput.getUserPassword());
 		
 		User foundUser = userService.findByEmail(userInput.getUserEmail());
 		
@@ -133,19 +146,27 @@ public class UserController {
 		}
 		
 		HttpSession session = request.getSession();
+		
 		//create session
-		
-//		model.addFlashAttribute("user", foundUser);
+		session.setAttribute("userId", foundUser.getUserId());
 		session.setAttribute("username", foundUser.getUsername());
-		System.out.println("Checking model");
-//		session.getAttribute("username").toString();
-		
-//		System.out.println("I got session ID: " + session.getAttribute("userID"));
+		session.setAttribute("userEmail", foundUser.getUserEmail());
+		session.setAttribute("firstName", foundUser.getFirstName());
+		session.setAttribute("lastName", foundUser.getLastName());
+		session.setAttribute("currencyID", foundUser.getCurrencyID());
+		session.setAttribute("address", foundUser.getAddress());
+		session.setAttribute("userRole", foundUser.getUserRole());
+		//untested. This is invoice list
+		session.setAttribute("invoices", foundUser.getInvoices());
+
 		System.out.println("User is logged in. Username is: " + session.getAttribute("username"));
-//		System.out.println("User is logged in. Email is: " + session.getAttribute("userEmail"));
-		
+
 		return ResponseEntity.status(HttpStatus.OK).body(foundUser);
 	}
 	
-	
+	@GetMapping("/logout")
+	public void logoutUser(HttpSession session) {
+		session.invalidate();
+		System.out.println("session is invalidated.");
+	}
 }
