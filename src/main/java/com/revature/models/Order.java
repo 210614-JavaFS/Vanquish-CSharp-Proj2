@@ -40,6 +40,11 @@ public class Order {
 	@JsonBackReference
 	private User user;
 
+
+	public Order() {
+		super();
+	}
+
 	public int getOrderId() {
 		return orderId;
 	}
