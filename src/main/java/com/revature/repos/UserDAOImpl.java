@@ -65,4 +65,10 @@ public class UserDAOImpl implements UserDAO {
 		return (User) results.get(0);
 	}
 
+	@Override
+	public void updateUser(User user) {
+		Session session = sessionFactory.getCurrentSession();
+		session.merge(user);
+	}
+	
 }

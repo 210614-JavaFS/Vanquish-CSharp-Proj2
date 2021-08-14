@@ -44,27 +44,14 @@ public class User {
 	@Column(name="user_role")
 	private String userRole;
 	
-	@OneToMany(mappedBy="user", fetch=FetchType.EAGER)
-	private List<Invoice> invoices;
+//	@OneToMany(mappedBy="user", fetch=FetchType.EAGER)
+//	private List<Invoice> invoices;
 
 	public User() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public User(String username, String userEmail, String userPassword, String firstName, String lastName,
-			String currencyID, String address, String userRole, List<Invoice> invoices) {
-		super();
-		this.username = username;
-		this.userEmail = userEmail;
-		this.userPassword = userPassword;
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.currencyID = currencyID;
-		this.address = address;
-		this.userRole = userRole;
-		this.invoices = invoices;
-	}
 
 	public int getUserId() {
 		return userId;
@@ -137,14 +124,14 @@ public class User {
 	public void setUserRole(String userRole) {
 		this.userRole = userRole;
 	}
-
-	public List<Invoice> getInvoices() {
-		return invoices;
-	}
-
-	public void setInvoices(List<Invoice> invoices) {
-		this.invoices = invoices;
-	}
+//
+//	public List<Invoice> getInvoices() {
+//		return invoices;
+//	}
+//
+//	public void setInvoices(List<Invoice> invoices) {
+//		this.invoices = invoices;
+//	}
 
 	@Override
 	public int hashCode() {
@@ -153,7 +140,7 @@ public class User {
 		result = prime * result + ((address == null) ? 0 : address.hashCode());
 		result = prime * result + ((currencyID == null) ? 0 : currencyID.hashCode());
 		result = prime * result + ((firstName == null) ? 0 : firstName.hashCode());
-		result = prime * result + ((invoices == null) ? 0 : invoices.hashCode());
+//		result = prime * result + ((invoices == null) ? 0 : invoices.hashCode());
 		result = prime * result + ((lastName == null) ? 0 : lastName.hashCode());
 		result = prime * result + ((userEmail == null) ? 0 : userEmail.hashCode());
 		result = prime * result + userId;
@@ -187,11 +174,11 @@ public class User {
 				return false;
 		} else if (!firstName.equals(other.firstName))
 			return false;
-		if (invoices == null) {
-			if (other.invoices != null)
-				return false;
-		} else if (!invoices.equals(other.invoices))
-			return false;
+//		if (invoices == null) {
+//			if (other.invoices != null)
+//				return false;
+//		} else if (!invoices.equals(other.invoices))
+//			return false;
 		if (lastName == null) {
 			if (other.lastName != null)
 				return false;
