@@ -1,0 +1,124 @@
+@import url('https://fonts.googleapis.com/css2?family=Oxygen:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Arima+Madurai:wght@100&display=swap');
+html,
+body {
+    min-height: 100%;
+}
+
+body {
+    background: rgb(2, 0, 36);
+    background: linear-gradient(180deg, #deddf7 0%, #ebe7df 53%, #98a1bb 100%);
+    color: #000000f1;
+    font-family: 'Oxygen', sans-serif;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+}
+
+.grad-blue {
+    background: rgb(130, 168, 176);
+    background: linear-gradient(175deg, rgba(130, 168, 176, 1) 0%, rgba(0, 59, 89, 1) 100%);
+    background-size: cover;
+}
+
+.transparent-div {
+    box-shadow: 0 0 1rem 0 rgba(34, 33, 33, 0.2);
+    border-radius: 13px 13px 0px 0px;
+    background-color: #0c203627;
+    backdrop-filter: blur(8px);
+    margin: 0;
+}
+
+.transparent-cards {
+    box-shadow: 0 0 1rem 0 rgba(34, 33, 33, 0.2);
+    border-radius: 13px 13px 13px 13px;
+    background-color: #0c203627;
+    backdrop-filter: blur(8px);
+    margin: 0;
+}
+
+.transparent-nav {
+    background-color: #0c203627;
+    margin: 0;
+}
+
+.zindex {
+    z-index: 1000;
+}
+
+.user-box {
+    box-shadow: 0 0 1rem 0 rgba(41, 41, 41, 0.2);
+    border-radius: 13px;
+    background-color: #031f3d27;
+    backdrop-filter: blur(8px);
+    margin: 0;
+    padding: 16px;
+}
+
+.round-border {
+    border-radius: 5px;
+}
+
+
+/* NOTE. FONT Family */
+
+.font-caps {
+    font-family: 'Bebas Neue', cursive;
+}
+
+.arima-font {
+    font-family: 'Arima Madurai', cursive;
+}
+
+
+/* NOTE. FONT Size */
+
+.font-size-md {
+    font-size: 24px;
+}
+
+.font-size-lg {
+    font-size: 78px;
+}
+
+
+/* NOTE. FONT COLOR*/
+
+.black-txt {
+    color: black;
+}
+
+.white-txt {
+    color: white;
+}
+
+.red-txt {
+    color: red;
+}
+
+.orange-txt {
+    background: -webkit-linear-gradient(#fdc9c0, #c98c1a);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+
+/* NOTE. POSITIONS */
+
+.float-right {
+    float: right;
+}
+
+.float-left {
+    float: left;
+}
+
+.navbar-center {
+    position: absolute;
+    left: 40%;
+    transform: translatex(-50%);
+}
+
+.padding-top-md {
+    padding-top: 100px;
+}

@@ -13,5 +13,7 @@ public interface UserDAO {
 	public User findById(int id);
 
 	public User findByEmail(String email);
+	
+	public void updateUser(User user);
 
 }

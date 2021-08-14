@@ -10,4 +10,7 @@ public interface BookDAO {
 	
 	public void deleteBook(Book book);
 	
+	public Book findBookById(int id);
+	
+	
 }
