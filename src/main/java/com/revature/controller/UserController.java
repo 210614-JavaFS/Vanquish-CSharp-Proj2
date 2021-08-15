@@ -151,12 +151,17 @@ public class UserController {
 		return ResponseEntity.status(HttpStatus.CREATED).build();
 	}
 	
-	@GetMapping("/seeorders/{userId}")
+	@GetMapping("/seeOrders/{userId}")
 	@ResponseBody
 	public List<Order> OrdersById(@PathVariable("userId") int userId) {
 		return userService.OrdersById(userId);
 	}
 	
+	@PutMapping("/updateStatus/{invoiceId}/{status}")
+	public  ResponseEntity<User> updateStatus(@PathVariable("invoiceId") int invoiceId, @PathVariable("status") String newStatus){
+		userService.statusUpdate(invoiceId, newStatus);
+		return ResponseEntity.status(HttpStatus.ACCEPTED).build();
+	}
 	
 	
 	

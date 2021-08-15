@@ -106,11 +106,12 @@ public class InvoiceDAOImpl implements InvoiceDAO{
 
 	// this will update the status but untested
 	@Override
-	public void updateStatusbyId(int invoiceId, String status) {
+	public void updateStatusbyId(int invoiceid, String status) {
+		log.info("Find old status");
 		Session session = sessionFactory.getCurrentSession();
-		String sql = "SELECT * FROM invoice WHERE INVOICE.INVOICE_ID = :invoiceid;" ;
+		String sql = "SELECT * FROM invoice WHERE INVOICE.INVOICE_ID = :invoiceid ;" ;
 		NativeQuery<Invoice> query = session.createNativeQuery(sql, Invoice.class);
-		query.setParameter("invoiceid", invoiceId);
+		query.setParameter("invoiceid", invoiceid);
 		List<Invoice> result = query.getResultList();
 		Invoice invoice = (Invoice) result.get(0);
 		invoice.setInvoiceStatus(status);
