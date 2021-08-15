@@ -15,7 +15,6 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.revature.models.User;
-import com.sun.tools.sjavac.Log;
 
 @Repository
 @Transactional(propagation=Propagation.NESTED)
