@@ -92,12 +92,11 @@ public class InvoiceDAOImpl implements InvoiceDAO{
 	@Override
 	public List<Order>  findOrderByuserId(int userId) {
 		Session session = sessionFactory.getCurrentSession();
-		String sql = " SELECT orders.* "
-				+ "FROM orders "
-				+ "LEFT JOIN invoice ON orders.USER_ID = invoice.USER_ID WHERE orders.USER_ID = :userid ; ";
+		String sql = "SELECT * FROM ORDERS  WHERE orders.USER_ID = :userid ; ";
 		Query<Order> query = session.createNativeQuery(sql, Order.class);
 		query.setParameter("userid", userId);
 		List<Order> list =  query.getResultList();
+		log.info(" List size should be 2 "+list.size());
 		log.info("User getting all orders by id.");
 	
 		return list;
