@@ -16,7 +16,7 @@ public class UserServiceTest {
 	
 	@BeforeAll
 	public static void setUserService() {
-		userService = new UserService(userDAO);
+		//userService = new UserService(userDAO);
 	}
 	
 	@BeforeEach
