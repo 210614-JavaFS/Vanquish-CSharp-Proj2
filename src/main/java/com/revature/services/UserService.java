@@ -5,20 +5,28 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.revature.models.Book;
+import com.revature.models.Invoice;
 import com.revature.models.User;
+import com.revature.repos.BookDAO;
+import com.revature.repos.InvoiceDAO;
 import com.revature.repos.UserDAO;
 
 @Service
 public class UserService {
 
 	private UserDAO userDAO;
-	
+	private InvoiceDAO invoiceDAO;
+	private BookDAO bookDAO;
+
 	@Autowired
-	public UserService(UserDAO userDAO) {
+	public UserService(UserDAO userDAO, InvoiceDAO invoiceDAO, BookDAO bookDAO) {
 		super();
 		this.userDAO = userDAO;
+		this.invoiceDAO = invoiceDAO;
+		this.bookDAO = bookDAO;
 	}
-	
+
 	public void addUser(User user) {
 		userDAO.addUser(user);
 	}
@@ -39,5 +47,16 @@ public class UserService {
 		userDAO.updateUser(user);
 		
 	}
+	
+	public void generatedOrder(int userId, int bookId, int quantity, double nativeAmount) {
+		User user = userDAO.findById(userId);
+		Book book = bookDAO.findBookById(bookId);
+		invoiceDAO.addInvoice(user, book, nativeAmount, quantity);
+		Invoice invoice = invoiceDAO.findInvoiceByuserId(userId);
+		invoiceDAO.addOrder(user, book, invoice, quantity);		
+	}
+	
+	
+	
 	
 }

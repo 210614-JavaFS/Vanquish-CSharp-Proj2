@@ -12,7 +12,7 @@ export default function UserEditProfileModal(): JSX.Element {
         username: "",
         userEmail: "",
         userPassword: "",
-        firstName: user.firstName,
+        firstName: "",
         lastName: "",
         address: "",
         userRole: "",
@@ -34,12 +34,9 @@ export default function UserEditProfileModal(): JSX.Element {
             values.address,
             'USD',
             values.userRole,
-            undefined,
         );
         
-        console.log("check1")
         apiUpdateUser(newUserForm);
-        console.log("check2")
 
         let newUserChange = new User(
             user.userId,
@@ -51,7 +48,6 @@ export default function UserEditProfileModal(): JSX.Element {
             values.address,
             'USD',
             values.userRole,
-            undefined,
         );
 
         dispatch(login(newUserChange));
@@ -86,17 +82,17 @@ export default function UserEditProfileModal(): JSX.Element {
                                         </p>
                                     </div>
                                 </div>
-                                <p>
+                                {/* <p>
                                     <label htmlFor="email white-txt">Email:</label>
                                     <input type="email" onChange={onChange} defaultValue={user.userEmail} className="form-control" name="userEmail" maxLength={25} minLength={2} placeholder="name@email.com" required/>
                                 </p>
                                 <p>
                                     <label htmlFor="username white-txt">Username:</label>
                                     <input type="text" onChange={onChange} defaultValue={user.username} className="form-control" name="username" maxLength={25} minLength={2} placeholder="Enter Your User Name" required/>
-                                </p>
+                                </p> */}
                                 <p>
                                     <label htmlFor="address white-txt">Address:</label>
-                                    <input type="text" onChange={onChange} defaultValue={user.address} className="form-control" name="address" maxLength={25} minLength={2} placeholder="Enter Your Address" required/>
+                                    <input type="text" onChange={onChange} defaultValue={user.address} className="form-control" name="address" maxLength={100} minLength={2} placeholder="Enter Your Address" required/>
                                 </p>
                                 {/* <p>
                                     <label htmlFor="password">Password:</label>

@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.revature.models.Book;
+import com.revature.models.User;
 
 @Repository
 @Transactional(propagation=Propagation.NESTED)
@@ -41,4 +42,11 @@ public class BookDAOImpl implements BookDAO{
 		session.delete(book);	
 	}
 
+	@Override
+	public Book findBookById(int id) {
+		Session session = sessionFactory.getCurrentSession();
+		Book book = session.get(Book.class, id);
+		
+		return book;
+	}
 }

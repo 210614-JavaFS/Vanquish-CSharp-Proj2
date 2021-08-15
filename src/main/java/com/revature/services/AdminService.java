@@ -10,17 +10,19 @@ import com.revature.models.Invoice;
 import com.revature.models.Order;
 import com.revature.repos.AdminDAO;
 
+
 @Service
 public class AdminService {
 
 	private AdminDAO adminDAO;
+
 
 	@Autowired
 	public AdminService(AdminDAO adminDAO) {
 		super();
 		this.adminDAO = adminDAO;
 	}
-	
+
 	public List<Invoice> getAllInvoice() {
 		return adminDAO.findAllInvoice();
 	}
@@ -61,5 +63,6 @@ public class AdminService {
 	public void deleteBook(Book book) {
 		adminDAO.deleteBook(book);
 	}
+	
 	
 }

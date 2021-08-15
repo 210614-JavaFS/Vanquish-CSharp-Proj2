@@ -11,7 +11,7 @@ export default function UserProfile(): JSX.Element {
             <div className="row">
                 <div className="col">
                     <div className="d-flex justify-content-center">
-                        <h1>User Profile Page</h1>
+                        <h1 className="font-caps">User Profile Page</h1>
                     </div>
                     <div className="justify-content-center">
                         <span>Username: </span>

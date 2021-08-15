@@ -7,17 +7,21 @@ import javax.persistence.criteria.CriteriaQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.revature.models.User;
+import com.sun.tools.sjavac.Log;
 
 @Repository
 @Transactional(propagation=Propagation.NESTED)
 public class UserDAOImpl implements UserDAO {
-
+	Logger log = LoggerFactory.getLogger(UserDAOImpl.class);
+			
 	@Autowired
 	private SessionFactory sessionFactory;
 	
@@ -46,6 +50,7 @@ public class UserDAOImpl implements UserDAO {
 	@Override
 	public User findById(int id) {
 		Session session = sessionFactory.getCurrentSession();
+		
 		User user = session.get(User.class, id);
 		
 		return user;
@@ -61,14 +66,35 @@ public class UserDAOImpl implements UserDAO {
 		Query query = session.createQuery(hql);
 		query.setParameter("input_email",email);
 		List results = query.list();
+		System.out.println(results);
+		
+		
 		
 		return (User) results.get(0);
 	}
 
 	@Override
-	public void updateUser(User user) {
+	public void updateUser(User userInput) {
 		Session session = sessionFactory.getCurrentSession();
-		session.merge(user);
+		
+		User u = session.load(User.class, userInput.getUserId());
+		System.out.println("loaded user data");
+		
+//		u.setUsername(userInput.getUsername());
+//		u.setUserEmail(userInput.getUserEmail());
+		
+		u.setFirstName(userInput.getFirstName());
+		u.setLastName(userInput.getLastName());
+		u.setAddress(userInput.getAddress());
+		
+		
+		System.out.println("Data changed with input: "+u.getFirstName());
+		
+//		u = userInput;
+//		System.out.println("Data Merge changed with input: "+u.getLastName());
+//		System.out.println("check2");
+		session.save(u);
+
 	}
 	
 }
