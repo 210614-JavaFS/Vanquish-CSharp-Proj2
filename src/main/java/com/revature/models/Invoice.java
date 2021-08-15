@@ -19,9 +19,9 @@ public class Invoice {
 	@Column(name="invoice_id")
 	private int invoiceID;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "user_id")
-	@JsonBackReference
+	//@JsonBackReference
 	private User user;
 	
 	@Column(name="status")

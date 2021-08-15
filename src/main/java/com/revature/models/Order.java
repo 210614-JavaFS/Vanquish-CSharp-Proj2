@@ -25,19 +25,19 @@ public class Order {
 	private int orderQuantity;
 	
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "invoice_id")
-	@JsonBackReference
+	//@JsonBackReference
 	private Invoice invoice;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "book_id")
-	@JsonBackReference
+	//@JsonBackReference
 	private Book book;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "user_id")
-	@JsonBackReference
+	//@JsonBackReference
 	private User user;
 
 
