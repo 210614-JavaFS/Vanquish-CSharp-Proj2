@@ -7,8 +7,6 @@ import Register from './Register';
 import { useForm } from './useForm';
 
 export default function Login(): JSX.Element {
-
-    const user = useSelector(selectUser);
     
     const initialState:any = {
         userEmail: "",
@@ -46,7 +44,7 @@ export default function Login(): JSX.Element {
     }
 
     return (
-        <div className="container" >
+        <div className="container padding-top-md" >
         {/* <!-- Login --> */}
         <div className="row d-flex justify-content-center">
             <div className="col-sm-2"></div>
