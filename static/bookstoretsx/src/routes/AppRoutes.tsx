@@ -15,6 +15,8 @@ import CustomerOrders from "../components/user/admin/CustomerOrders";
 import AboutUs from "../components/about-us/AboutUs";
 import AddBook from "../components/user/admin/AddBook";
 import EditBook from "../components/user/admin/EditBook"
+import ViewAllBooks from "../components/user/admin/ViewAllBooks"
+
 
 const AppRoutes: React.FC<any> = (): JSX.Element => {
     const user = useSelector(selectUser);
@@ -66,6 +68,12 @@ const AppRoutes: React.FC<any> = (): JSX.Element => {
             {/* //Admin can update exists book fields */}
             <Route path="/updateBook">
                 {user.userRole === "admin" ? <EditBook /> : null}
+
+            </Route>
+
+            {/* //Admin can view all books in table */}
+            <Route path="/viewAllBook">
+                {user.userRole === "admin" ? <ViewAllBooks /> : null}
 
             </Route>
 

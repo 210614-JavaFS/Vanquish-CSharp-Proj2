@@ -65,6 +65,15 @@ export default function NavbarJ(): JSX.Element {
                         </li>
                     </li>
 
+                    <li className="nav-item ">
+                        <li className="nav-item">
+                            {user.userRole === "admin" ?
+                                <NavLink className="nav-link" aria-current="page" href="/viewAllBook">View All Books </NavLink>
+                                : null
+                            }
+                        </li>
+                    </li>
+
 
                     <li className="nav-item">
                         <NavLink className="nav-link" href="/aboutUs">About Us</NavLink>
