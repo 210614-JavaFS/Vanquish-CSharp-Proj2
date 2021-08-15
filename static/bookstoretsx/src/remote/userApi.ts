@@ -90,8 +90,8 @@ export type OrderHistory = {
 }
 
 //get Current User Information
-export const apiGetOrderHistory = async ():Promise<OrderHistory[]> => {
-    const response = await userClient.get<OrderHistory[]>('/getcurrentuser', {withCredentials: true});
+export const apiGetOrderHistory = async (userId: number):Promise<unknown[]> => {
+    const response = await userClient.get<unknown[]>('/seeOrders/'+userId, {withCredentials: true});
 
     console.log(response.status)
     // console.log(`Response status is: ${response.status}`)

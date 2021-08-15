@@ -8,11 +8,11 @@ export default function OrderHistory(): JSX.Element {
 
     async function retrieveOrderHistory() {
 
-        let orderObject = await apiGetOrderHistory();
+        let orderObject = await apiGetOrderHistory(user.userId);
 
-        if (orderObject) {
+        if (orderObject.length() != 0) {
             console.log("I got current Order");
-            console.log(`current user is ${orderObject}`);
+            console.log(orderObject);
         } else {
             console.log("I haven't got current user");
         }
