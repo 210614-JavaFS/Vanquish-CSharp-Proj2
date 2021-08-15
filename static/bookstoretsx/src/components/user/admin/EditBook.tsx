@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React, { useState } from 'react'
 
 interface Props {
@@ -5,7 +6,7 @@ interface Props {
 }
 
 const EditBook = (props: Props) => {
-
+    const [bookId, setbookId] = useState("");
     const [bookAuthor, setBookAuthor] = useState("");
     const [bookDescription, setBookDescription] = useState("");
     const [bookName, setbookName] = useState("");
@@ -14,6 +15,23 @@ const EditBook = (props: Props) => {
     const [imgURL, setimgURL] = useState("");
     const [bookCategory, setbookCategory] = useState("");
 
+    const URL = "http://localhost:8080/bookstore/admin/updatebook";
+
+    async function updateHandler() {
+        const request = await axios.put(URL, {
+            bookId,
+            bookName,
+            author: bookAuthor,
+            bookDescription,
+            bookStockQuantity,
+            costUSD,
+            imgURL,
+            bookCategory
+        })
+            .then(
+                (response) => { console.log(response); }
+            )
+    }
 
 
     return (
@@ -22,9 +40,15 @@ const EditBook = (props: Props) => {
                 <h1>Update Book Page</h1>
             </div>
 
+
             <div className="flex justify margintop ">
 
                 <div className="flexcol justifyaround alignitems" style={{ border: "2px solid black", width: "500px", height: "700px" }}>
+                    <div className="">
+                        <label style={{ width: "200px" }} htmlFor="bookId">Enter Book Id:</label>
+
+                        <input type="number" id="bookId" name="bookId" onChange={(e) => { setbookId(e.target.value) }} />
+                    </div>
 
                     <div className="">
                         <label style={{ width: "200px" }} htmlFor="Author">Enter Book Author:</label>
@@ -71,13 +95,13 @@ const EditBook = (props: Props) => {
                         <label style={{ width: "100px" }} htmlFor="non_fiction">NON FICTION</label>
                     </div>
 
-                    <button className="btn btn-primary" onClick={submitHandler} >Submit</button>
+                    <button className="btn btn-primary" onClick={updateHandler}   >Submit</button>
 
                 </div>
 
             </div>
 
-            {/* onClick={() => console.log(bookDescription)} */}
+            {/* onClick={() => console.log(bookDescription)}  onClick={submitHandler} */}
 
         </div>
     )

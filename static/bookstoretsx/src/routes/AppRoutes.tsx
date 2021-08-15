@@ -14,6 +14,7 @@ import OrderHistory from "../components/user/customer/OrderHistory";
 import CustomerOrders from "../components/user/admin/CustomerOrders";
 import AboutUs from "../components/about-us/AboutUs";
 import AddBook from "../components/user/admin/AddBook";
+import EditBook from "../components/user/admin/EditBook"
 
 const AppRoutes: React.FC<any> = (): JSX.Element => {
     const user = useSelector(selectUser);
@@ -42,33 +43,39 @@ const AppRoutes: React.FC<any> = (): JSX.Element => {
             {/* TODO. User Pages */}
             {/* User Profile */}
             <Route path="/userProfile">
-                <UserProfile/>
+                <UserProfile />
             </Route>
-            
+
             {/* TODO. Customer Order History */}
             <Route path="/customerOrderHistory">
-                <OrderHistory/>
+                <OrderHistory />
             </Route>
 
             {/* TODO. Admin Order View */}
             <Route path="/adminOrderView">
-                { user.userRole === "admin" ? <CustomerOrders/> : null }
+                {user.userRole === "admin" ? <CustomerOrders /> : null}
             </Route>
 
             {/* TODO. Admin Add Book View */}
-            { user.userRole === "admin" ? 
-            <Route path="/addBook">
-                <AddBook/>
-            </Route>
-            : null }
+            {user.userRole === "admin" ?
+                <Route path="/addBook">
+                    <AddBook />
+                </Route>
+                : null}
 
-            {/* TODO. Admin Edit Book View */}
+            {/* //Admin can update exists book fields */}
+            <Route path="/updateBook">
+                {user.userRole === "admin" ? <EditBook /> : null}
+
+            </Route>
+
+            {/* TODO. Admin Edit Book View  */}
             {/* <Route path="/editBook">
                 <CustomerOrders/>
-            </Route> */}
+            </Route>  */}
 
             <Route path="/aboutUs">
-                <AboutUs/>
+                <AboutUs />
             </Route>
 
             <Route exact path="/currency" component={CurrencyConverter} />

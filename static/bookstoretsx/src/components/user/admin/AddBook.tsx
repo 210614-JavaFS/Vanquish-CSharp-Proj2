@@ -12,14 +12,6 @@ export default function AddBook(): JSX.Element {
     const [imgURL, setimgURL] = useState("");
     const [bookCategory, setbookCategory] = useState("");
 
-    // "bookName":"THE LAST THING HE TOLD ME",
-    // "bookStockQuantity": 5,
-    // "costUSD": 19 ,
-    // "imgURL": "https://storage.googleapis.com/du-prd/books/images/9781501171345.jpg",
-    // "bookCategory":"fiction"
-
-
-
     const URL = "http://localhost:8080/bookstore/admin/addbook";
 
 
@@ -97,28 +89,16 @@ export default function AddBook(): JSX.Element {
 
                     <button className="btn btn-primary" onClick={submitHandler} >Submit</button>
 
-
                 </div>
 
-                {/* <div className="">
-                    <label style={{ width: "200px" }} htmlFor="Category">Enter Book Category :</label>
-
-                    <input type="text" id="Category" name="Category" onChange={(e) => { setimgURL(e.target.value) }} />
-                </div>
-
-
-
-                <button className="btn btn-primary" onClick={submitHandler} >Submit</button> */}
             </div>
 
             {/* onClick={() => console.log(bookDescription)} */}
 
         </div>
 
-        // </div >
+
     )
 
 }
 
-
-// const [bookCategory, setbookCategory] = useState("");
