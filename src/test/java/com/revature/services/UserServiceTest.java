@@ -24,12 +24,12 @@ public class UserServiceTest {
 		userID = 0;
 	}
 	
-	@Test
-	public void testFindUser() {
-		System.out.println("Testing FindUserByID");
-		
-		//expected result
-		
-		assertTrue(userService.findById(userID) != null);
-	}
+//	@Test
+//	public void testFindUser() {
+//		System.out.println("Testing FindUserByID");
+//		
+//		//expected result
+//		
+//		assertTrue(userService.findById(userID) != null);
+//	}
 }

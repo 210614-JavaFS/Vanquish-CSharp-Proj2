@@ -66,9 +66,27 @@ public class UserDAOImpl implements UserDAO {
 	}
 
 	@Override
-	public void updateUser(User user) {
+	public void updateUser(User userInput) {
 		Session session = sessionFactory.getCurrentSession();
-		session.merge(user);
+		
+		User u = session.load(User.class, userInput.getUserId());
+		System.out.println("loaded user data");
+		
+//		u.setUsername(userInput.getUsername());
+//		u.setUserEmail(userInput.getUserEmail());
+		
+		u.setFirstName(userInput.getFirstName());
+		u.setLastName(userInput.getLastName());
+		u.setAddress(userInput.getAddress());
+		
+		
+		System.out.println("Data changed with input: "+u.getFirstName());
+		
+//		u = userInput;
+//		System.out.println("Data Merge changed with input: "+u.getLastName());
+//		System.out.println("check2");
+		session.save(u);
+
 	}
 	
 }

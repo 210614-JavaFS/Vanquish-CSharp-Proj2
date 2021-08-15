@@ -31,7 +31,6 @@ export default function Login(): JSX.Element {
             undefined,
             undefined,
             undefined,
-            undefined,
         );
 
         let userObject = await apiLoginUser(newUserForm);
