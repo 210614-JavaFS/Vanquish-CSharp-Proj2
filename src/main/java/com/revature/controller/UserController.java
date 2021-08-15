@@ -40,33 +40,19 @@ public class UserController {
 		System.out.println("got GET request coming in....");
 		User currentUser = new User();
 		
-		if (mySession.getAttribute("username") == null) {
+		
+		if (mySession.getAttribute("userEmail") == null) {
 			System.out.println("session is null");
 			log.warn("session is null");
 			return ResponseEntity.status(HttpStatus.OK).body(null);
 		} else {
 			
-			System.out.println(mySession);
-			System.out.println(mySession.getAttribute("username"));
-			
-			//get the session information and set it to the userObject
+			//find User from database based on current User's session
 			int useridSession = (Integer) mySession.getAttribute("userId");
-			currentUser.setUserId(useridSession);
-			currentUser.setUsername(mySession.getAttribute("username").toString());
-			currentUser.setUserEmail(mySession.getAttribute("userEmail").toString());
-			currentUser.setFirstName(mySession.getAttribute("firstName").toString());
-			currentUser.setLastName(mySession.getAttribute("lastName").toString());
-			currentUser.setCurrencyID(mySession.getAttribute("currencyID").toString());
-			currentUser.setAddress(mySession.getAttribute("address").toString());
-			currentUser.setUserRole(mySession.getAttribute("userRole").toString());
-			
-			//NOTE. Needs testing to return invoices List correctly.
-//			List userList = new ArrayList();
-//			userList = (List) mySession.getAttribute("invoices");
-//			currentUser.setInvoices(userList);
+			User foundUser = userService.findById(useridSession);
 			
 			System.out.println("end of the line...");
-			return ResponseEntity.status(HttpStatus.OK).body(currentUser);
+			return ResponseEntity.status(HttpStatus.OK).body(foundUser);
 		}
 
 	}
@@ -128,13 +114,8 @@ public class UserController {
 		
 		//create session
 		session.setAttribute("userId", foundUser.getUserId());
-		session.setAttribute("username", foundUser.getUsername());
 		session.setAttribute("userEmail", foundUser.getUserEmail());
-		session.setAttribute("firstName", foundUser.getFirstName());
-		session.setAttribute("lastName", foundUser.getLastName());
-		session.setAttribute("currencyID", foundUser.getCurrencyID());
-		session.setAttribute("address", foundUser.getAddress());
-		session.setAttribute("userRole", foundUser.getUserRole());
+		
 		//untested. This is invoice list
 //		session.setAttribute("invoices", foundUser.getInvoices());
 
