@@ -152,7 +152,6 @@ public class UserController {
 	}
 	
 	@GetMapping("/seeOrders/{userId}")
-	@ResponseBody
 	public List<Order> OrdersById(@PathVariable("userId") int userId) {
 		return userService.OrdersById(userId);
 	}
