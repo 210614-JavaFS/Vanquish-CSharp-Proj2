@@ -1,5 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
+import { useSelector } from 'react-redux';
+import { selectUser } from '../features/userSlice';
 import Books from '../models/Books';
 import { BookApiResponse } from '../remote/bookApi';
 import booksClient from '../remote/BooksClient';
@@ -9,8 +11,14 @@ type Props = {
 }
 
 const GetBooks: React.FC<Props> = ({ getRate }) => {
+    const user = useSelector(selectUser);
     const [books, setBooks] = useState<[]>([]);
     const baseURL = "http://localhost:8080/bookstore/admin/allbook";
+
+    const [currencyOption, setCurrencyOptions] = useState([]);
+    const [symbol, setSymbol] = useState("");
+    const [toCurrency, setToCurrency] = useState("");
+    const [defaultCurrency, setDefaultCurrency] = useState(user.currencyID);
 
 
     useEffect(() => {
@@ -30,6 +38,36 @@ const GetBooks: React.FC<Props> = ({ getRate }) => {
                 console.log(data.data);
                 setBooks(data.data);
             }
+
+            async function getCurrencyList() {
+
+                const response = await axios.get("https://free.currconv.com/api/v7/currencies?apiKey=c728cb6404e7db7045e9");
+                console.log(response);
+
+                if (response != null) {
+                    let data2 = await response.data.results;
+                    console.log(data2);
+                    //    if(user3!=null){}
+                    // setToCurrency()
+                    if (user != null && user.currencyID) {
+                        console.log(user);
+                        console.log(data2[user.currencyID]);
+                        const userSymbol = data2[user.currencyID].currencySymbol
+                        console.log(userSymbol);
+                        setSymbol(userSymbol)
+                        console.log(data2[user.currencyID].currencyName);
+                        // setSymbol(data2[user3.currencyID].currencyName)
+
+                        // getCurrencySymbol(data2[user3.currencyID]);
+                    }
+                    // setCurrencyOptions(Object.keys(data2).map(function (key) {
+                    //     return data2[key]
+                    // }))
+                }
+            }
+
+            getCurrencyList()
+
             return () => {
                 console.log("Cancelling api call");
                 source.cancel();
@@ -121,7 +159,7 @@ const GetBooks: React.FC<Props> = ({ getRate }) => {
                                 </div>
                                 <div className="">
                                     <strong>Converted Price: </strong>
-                                    &nbsp; <strong style={{ color: "gold" }}> {convertedPrice} </strong>
+                                    &nbsp; <strong style={{ color: "green" }}> {convertedPrice} </strong>
                                     &nbsp;
                                     <button className="btn btn-primary btn-sm" onClick={handleOrderButton}>Add to Order</button>
                                 </div>
