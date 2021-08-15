@@ -33,7 +33,6 @@ export default function Register()  {
             values.address,
             'USD',
             values.userRole,
-            undefined,
         );
         
         apiRegisterUser(newUserForm);
@@ -78,7 +77,7 @@ export default function Register()  {
                                 </p>
                                 <p>
                                     <label htmlFor="address">Address:</label>
-                                    <input type="text" onChange={onChange} className="form-control" name="address" maxLength={25} minLength={2} placeholder="Enter Your Address" required/>
+                                    <input type="text" onChange={onChange} className="form-control" name="address" maxLength={100} minLength={2} placeholder="Enter Your Address" required/>
                                 </p>
                                 <p>
                                     <label htmlFor="password">Password:</label>

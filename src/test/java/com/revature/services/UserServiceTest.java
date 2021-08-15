@@ -16,7 +16,7 @@ public class UserServiceTest {
 	
 	@BeforeAll
 	public static void setUserService() {
-		userService = new UserService(userDAO);
+		//userService = new UserService(userDAO);
 	}
 	
 	@BeforeEach
@@ -24,12 +24,12 @@ public class UserServiceTest {
 		userID = 0;
 	}
 	
-	@Test
-	public void testFindUser() {
-		System.out.println("Testing FindUserByID");
-		
-		//expected result
-		
-		assertTrue(userService.findById(userID) != null);
-	}
+//	@Test
+//	public void testFindUser() {
+//		System.out.println("Testing FindUserByID");
+//		
+//		//expected result
+//		
+//		assertTrue(userService.findById(userID) != null);
+//	}
 }

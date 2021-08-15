@@ -54,13 +54,13 @@ public class InvoiceDAOImpl implements InvoiceDAO{
 	@Override
 	public Invoice findInvoiceByuserId(int userID) {
 		Session session = sessionFactory.getCurrentSession();
-		String sql = "SELECT INVOICE.* "
-				+ "FROM users "
-				+ "LEFT JOIN invoice ON users.USER_ID = invoice.USER_ID"
-				+ "WHERE users.USER_ID = :user_id AND  invoice.STATUS = 'new';";
+		String sql = "SELECT invoice.* "
+				+ " FROM users "
+				+ " LEFT JOIN invoice ON users.USER_ID = invoice.USER_ID "
+				+ " WHERE users.USER_ID = :user_id AND  invoice.STATUS = 'new'; ";
 		NativeQuery<Invoice> query = session.createNativeQuery(sql, Invoice.class);
 		query.setParameter("user_id", userID);
-		List result = query.getResultList();
+		List<Invoice> result = query.getResultList();
 		Invoice invoice = (Invoice) result.get(0);
 		invoice.setInvoiceStatus("pending");
 		session.merge(invoice);
