@@ -1,50 +1,25 @@
 package com.revature.controller;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.hibernate.internal.build.AllowSysOut;
 import org.mindrot.jbcrypt.BCrypt;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Scope;
-//import org.slf4j.Logger;
-//import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.SessionAttributes;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.CorsConfigurationSource;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import org.springframework.web.servlet.config.annotation.CorsRegistry;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.revature.models.User;
 import com.revature.services.UserService;
-
-import jdk.internal.org.jline.utils.Log;
 
 @RestController
 @RequestMapping(value="user")
@@ -66,33 +41,19 @@ public class UserController {
 		System.out.println("got GET request coming in....");
 		User currentUser = new User();
 		
-		if (mySession.getAttribute("username") == null) {
+		
+		if (mySession.getAttribute("userEmail") == null) {
 			System.out.println("session is null");
 			log.warn("session is null");
 			return ResponseEntity.status(HttpStatus.OK).body(null);
 		} else {
 			
-			System.out.println(mySession);
-			System.out.println(mySession.getAttribute("username"));
-			
-			//get the session information and set it to the userObject
+			//find User from database based on current User's session
 			int useridSession = (Integer) mySession.getAttribute("userId");
-			currentUser.setUserId(useridSession);
-			currentUser.setUsername(mySession.getAttribute("username").toString());
-			currentUser.setUserEmail(mySession.getAttribute("userEmail").toString());
-			currentUser.setFirstName(mySession.getAttribute("firstName").toString());
-			currentUser.setLastName(mySession.getAttribute("lastName").toString());
-			currentUser.setCurrencyID(mySession.getAttribute("currencyID").toString());
-			currentUser.setAddress(mySession.getAttribute("address").toString());
-			currentUser.setUserRole(mySession.getAttribute("userRole").toString());
-			
-			//NOTE. Needs testing to return invoices List correctly.
-//			List userList = new ArrayList();
-//			userList = (List) mySession.getAttribute("invoices");
-//			currentUser.setInvoices(userList);
+			User foundUser = userService.findById(useridSession);
 			
 			System.out.println("end of the line...");
-			return ResponseEntity.status(HttpStatus.OK).body(currentUser);
+			return ResponseEntity.status(HttpStatus.OK).body(foundUser);
 		}
 
 	}
@@ -154,13 +115,8 @@ public class UserController {
 		
 		//create session
 		session.setAttribute("userId", foundUser.getUserId());
-		session.setAttribute("username", foundUser.getUsername());
 		session.setAttribute("userEmail", foundUser.getUserEmail());
-		session.setAttribute("firstName", foundUser.getFirstName());
-		session.setAttribute("lastName", foundUser.getLastName());
-		session.setAttribute("currencyID", foundUser.getCurrencyID());
-		session.setAttribute("address", foundUser.getAddress());
-		session.setAttribute("userRole", foundUser.getUserRole());
+		
 		//untested. This is invoice list
 //		session.setAttribute("invoices", foundUser.getInvoices());
 
@@ -182,4 +138,15 @@ public class UserController {
 		session.invalidate();
 		System.out.println("session is invalidated.");
 	}
+	
+	@PostMapping("/addOrder/{userId}/{bookId}/{quantity}/{nativeAmount}")
+	public  ResponseEntity<User> addOrder(@PathVariable("userId") int userId, @PathVariable("bookId") int bookId, @PathVariable("quantity") int quantity, @PathVariable("nativeAmount") double nativeAmount){
+		userService.generatedOrder(userId, bookId, quantity, nativeAmount);
+		
+		return ResponseEntity.status(HttpStatus.CREATED).build();
+	}
+	
+	
+	
+	
 }

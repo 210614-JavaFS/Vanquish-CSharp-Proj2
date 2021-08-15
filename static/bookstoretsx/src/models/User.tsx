@@ -11,8 +11,6 @@ export default class User {
         public address: string | undefined,
         public currencyID: string | undefined,
         public userRole: string | undefined,
-        //NOTE. need invoice model
-        public invoice?: Array<Invoice>,
 
     ){}
 }
