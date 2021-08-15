@@ -97,11 +97,11 @@ export const apiNewUserOrder = async (order: Order):Promise<Order[]> => {
 
     console.log(`NewOrder response status is ${response.status}`)
     if (response.status === 201) {
-        console.log("successfully registered")
+        console.log("successfully made new order")
         window.location.reload();
         return response.data;
     } else {
-        console.log("failed to register")
+        console.log("failed to order")
         return [];
     }
 
