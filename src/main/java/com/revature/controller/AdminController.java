@@ -81,8 +81,9 @@ public class AdminController {
 	}
 
 	
-	@DeleteMapping
+	@DeleteMapping("/delete")
 	public ResponseEntity<Book> deleteBook(@RequestBody Book book){
+		System.out.println("Deleting book");
 		adminService.deleteBook(book);
 		return ResponseEntity.status(HttpStatus.ACCEPTED).build();
 	}
