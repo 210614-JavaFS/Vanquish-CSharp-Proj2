@@ -1,5 +1,7 @@
 package com.revature.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -16,8 +18,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.revature.models.Order;
 import com.revature.models.User;
 import com.revature.services.UserService;
 
@@ -139,14 +143,25 @@ public class UserController {
 		System.out.println("session is invalidated.");
 	}
 	
-	@PostMapping("/addOrder/{bookId}/{quantity}/{nativeAmount}")
-	public  ResponseEntity<User> addOrder(@PathVariable("userId") int userId, @PathVariable("bookId") int bookId, @PathVariable("quantity") int quantity, @PathVariable("nativeAmount") double nativeAmount){
-		userService.generatedOrder(userId, bookId, quantity, nativeAmount);
+	@PostMapping("/addOrder/{userId}/{bookId}/{nativeAmount}/{currencyName}")
+	public  ResponseEntity<User> addOrder(@PathVariable("userId") int userId, @PathVariable("bookId") int bookId, @PathVariable("nativeAmount") double nativeAmount , @PathVariable("currencyName") String moneyName){
+		userService.generatedOrder(userId, bookId,nativeAmount, moneyName);
 		
 		
 		return ResponseEntity.status(HttpStatus.CREATED).build();
 	}
 	
+	@GetMapping("/seeOrders/{userId}")
+	@ResponseBody
+	public List<Order> OrdersById(@PathVariable("userId") int userId) {
+		return userService.OrdersById(userId);
+	}
+	
+	@PutMapping("/updateStatus/{invoiceId}/{status}")
+	public  ResponseEntity<User> updateStatus(@PathVariable("invoiceId") int invoiceId, @PathVariable("status") String newStatus){
+		userService.statusUpdate(invoiceId, newStatus);
+		return ResponseEntity.status(HttpStatus.ACCEPTED).build();
+	}
 	
 	
 	
