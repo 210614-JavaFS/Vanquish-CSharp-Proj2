@@ -86,6 +86,8 @@ public class InvoiceDAOImpl implements InvoiceDAO{
 		Invoice invoice = (Invoice) result.get(0);
 		invoice.setInvoiceStatus("pending");
 		session.merge(invoice);
+		log.info(invoice.toString());
+		log.info(sql, (User.class) ,invoice.getUser().getUsername());
 		log.info("Got the invoice ticket from customer");
 		return invoice;
 	}
@@ -117,6 +119,7 @@ public class InvoiceDAOImpl implements InvoiceDAO{
 		query.setParameter("userid", userId);
 		List<Order> list =  query.getResultList();
 		log.info("User getting all orders by id.");
+	
 		return list;
 	}
 	// returns all orders base on userId. Includes pending,deny,approve,cancel/reject
