@@ -29,7 +29,7 @@ public class AdminDAOImpl implements AdminDAO {
 	@Autowired
 	private SessionFactory sessionFactory;
 
-	
+	@Autowired
 	public AdminDAOImpl(SessionFactory sessionFactory) {
 		super();
 		this.sessionFactory = sessionFactory;
@@ -67,7 +67,7 @@ public class AdminDAOImpl implements AdminDAO {
 	public void updateOrder(Order order) {
 		Session session = sessionFactory.getCurrentSession();
 		session.update(order);
-		log.info("Admin updated an existing order " + order.getInvoice().getUsdAmount());
+		log.info("Admin updated an existing order ");
 	}
 
 	@Override

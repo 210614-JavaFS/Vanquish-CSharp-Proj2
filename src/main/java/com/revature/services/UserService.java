@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.revature.models.Book;
 import com.revature.models.Invoice;
+import com.revature.models.Order;
 import com.revature.models.User;
 import com.revature.repos.BookDAO;
 import com.revature.repos.InvoiceDAO;
@@ -48,13 +49,23 @@ public class UserService {
 		
 	}
 	
-	public void generatedOrder(int userId, int bookId, int quantity, double nativeAmount) {
+	public void generatedOrder(int userId, int bookId, double nativeAmount, String name) {
 		User user = userDAO.findById(userId);
 		Book book = bookDAO.findBookById(bookId);
-		invoiceDAO.addInvoice(user, book, nativeAmount, quantity);
+		invoiceDAO.addInvoice(user, book, nativeAmount, name);
 		Invoice invoice = invoiceDAO.findInvoiceByuserId(userId);
-		invoiceDAO.addOrder(user, book, invoice, quantity);		
+		invoiceDAO.addOrder(user, book, invoice);		
 	}
+	
+	public void statusUpdate(int invoiceId, String status) {
+		invoiceDAO.updateStatusbyId(invoiceId, status);
+	}
+	
+	public List<Order> OrdersById(int userId){		
+		return invoiceDAO.findOrderByuserId(userId);
+	}
+	
+	
 	
 	
 	
