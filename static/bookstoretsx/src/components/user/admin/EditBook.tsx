@@ -1,8 +1,10 @@
-import axios from "axios";
-import { useState } from "react";
-import "../../../css/default.css"
+import React, { useState } from 'react'
 
-export default function AddBook(): JSX.Element {
+interface Props {
+
+}
+
+const EditBook = (props: Props) => {
 
     const [bookAuthor, setBookAuthor] = useState("");
     const [bookDescription, setBookDescription] = useState("");
@@ -12,38 +14,12 @@ export default function AddBook(): JSX.Element {
     const [imgURL, setimgURL] = useState("");
     const [bookCategory, setbookCategory] = useState("");
 
-    // "bookName":"THE LAST THING HE TOLD ME",
-    // "bookStockQuantity": 5,
-    // "costUSD": 19 ,
-    // "imgURL": "https://storage.googleapis.com/du-prd/books/images/9781501171345.jpg",
-    // "bookCategory":"fiction"
 
-
-
-    const URL = "http://localhost:8080/bookstore/admin/addbook";
-
-
-    async function submitHandler() {
-        console.log("Client request add book method");
-        const request = await axios.post(URL,
-            {
-                bookName,
-                author: bookAuthor,
-                bookDescription,
-                bookStockQuantity,
-                costUSD,
-                imgURL,
-                bookCategory
-            }
-        ).then(function (response) {
-            console.log(response);
-        })
-    }
 
     return (
         <div className="">
             <div>
-                <h1>Add Book Page</h1>
+                <h1>Update Book Page</h1>
             </div>
 
             <div className="flex justify margintop ">
@@ -97,28 +73,14 @@ export default function AddBook(): JSX.Element {
 
                     <button className="btn btn-primary" onClick={submitHandler} >Submit</button>
 
-
                 </div>
 
-                {/* <div className="">
-                    <label style={{ width: "200px" }} htmlFor="Category">Enter Book Category :</label>
-
-                    <input type="text" id="Category" name="Category" onChange={(e) => { setimgURL(e.target.value) }} />
-                </div>
-
-
-
-                <button className="btn btn-primary" onClick={submitHandler} >Submit</button> */}
             </div>
 
             {/* onClick={() => console.log(bookDescription)} */}
 
         </div>
-
-        // </div >
     )
-
 }
 
-
-// const [bookCategory, setbookCategory] = useState("");
+export default EditBook
