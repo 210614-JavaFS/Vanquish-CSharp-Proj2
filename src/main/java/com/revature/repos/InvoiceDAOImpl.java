@@ -54,6 +54,26 @@ public class InvoiceDAOImpl implements InvoiceDAO{
 
 
 	@Override
+	public List<Invoice> findAllInvoice() {
+		Session session = sessionFactory.getCurrentSession();
+//		CriteriaQuery<Invoice> cq = session.getCriteriaBuilder().createQuery(Invoice.class);
+//		cq.from(Invoice.class);
+		log.info("Admin retrieved all invoices.");
+//		return session.createQuery(cq).getResultList();
+		return session.createQuery("FROM Invoice").list();
+	}
+
+	
+	@Override
+	public Invoice findInvoiceById(int invoiceId) {
+		Session session = sessionFactory.getCurrentSession();
+		log.info("Admin retrieved an invoice " + invoiceId);
+		return session.get(Invoice.class, invoiceId);
+	}
+	
+	
+	
+	@Override
 	public Invoice findInvoiceByuserId(int userID) {
 		Session session = sessionFactory.getCurrentSession();
 		String sql = "SELECT invoice.* "

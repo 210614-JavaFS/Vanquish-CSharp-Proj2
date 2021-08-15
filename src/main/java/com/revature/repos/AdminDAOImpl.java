@@ -36,39 +36,48 @@ public class AdminDAOImpl implements AdminDAO {
 	}
 
 	
-	@Override
-	public List<Invoice> findAllInvoice() {
-		Session session = sessionFactory.getCurrentSession();
-//		CriteriaQuery<Invoice> cq = session.getCriteriaBuilder().createQuery(Invoice.class);
-//		cq.from(Invoice.class);
-		log.info("Admin retrieved all invoices.");
-//		return session.createQuery(cq).getResultList();
-		return session.createQuery("FROM Invoice").list();
-	}
+//	@Override
+//	public List<Invoice> findAllInvoice() {
+//		Session session = sessionFactory.getCurrentSession();
+////		CriteriaQuery<Invoice> cq = session.getCriteriaBuilder().createQuery(Invoice.class);
+////		cq.from(Invoice.class);
+//		log.info("Admin retrieved all invoices.");
+////		return session.createQuery(cq).getResultList();
+//		return session.createQuery("FROM Invoice").list();
+//	}
+//
+//	
+//	@Override
+//	public Invoice findInvoiceById(int invoiceId) {
+//		Session session = sessionFactory.getCurrentSession();
+//		log.info("Admin retrieved an invoice " + invoiceId);
+//		return session.get(Invoice.class, invoiceId);
+//	}
+//
+//	
+//	@Override
+//	public Invoice findInvoiceByUserId(int userId) {
+//		Session session = sessionFactory.getCurrentSession();
+//		log.info("Admin retrieved an invoice with userID " + userId);
+//		return session.get(Invoice.class, userId);	
+//	}
 
 	
-	@Override
-	public Invoice findInvoiceById(int invoiceId) {
-		Session session = sessionFactory.getCurrentSession();
-		log.info("Admin retrieved an invoice " + invoiceId);
-		return session.get(Invoice.class, invoiceId);
-	}
-
-	
-	@Override
-	public Invoice findInvoiceByUserId(int userId) {
-		Session session = sessionFactory.getCurrentSession();
-		log.info("Admin retrieved an invoice with userID " + userId);
-		return session.get(Invoice.class, userId);	
-	}
-
-	
+<<<<<<< HEAD
+//	@Override
+//	public void updateOrder(Order order) {
+//		Session session = sessionFactory.getCurrentSession();
+//		session.update(order);
+//		log.info("Admin updated an existing order " + order.getInvoice().getUsdAmount());
+//	}
+=======
 	@Override
 	public void updateOrder(Order order) {
 		Session session = sessionFactory.getCurrentSession();
 		session.update(order);
 		log.info("Admin updated an existing order ");
 	}
+>>>>>>> 97f1e86e0eed866c4a5f4dbac489fe1aae5cfc61
 
 	@Override
 	public void reviewInvoice(Invoice invoice) {
@@ -88,35 +97,35 @@ public class AdminDAOImpl implements AdminDAO {
 //		Session session = sessionFactory.getCurrentSession();
 //	}
 
-	@Override
-	public List<Book> findAllBook() {
-		Session session = sessionFactory.getCurrentSession();
-//		CriteriaQuery<Book> cq = session.getCriteriaBuilder().createQuery(Book.class);
-//		cq.from(Book.class);
-		log.info("Admin retrieved active book listing.");
-//		return session.createQuery(cq).getResultList();
-		return session.createQuery("FROM Book").list();
-	}
-
-	@Override
-	public void addBook(Book book) {
-		Session session = sessionFactory.getCurrentSession();
-		session.saveOrUpdate(book);
-		log.info("Admin added a new book "+ book.getBookName());
-	}
-
-	@Override
-	public void updateBook(Book book) {
-		Session session = sessionFactory.getCurrentSession();
-		session.update(book);
-		log.info("Admin updated an existing book " + book.getBookName());
-	}
-
-	@Override
-	public void deleteBook(Book book) {
-		Session session = sessionFactory.getCurrentSession();
-		session.delete(book);
-		log.info("Admin deleted a book from listing " + book.getBookName());
-	}
+//	@Override
+//	public List<Book> findAllBook() {
+//		Session session = sessionFactory.getCurrentSession();
+////		CriteriaQuery<Book> cq = session.getCriteriaBuilder().createQuery(Book.class);
+////		cq.from(Book.class);
+//		log.info("Admin retrieved active book listing.");
+////		return session.createQuery(cq).getResultList();
+//		return session.createQuery("FROM Book").list();
+//	}
+//
+//	@Override
+//	public void addBook(Book book) {
+//		Session session = sessionFactory.getCurrentSession();
+//		session.saveOrUpdate(book);
+//		log.info("Admin added a new book "+ book.getBookName());
+//	}
+//
+//	@Override
+//	public void updateBook(Book book) {
+//		Session session = sessionFactory.getCurrentSession();
+//		session.update(book);
+//		log.info("Admin updated an existing book " + book.getBookName());
+//	}
+//
+//	@Override
+//	public void deleteBook(Book book) {
+//		Session session = sessionFactory.getCurrentSession();
+//		session.delete(book);
+//		log.info("Admin deleted a book from listing " + book.getBookName());
+//	}
 
 }
