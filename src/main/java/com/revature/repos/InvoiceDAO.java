@@ -10,13 +10,10 @@ import com.revature.models.User;
 public interface InvoiceDAO {
 
 	
-	
-<<<<<<< HEAD
+
 	 public List<Invoice> findAllInvoice();
 	 public Invoice findInvoiceById(int invoiceId);
-	 
-=======
->>>>>>> 97f1e86e0eed866c4a5f4dbac489fe1aae5cfc61
+
 	 public void addInvoice(User user, Book book, double nativeAmount,  String name);
 	 //String status = 'new';
 	 
