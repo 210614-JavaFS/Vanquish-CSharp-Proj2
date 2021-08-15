@@ -18,7 +18,6 @@ import com.revature.models.Order;
 import com.revature.models.User;
 
 
-
 @Repository
 @Transactional(propagation=Propagation.NESTED)
 public class InvoiceDAOImpl implements InvoiceDAO{
@@ -34,7 +33,6 @@ public class InvoiceDAOImpl implements InvoiceDAO{
 	}
 
 	
-	
 	@Override
 	public void addInvoice(User user, Book book, double nativeAmount, int quantity) {
 		Session session = sessionFactory.getCurrentSession();
@@ -49,8 +47,18 @@ public class InvoiceDAOImpl implements InvoiceDAO{
 		log.info("User create a new invoice ticket.");
 	}
 
-
-
+	
+	@Override
+	public List<Invoice> findAllInvoice() {
+		Session session = sessionFactory.getCurrentSession();
+//		CriteriaQuery<Invoice> cq = session.getCriteriaBuilder().createQuery(Invoice.class);
+//		cq.from(Invoice.class);
+		log.info("Admin retrieved all invoices.");
+//		return session.createQuery(cq).getResultList();
+		return session.createQuery("FROM Invoice").list();
+	}
+	
+	
 	@Override
 	public Invoice findInvoiceByuserId(int userID) {
 		Session session = sessionFactory.getCurrentSession();
@@ -68,7 +76,13 @@ public class InvoiceDAOImpl implements InvoiceDAO{
 		return invoice;
 	}
 
-
+	@Override
+	public Invoice findInvoiceById(int invoiceId) {
+		Session session = sessionFactory.getCurrentSession();
+		log.info("Admin retrieved an invoice " + invoiceId);
+		return session.get(Invoice.class, invoiceId);
+	}
+	
 
 	@Override
 	public void addOrder(User user, Book book, Invoice invoice, int quantity) {
@@ -82,8 +96,5 @@ public class InvoiceDAOImpl implements InvoiceDAO{
 		log.info("User created a new Order");
 		
 	}
-
-
-
 
 }
