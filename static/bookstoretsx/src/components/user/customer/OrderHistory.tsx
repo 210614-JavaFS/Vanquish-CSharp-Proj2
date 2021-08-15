@@ -1,8 +1,26 @@
+import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { selectUser } from "../../../features/userSlice";
+import { apiGetOrderHistory } from "../../../remote/userApi";
 
 export default function OrderHistory(): JSX.Element {
     const user = useSelector(selectUser);
+
+    async function retrieveOrderHistory() {
+
+        let orderObject = await apiGetOrderHistory();
+
+        if (orderObject) {
+            console.log("I got current Order");
+            console.log(`current user is ${orderObject}`);
+        } else {
+            console.log("I haven't got current user");
+        }
+
+    }
+    useEffect(() => {
+        retrieveOrderHistory();
+      }, []); 
 
     return (
         <div className="container-fluid">

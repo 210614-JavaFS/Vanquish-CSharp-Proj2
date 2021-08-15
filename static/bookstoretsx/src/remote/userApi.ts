@@ -83,26 +83,21 @@ export const apiUpdateUser = async (user: User):Promise<User[]> => {
     }
 }
 
-export type Order = { 
+export type OrderHistory = { 
     userId: number,
     bookId: number,
     nativeAmount: number,
 }
 
+//get Current User Information
+export const apiGetOrderHistory = async ():Promise<OrderHistory[]> => {
+    const response = await userClient.get<OrderHistory[]>('/getcurrentuser', {withCredentials: true});
 
-// New Order
-export const apiNewUserOrder = async (order: Order):Promise<Order[]> => {
-    console.log("hit new Order route");
-    const response = await userClient.post<Order[]>('/addOrder/{userId}/{bookId}/{nativeAmount}/{currencyName}');
-
-    console.log(`NewOrder response status is ${response.status}`)
-    if (response.status === 201) {
-        console.log("successfully made new order")
-        window.location.reload();
+    console.log(response.status)
+    // console.log(`Response status is: ${response.status}`)
+    if (response.status === 200) {
         return response.data;
     } else {
-        console.log("failed to order")
         return [];
     }
-
 }
