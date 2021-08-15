@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
 import com.revature.models.User;
 import com.revature.services.UserService;
 
@@ -137,4 +138,16 @@ public class UserController {
 		session.invalidate();
 		System.out.println("session is invalidated.");
 	}
+	
+	@PostMapping("/addOrder/{bookId}/{quantity}/{nativeAmount}")
+	public  ResponseEntity<User> addOrder(@PathVariable("userId") int userId, @PathVariable("bookId") int bookId, @PathVariable("quantity") int quantity, @PathVariable("nativeAmount") double nativeAmount){
+		userService.generatedOrder(userId, bookId, quantity, nativeAmount);
+		
+		
+		return ResponseEntity.status(HttpStatus.CREATED).build();
+	}
+	
+	
+	
+	
 }
