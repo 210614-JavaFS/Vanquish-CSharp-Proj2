@@ -122,3 +122,8 @@ body {
 .padding-top-md {
     padding-top: 100px;
 }
+
+table {
+    table-layout: auto;
+    width: 150px;
+}

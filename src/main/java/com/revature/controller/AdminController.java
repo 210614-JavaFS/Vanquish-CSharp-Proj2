@@ -108,4 +108,10 @@ public class AdminController {
 		adminService.deleteBook(bookId);
 		return ResponseEntity.status(HttpStatus.ACCEPTED).build();
 	}
+	
+	@GetMapping("/allorder")
+	public List<Order> allOrder(){
+		return adminService.getAllOrders();
+	}
+	
 }
