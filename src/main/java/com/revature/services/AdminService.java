@@ -7,11 +7,10 @@ import org.springframework.stereotype.Service;
 
 import com.revature.models.Book;
 import com.revature.models.Invoice;
+import com.revature.models.Order;
 import com.revature.repos.AdminDAO;
-<<<<<<< HEAD
 import com.revature.repos.BookDAO;
-=======
->>>>>>> 97f1e86e0eed866c4a5f4dbac489fe1aae5cfc61
+
 import com.revature.repos.InvoiceDAO;
 
 
@@ -19,10 +18,7 @@ import com.revature.repos.InvoiceDAO;
 public class AdminService {
 
 	private AdminDAO adminDAO;
-<<<<<<< HEAD
 	private BookDAO bookDAO;
-=======
->>>>>>> 97f1e86e0eed866c4a5f4dbac489fe1aae5cfc61
 	private InvoiceDAO invoiceDAO;
 
 
@@ -32,19 +28,15 @@ public class AdminService {
 //		this.adminDAO = adminDAO;
 //	}
 
+	
 	@Autowired
-<<<<<<< HEAD
 	public AdminService(AdminDAO adminDAO, BookDAO bookDAO, InvoiceDAO invoiceDAO) {
 		super();
 		this.adminDAO = adminDAO;
 		this.bookDAO = bookDAO;
-=======
-	public AdminService(AdminDAO adminDAO, InvoiceDAO invoiceDAO) {
-		super();
-		this.adminDAO = adminDAO;
->>>>>>> 97f1e86e0eed866c4a5f4dbac489fe1aae5cfc61
 		this.invoiceDAO = invoiceDAO;
 	}
+
 
 
 	public List<Invoice> getAllInvoice() {
