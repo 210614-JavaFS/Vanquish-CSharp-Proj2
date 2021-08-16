@@ -112,12 +112,11 @@ public class InvoiceDAOImpl implements InvoiceDAO{
 	@Override
 	public List<Order>  findOrderByuserId(int userId) {
 		Session session = sessionFactory.getCurrentSession();
-		String sql = " SELECT orders.* "
-				+ "FROM orders "
-				+ "LEFT JOIN invoice ON orders.USER_ID = invoice.USER_ID WHERE orders.USER_ID = :userid ; ";
+		String sql = "SELECT * FROM ORDERS  WHERE orders.USER_ID = :userid ; ";
 		Query<Order> query = session.createNativeQuery(sql, Order.class);
 		query.setParameter("userid", userId);
 		List<Order> list =  query.getResultList();
+		log.info(" List size should be 2 "+list.size());
 		log.info("User getting all orders by id.");
 	
 		return list;
@@ -126,11 +125,12 @@ public class InvoiceDAOImpl implements InvoiceDAO{
 
 	// this will update the status but untested
 	@Override
-	public void updateStatusbyId(int invoiceId, String status) {
+	public void updateStatusbyId(int invoiceid, String status) {
+		log.info("Find old status");
 		Session session = sessionFactory.getCurrentSession();
-		String sql = "SELECT * FROM invoice WHERE INVOICE.INVOICE_ID = :invoiceid;" ;
+		String sql = "SELECT * FROM invoice WHERE INVOICE.INVOICE_ID = :invoiceid ;" ;
 		NativeQuery<Invoice> query = session.createNativeQuery(sql, Invoice.class);
-		query.setParameter("invoiceid", invoiceId);
+		query.setParameter("invoiceid", invoiceid);
 		List<Invoice> result = query.getResultList();
 		Invoice invoice = (Invoice) result.get(0);
 		invoice.setInvoiceStatus(status);

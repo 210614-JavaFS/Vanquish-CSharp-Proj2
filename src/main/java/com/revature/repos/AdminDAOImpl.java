@@ -84,9 +84,9 @@ public class AdminDAOImpl implements AdminDAO {
 		Session session = sessionFactory.getCurrentSession();
 		session.update(invoice);
 		if(invoice.getInvoiceStatus().toLowerCase().equals("approved")) {
-			log.info("Admin approved " + invoice.getInvoiceID() + "with total USD:$" + invoice.getUsdAmount());
+			log.info("Admin approved invoice ID: " + invoice.getInvoiceID() + " with total USD:$" + invoice.getUsdAmount());
 		} else if(invoice.getInvoiceStatus().toLowerCase().equals("rejected")) {
-			log.info("Admin rejected " + invoice.getInvoiceID());
+			log.info("Admin rejected invoice ID: " + invoice.getInvoiceID());
 		} else {
 			System.out.println("Something went wrong!");
 		}
@@ -97,15 +97,15 @@ public class AdminDAOImpl implements AdminDAO {
 //		Session session = sessionFactory.getCurrentSession();
 //	}
 
-//	@Override
-//	public List<Book> findAllBook() {
-//		Session session = sessionFactory.getCurrentSession();
-////		CriteriaQuery<Book> cq = session.getCriteriaBuilder().createQuery(Book.class);
-////		cq.from(Book.class);
-//		log.info("Admin retrieved active book listing.");
-////		return session.createQuery(cq).getResultList();
-//		return session.createQuery("FROM Book").list();
-//	}
+	@Override
+	public List<Book> findAllBook() {
+		Session session = sessionFactory.getCurrentSession();
+//		CriteriaQuery<Book> cq = session.getCriteriaBuilder().createQuery(Book.class);
+//		cq.from(Book.class);
+		log.info("Admin retrieved active book listing.");
+//		return session.createQuery(cq).getResultList();
+		return session.createQuery("FROM Book").list();
+	}
 //
 //	@Override
 //	public void addBook(Book book) {

@@ -23,7 +23,7 @@ public interface AdminDAO {
 //	public void rejectOrder(Invoice invoice);
 	
 	//Populate Book listing
-//	public List<Book> findAllBook();
+	public List<Book> findAllBook();
 //	public void addBook(Book book);
 //	public void updateBook(Book book);
 //	public void deleteBook(Book book);
