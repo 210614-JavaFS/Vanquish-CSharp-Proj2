@@ -5,12 +5,13 @@ import { selectUser } from '../features/userSlice';
 import Books from '../models/Books';
 import { BookApiResponse } from '../remote/bookApi';
 import booksClient from '../remote/BooksClient';
+import GetCurrencies from '../remote/GetCurrencies';
 
 type Props = {
-    getRate: number
+    // getRate: number
 }
 
-const GetBooks: React.FC<Props> = ({ getRate }) => {
+const GetBooks: React.FC<Props> = () => {
     const user = useSelector(selectUser);
     const [books, setBooks] = useState<[]>([]);
     const baseURL = "http://localhost:8080/bookstore/admin/allbook";
@@ -18,7 +19,9 @@ const GetBooks: React.FC<Props> = ({ getRate }) => {
     const [currencyOption, setCurrencyOptions] = useState([]);
     const [symbol, setSymbol] = useState("");
     const [toCurrency, setToCurrency] = useState("");
-    const [defaultCurrency, setDefaultCurrency] = useState(user.currencyID);
+    const [defaultUserCurrency, setDefaultUserCurrency] = useState("");
+    const [getRate, SetGetRate] = useState<number | undefined>();
+    const [defaultUserID, setDefaultUserID] = useState(user.currencyID);
 
 
     useEffect(() => {
@@ -38,35 +41,38 @@ const GetBooks: React.FC<Props> = ({ getRate }) => {
                 console.log(data.data);
                 setBooks(data.data);
             }
+            console.log(defaultUserID);
 
-            async function getCurrencyList() {
+            // async function getCurrencyList() {
 
-                const response = await axios.get("https://free.currconv.com/api/v7/currencies?apiKey=c728cb6404e7db7045e9");
-                console.log(response);
+            //     const response = await axios.get("https://free.currconv.com/api/v7/currencies?apiKey=c728cb6404e7db7045e9");
+            //     console.log(response);
 
-                if (response != null) {
-                    let data2 = await response.data.results;
-                    console.log(data2);
-                    //    if(user3!=null){}
-                    // setToCurrency()
-                    if (user != null && user.currencyID) {
-                        console.log(user);
-                        console.log(data2[user.currencyID]);
-                        const userSymbol = data2[user.currencyID].currencySymbol
-                        console.log(userSymbol);
-                        setSymbol(userSymbol)
-                        console.log(data2[user.currencyID].currencyName);
-                        // setSymbol(data2[user3.currencyID].currencyName)
+            //     if (response != null) {
+            //         let data2 = await response.data.results;
+            //         console.log(data2);
+            //         //    if(user3!=null){}
+            //         // setToCurrency()
+            //         if (user != null && user.currencyID) {
+            //             console.log(user);
+            //             console.log(data2[user.currencyID]);
+            //             const userSymbol = data2[user.currencyID].currencySymbol
+            //             console.log(userSymbol);
+            //             setSymbol(userSymbol)
+            //             const userDcurrency = data2[user.currencyID].currencyName;
+            //             console.log(userDcurrency);
+            //             setDefaultUserCurrency(userDcurrency);
+            //             // setSymbol(data2[user3.currencyID].currencyName)
 
-                        // getCurrencySymbol(data2[user3.currencyID]);
-                    }
-                    // setCurrencyOptions(Object.keys(data2).map(function (key) {
-                    //     return data2[key]
-                    // }))
-                }
-            }
+            //             // getCurrencySymbol(data2[user3.currencyID]);
+            //         }
+            //         // setCurrencyOptions(Object.keys(data2).map(function (key) {
+            //         //     return data2[key]
+            //         // }))
+            //     }
+            // }
 
-            getCurrencyList()
+            // getCurrencyList()
 
             return () => {
                 console.log("Cancelling api call");
@@ -92,9 +98,14 @@ const GetBooks: React.FC<Props> = ({ getRate }) => {
 
         return { status: 404, message: "Failed to fetch Book" }
     }
+    const getCurrencyRate = (uppass: number) => {
 
+        console.log(uppass);
+        SetGetRate(uppass);
+    }
     return (
         <div className="">
+            <GetCurrencies getCurrencyRate={getCurrencyRate} defaultUserID={defaultUserID} />
             <div className="">
                 Books:
             </div>
@@ -114,13 +125,20 @@ const GetBooks: React.FC<Props> = ({ getRate }) => {
                     } = book
 
                     const usdPrice = costUSD;
-                    const convertedPrice = (getRate * costUSD).toFixed(2);
+
+
+                    const convertedPrice = getRate ? (getRate * costUSD).toFixed(2) : 0;
+
+
 
                     async function handleOrderButton() {
 
                     }
+
+
                     return (
                         <div className="padding1 " key={bookId} style={{
+
                             width: "350px", height: "620px", border: "1px solid white",
                             margin: "5%",
                             fontSize: "1rem",
@@ -159,7 +177,7 @@ const GetBooks: React.FC<Props> = ({ getRate }) => {
                                 </div>
                                 <div className="">
                                     <strong>Converted Price: </strong>
-                                    &nbsp; <strong style={{ color: "green" }}> {convertedPrice} </strong>
+                                    &nbsp; <strong style={{ color: "green" }}>{symbol} {convertedPrice} </strong>
                                     &nbsp;
                                     <button className="btn btn-primary btn-sm" onClick={handleOrderButton}>Add to Order</button>
                                 </div>

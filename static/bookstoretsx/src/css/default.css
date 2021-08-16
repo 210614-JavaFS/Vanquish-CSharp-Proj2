@@ -98,31 +98,6 @@ hr {
   }
 }
 
-html {
-  /* overflow-x: hidden ;  */
-  max-width: 100vw;
-  box-sizing: border-box;
-}
-
-body {
-  margin: 0;
-  /* background-color: rgb(243, 243, 243); */
-  /* background: linear-gradient(to left top, #F3EADA, #E8FEF9); */
-  /* background: linear-gradient(to left top, wheat, black); */
-  width: 100vw;
-  height: 100%;
-  margin: 0px;
-  /* -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale; */
-  overflow-x: hidden !important;
-  /* font-family: cursive, Helvetica, sans-serif; */
-  color: #284243;
-  /* background-color: 284243; */
-  line-height: 1.4rem;
-  height: 100%;
-  margin: 0px;
-}
-
 .sticky {
   position: sticky;
   top: 0px;
