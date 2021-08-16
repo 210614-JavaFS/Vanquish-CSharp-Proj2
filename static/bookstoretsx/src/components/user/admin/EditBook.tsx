@@ -1,9 +1,12 @@
-import axios from "axios";
-import { useState } from "react";
-import "../../../css/default.css"
+import axios from 'axios';
+import React, { useState } from 'react'
 
-export default function AddBook(): JSX.Element {
+interface Props {
 
+}
+
+const EditBook = (props: Props) => {
+    const [bookId, setbookId] = useState("");
     const [bookAuthor, setBookAuthor] = useState("");
     const [bookDescription, setBookDescription] = useState("");
     const [bookName, setbookName] = useState("");
@@ -12,35 +15,40 @@ export default function AddBook(): JSX.Element {
     const [imgURL, setimgURL] = useState("");
     const [bookCategory, setbookCategory] = useState("");
 
-    const URL = "http://localhost:8080/bookstore/admin/addbook";
+    const URL = "http://localhost:8080/bookstore/admin/updatebook";
 
-
-    async function submitHandler() {
-        console.log("Client request add book method");
-        const request = await axios.post(URL,
-            {
-                bookName,
-                author: bookAuthor,
-                bookDescription,
-                bookStockQuantity,
-                costUSD,
-                imgURL,
-                bookCategory
-            }
-        ).then(function (response) {
-            console.log(response);
+    async function updateHandler() {
+        const request = await axios.put(URL, {
+            bookId,
+            bookName,
+            author: bookAuthor,
+            bookDescription,
+            bookStockQuantity,
+            costUSD,
+            imgURL,
+            bookCategory
         })
+            .then(
+                (response) => { console.log(response); }
+            )
     }
+
 
     return (
         <div className="container-fluid">
             <div className="row">
                 <div className="col-sm-3"></div>
-                <div className="col-sm-6">         
+                <div className="col-sm-6">
 
-                    <div className="modal-content extra-box-space transparent-nav">
+                    <div className="modal-content extra-box-space transparent-nav" >
                         <div className="d-flex justify-content-center modal-header">
-                            <h1 className="font-caps">Add Book Page</h1>
+                            <h1 className="font-caps">Edit Book Page</h1>
+                        </div>
+
+                        <div className="">
+                            <label style={{ width: "200px" }} htmlFor="bookId">Enter Book Id:</label>
+
+                            <input type="number" id="bookId" name="bookId" onChange={(e) => { setbookId(e.target.value) }} />
                         </div>
 
                         <div className="">
@@ -88,18 +96,21 @@ export default function AddBook(): JSX.Element {
                             <label style={{ width: "100px" }} htmlFor="non_fiction">NON FICTION</label>
                         </div>
 
-                        <button className="btn btn-primary" onClick={submitHandler} >Submit</button>
+                        <button className="btn btn-primary" onClick={updateHandler}   >Submit</button>
 
                     </div>
- 
                 </div>
                 <div className="col-sm-3"></div>
             </div>
+           
+
+
+            
+
+            {/* onClick={() => console.log(bookDescription)}  onClick={submitHandler} */}
 
         </div>
-
-
     )
-
 }
 
+export default EditBook

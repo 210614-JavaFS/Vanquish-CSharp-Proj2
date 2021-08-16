@@ -1,6 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Oxygen:wght@300&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Arima+Madurai:wght@100&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poiret+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cousine&family=Share&display=swap');
 html,
 body {
     min-height: 100%;
@@ -8,7 +10,7 @@ body {
 
 body {
     background: rgb(2, 0, 36);
-    background: linear-gradient(180deg, #deddf7 0%, #ebe7df 53%, #98a1bb 100%);
+    background: linear-gradient(180deg, #deddf7 0%, #e6ebdf 53%, #98a1bb 100%);
     color: #000000f1;
     font-family: 'Oxygen', sans-serif;
     background-repeat: no-repeat;
@@ -42,6 +44,12 @@ body {
     margin: 0;
 }
 
+.transparent-modal {
+    background: rgb(2, 0, 36);
+    background: linear-gradient(180deg, #ceceffde 0%, #e6ebdff1 53%, #d4f1ffd8 100%);
+    margin: 0;
+}
+
 .zindex {
     z-index: 1000;
 }
@@ -70,6 +78,20 @@ body {
     font-family: 'Arima Madurai', cursive;
 }
 
+.poiret-font {
+    font-family: 'Poiret One', cursive;
+    font-weight: bolder;
+}
+
+.share-font {
+    font-family: 'Share', cursive;
+    font-size: 20px;
+}
+
+.cousine-font {
+    font-family: 'Cousine', monospace;
+}
+
 
 /* NOTE. FONT Size */
 
@@ -79,6 +101,10 @@ body {
 
 .font-size-lg {
     font-size: 78px;
+}
+
+.font-size-sm {
+    font-size: 20px;
 }
 
 
@@ -119,11 +145,35 @@ body {
     transform: translatex(-50%);
 }
 
+.padding-top-sm {
+    padding-top: 20px;
+}
+
 .padding-top-md {
     padding-top: 100px;
+}
+
+.padding-left-sm {
+    padding-left: 10px;
+}
+
+.padding-right-md {
+    padding-right: 25px;
+}
+
+.extra-box-space {
+    padding: 40px;
 }
 
 table {
     table-layout: auto;
     width: 150px;
+}
+
+.icon-nav {
+    padding-left: 15px;
+}
+
+.expand-icon:hover {
+    transform: scale(1.2);
 }

@@ -9,36 +9,48 @@ import com.revature.models.Book;
 import com.revature.models.Invoice;
 import com.revature.models.Order;
 import com.revature.repos.AdminDAO;
+import com.revature.repos.BookDAO;
+
+import com.revature.repos.InvoiceDAO;
 
 
 @Service
 public class AdminService {
 
 	private AdminDAO adminDAO;
+	private BookDAO bookDAO;
+	private InvoiceDAO invoiceDAO;
 
 
-	@Autowired
-	public AdminService(AdminDAO adminDAO) {
-		super();
-		this.adminDAO = adminDAO;
-	}
-
-	public List<Invoice> getAllInvoice() {
-		return adminDAO.findAllInvoice();
-	}
+//	@Autowired
+//	public AdminService(AdminDAO adminDAO) {
+//		super();
+//		this.adminDAO = adminDAO;
+//	}
 
 	
+	@Autowired
+	public AdminService(AdminDAO adminDAO, BookDAO bookDAO, InvoiceDAO invoiceDAO) {
+		super();
+		this.adminDAO = adminDAO;
+		this.bookDAO = bookDAO;
+		this.invoiceDAO = invoiceDAO;
+	}
+
+
+
+	public List<Invoice> getAllInvoice() {
+		return invoiceDAO.findAllInvoice();
+	}
+
 	public Invoice getInvoiceById(int invoiceId) {
-		return adminDAO.findInvoiceById(invoiceId);
+		return invoiceDAO.findInvoiceById(invoiceId);
 	}
 	
 	public Invoice getInvoiceByUserId(int userId) {
-		return adminDAO.findInvoiceByUserId(userId);
+		return invoiceDAO.findInvoiceByuserId(userId);
 	}
 	
-	public void updateOrder(Order order) {
-		adminDAO.updateOrder(order);
-	}
 	
 	public void reviewInvoice(Invoice invoice) {
 		adminDAO.reviewInvoice(invoice);
@@ -46,23 +58,34 @@ public class AdminService {
 	
 	
 	public List<Book> getAllBook(){
-		return adminDAO.findAllBook();
+		return bookDAO.findAllBook();
+	}
+	
+	public Book getBookById(int bookId){
+		return bookDAO.findBookById(bookId);
 	}
 	
 	
 	public void addBook(Book book) {
-		adminDAO.addBook(book);
+		bookDAO.addBook(book);
 	}
 	
 	
 	public void updateBook(Book book) {
-		adminDAO.updateBook(book);
+		bookDAO.updateBook(book);
 	}
 	
 	
-	public void deleteBook(Book book) {
-		adminDAO.deleteBook(book);
+	public void deleteBook(int bookId) {
+		bookDAO.deleteBook(bookId);
 	}
 	
+	public List<Order> getAllOrders(){		
+		return invoiceDAO.allOrder();
+	}
+	
+	public void statusUpdate(int invoiceId, String status) {
+		invoiceDAO.updateStatusbyId(invoiceId, status);
+	}
 	
 }

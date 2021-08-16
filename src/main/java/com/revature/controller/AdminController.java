@@ -8,11 +8,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.revature.models.Book;
@@ -49,10 +49,29 @@ public class AdminController {
 		return adminService.getAllInvoice();
 	}
 	
+	
+	@GetMapping("/invoice/{id}")
+	public ResponseEntity<Invoice> getOneInvoice(@PathVariable("id") int invoiceId) {
+		Invoice invoice = adminService.getInvoiceById(invoiceId);
+		if(invoice == null) {
+			return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+		}
+		return ResponseEntity.status(HttpStatus.OK).body(invoice);
+	}
+	
 
 	@GetMapping("/allbook")
 	public List<Book> allBook(){
 		return adminService.getAllBook();
+	}
+	
+	@GetMapping("/book/{id}")
+	public ResponseEntity<Book> getOneBook(@PathVariable("id") int bookId){
+		Book book = adminService.getBookById(bookId);
+		if(book == null) {
+			return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+		}
+		return ResponseEntity.status(HttpStatus.OK).body(book);
 	}
 	
 	
@@ -62,28 +81,35 @@ public class AdminController {
 		return ResponseEntity.status(HttpStatus.CREATED).build();
 	}
 	
-	@PutMapping("/updatebook")
+	@PutMapping("/book/{Id}/update")
 	public ResponseEntity<Book> updateBook(@RequestBody Book book){
 		adminService.updateBook(book);
 		return ResponseEntity.status(HttpStatus.ACCEPTED).build();
 	}
 	
-	@PutMapping("/updateorder")
-	public ResponseEntity<Order> updateOrder(@RequestBody Order order){
-		adminService.updateOrder(order);
-		return ResponseEntity.status(HttpStatus.ACCEPTED).build();
-	}
+//	@PutMapping("/updateorder")
+//	public ResponseEntity<Order> updateOrder(@RequestBody Order order){
+//		adminService.updateOrder(order);
+//		return ResponseEntity.status(HttpStatus.ACCEPTED).build();
+//	}
 	
-	@PutMapping("/updateinvoice")
-	public ResponseEntity<Invoice> updateInvoiceStatus(@RequestBody Invoice invoice){
-		adminService.reviewInvoice(invoice);
+	@PutMapping("/invoice/{id}/{status}")
+	public ResponseEntity<Invoice> updateInvoiceStatus(@PathVariable("id") int invoiceId, @PathVariable("status") String status){
+		adminService.statusUpdate(invoiceId, status);;
 		return ResponseEntity.status(HttpStatus.ACCEPTED).build();
 	}
 
 	
-	@DeleteMapping
-	public ResponseEntity<Book> deleteBook(@RequestBody Book book){
-		adminService.deleteBook(book);
+	@DeleteMapping("/delete")
+	public ResponseEntity<Book> deleteBook(@RequestBody int bookId){
+		System.out.println("Deleting book");
+		adminService.deleteBook(bookId);
 		return ResponseEntity.status(HttpStatus.ACCEPTED).build();
 	}
+	
+	@GetMapping("/allorder")
+	public List<Order> allOrder(){
+		return adminService.getAllOrders();
+	}
+	
 }

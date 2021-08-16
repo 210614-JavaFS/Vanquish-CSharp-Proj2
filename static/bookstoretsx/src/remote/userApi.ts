@@ -83,26 +83,34 @@ export const apiUpdateUser = async (user: User):Promise<User[]> => {
     }
 }
 
-export type Order = { 
-    userId: number,
-    bookId: number,
-    nativeAmount: number,
+//get Current User Information
+export const apiGetOrderHistory = async (userId: number):Promise<unknown[]> => {
+    const response = await userClient.get<unknown[]>('/seeOrders/'+userId, {withCredentials: true});
+
+    console.log(response.status)
+    // console.log(`Response status is: ${response.status}`)
+    if (response.status === 200) {
+        return response.data;
+    } else {
+        return [];
+    }
 }
 
+// update user order status
+export const apiUpdateUserOrder = async (invoiceId:number|undefined, status:String):Promise<null> => {
+    console.log("hit updated route");
+    
+    const response = await userClient.put<null>('/updateStatus/'+invoiceId+"/"+status, {withCredentials: true});
 
-// New Order
-export const apiNewUserOrder = async (order: Order):Promise<Order[]> => {
-    console.log("hit new Order route");
-    const response = await userClient.post<Order[]>('/addOrder/{userId}/{bookId}/{nativeAmount}/{currencyName}');
-
-    console.log(`NewOrder response status is ${response.status}`)
-    if (response.status === 201) {
-        console.log("successfully made new order")
+    console.log(`Update response status is ${response.status}`)
+    if (response.status === 202) {
+        alert("Succesfully updated!")
+        console.log("successfully updated")
         window.location.reload();
         return response.data;
     } else {
-        console.log("failed to order")
-        return [];
+        alert("Oops. Update request failed...")
+        console.log("failed to update")
+        return null;
     }
-
 }

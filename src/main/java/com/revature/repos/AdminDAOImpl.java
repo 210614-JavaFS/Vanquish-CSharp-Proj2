@@ -29,55 +29,64 @@ public class AdminDAOImpl implements AdminDAO {
 	@Autowired
 	private SessionFactory sessionFactory;
 
-	
+	@Autowired
 	public AdminDAOImpl(SessionFactory sessionFactory) {
 		super();
 		this.sessionFactory = sessionFactory;
 	}
 
 	
-	@Override
-	public List<Invoice> findAllInvoice() {
-		Session session = sessionFactory.getCurrentSession();
-//		CriteriaQuery<Invoice> cq = session.getCriteriaBuilder().createQuery(Invoice.class);
-//		cq.from(Invoice.class);
-		log.info("Admin retrieved all invoices.");
-//		return session.createQuery(cq).getResultList();
-		return session.createQuery("FROM Invoice").list();
-	}
+//	@Override
+//	public List<Invoice> findAllInvoice() {
+//		Session session = sessionFactory.getCurrentSession();
+////		CriteriaQuery<Invoice> cq = session.getCriteriaBuilder().createQuery(Invoice.class);
+////		cq.from(Invoice.class);
+//		log.info("Admin retrieved all invoices.");
+////		return session.createQuery(cq).getResultList();
+//		return session.createQuery("FROM Invoice").list();
+//	}
+//
+//	
+//	@Override
+//	public Invoice findInvoiceById(int invoiceId) {
+//		Session session = sessionFactory.getCurrentSession();
+//		log.info("Admin retrieved an invoice " + invoiceId);
+//		return session.get(Invoice.class, invoiceId);
+//	}
+//
+//	
+//	@Override
+//	public Invoice findInvoiceByUserId(int userId) {
+//		Session session = sessionFactory.getCurrentSession();
+//		log.info("Admin retrieved an invoice with userID " + userId);
+//		return session.get(Invoice.class, userId);	
+//	}
 
 	
-	@Override
-	public Invoice findInvoiceById(int invoiceId) {
-		Session session = sessionFactory.getCurrentSession();
-		log.info("Admin retrieved an invoice " + invoiceId);
-		return session.get(Invoice.class, invoiceId);
-	}
 
-	
-	@Override
-	public Invoice findInvoiceByUserId(int userId) {
-		Session session = sessionFactory.getCurrentSession();
-		log.info("Admin retrieved an invoice with userID " + userId);
-		return session.get(Invoice.class, userId);	
-	}
+//	@Override
+//	public void updateOrder(Order order) {
+//		Session session = sessionFactory.getCurrentSession();
+//		session.update(order);
+//		log.info("Admin updated an existing order " + order.getInvoice().getUsdAmount());
+//	}
 
-	
-	@Override
-	public void updateOrder(Order order) {
-		Session session = sessionFactory.getCurrentSession();
-		session.update(order);
-		log.info("Admin updated an existing order " + order.getInvoice().getUsdAmount());
-	}
+//	@Override
+//	public void updateOrder(Order order) {
+//		Session session = sessionFactory.getCurrentSession();
+//		session.update(order);
+//		log.info("Admin updated an existing order ");
+//	}
+
 
 	@Override
 	public void reviewInvoice(Invoice invoice) {
 		Session session = sessionFactory.getCurrentSession();
 		session.update(invoice);
 		if(invoice.getInvoiceStatus().toLowerCase().equals("approved")) {
-			log.info("Admin approved " + invoice.getInvoiceID() + "with total USD:$" + invoice.getUsdAmount());
+			log.info("Admin approved invoice ID: " + invoice.getInvoiceID() + " with total USD:$" + invoice.getUsdAmount());
 		} else if(invoice.getInvoiceStatus().toLowerCase().equals("rejected")) {
-			log.info("Admin rejected " + invoice.getInvoiceID());
+			log.info("Admin rejected invoice ID: " + invoice.getInvoiceID());
 		} else {
 			System.out.println("Something went wrong!");
 		}
@@ -97,26 +106,26 @@ public class AdminDAOImpl implements AdminDAO {
 //		return session.createQuery(cq).getResultList();
 		return session.createQuery("FROM Book").list();
 	}
-
-	@Override
-	public void addBook(Book book) {
-		Session session = sessionFactory.getCurrentSession();
-		session.saveOrUpdate(book);
-		log.info("Admin added a new book "+ book.getBookName());
-	}
-
-	@Override
-	public void updateBook(Book book) {
-		Session session = sessionFactory.getCurrentSession();
-		session.update(book);
-		log.info("Admin updated an existing book " + book.getBookName());
-	}
-
-	@Override
-	public void deleteBook(Book book) {
-		Session session = sessionFactory.getCurrentSession();
-		session.delete(book);
-		log.info("Admin deleted a book from listing " + book.getBookName());
-	}
+//
+//	@Override
+//	public void addBook(Book book) {
+//		Session session = sessionFactory.getCurrentSession();
+//		session.saveOrUpdate(book);
+//		log.info("Admin added a new book "+ book.getBookName());
+//	}
+//
+//	@Override
+//	public void updateBook(Book book) {
+//		Session session = sessionFactory.getCurrentSession();
+//		session.update(book);
+//		log.info("Admin updated an existing book " + book.getBookName());
+//	}
+//
+//	@Override
+//	public void deleteBook(Book book) {
+//		Session session = sessionFactory.getCurrentSession();
+//		session.delete(book);
+//		log.info("Admin deleted a book from listing " + book.getBookName());
+//	}
 
 }

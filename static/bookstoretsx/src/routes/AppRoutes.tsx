@@ -14,17 +14,20 @@ import OrderHistory from "../components/user/customer/OrderHistory";
 import CustomerOrders from "../components/user/admin/CustomerOrders";
 import AboutUs from "../components/about-us/AboutUs";
 import AddBook from "../components/user/admin/AddBook";
+import EditBook from "../components/user/admin/EditBook"
+import ViewAllBooks from "../components/user/admin/ViewAllBooks"
+
 
 const AppRoutes: React.FC<any> = (): JSX.Element => {
     const user = useSelector(selectUser);
-    const [getRate, SetGetRate] = useState(0);
+    // const [getRate, SetGetRate] = useState(0);
 
 
-    const getCurrencyRate = (uppass: number) => {
+    // const getCurrencyRate = (uppass: number) => {
 
-        console.log(uppass);
-        SetGetRate(uppass);
-    }
+    //     console.log(uppass);
+    //     SetGetRate(uppass);
+    // }
 
     return (
         <div >
@@ -35,40 +38,52 @@ const AppRoutes: React.FC<any> = (): JSX.Element => {
 
             {/* TODO. main Index. Book listings */}
             <Route exact path="/">
-                <GetCurrencies getCurrencyRate={getCurrencyRate} />
-                <GetBooks getRate={getRate} />
+                {/* <GetCurrencies getCurrencyRate={getCurrencyRate} /> */}
+                <GetBooks />
             </Route>
 
             {/* TODO. User Pages */}
             {/* User Profile */}
             <Route path="/userProfile">
-                <UserProfile/>
+                <UserProfile />
             </Route>
-            
+
             {/* TODO. Customer Order History */}
             <Route path="/customerOrderHistory">
-                <OrderHistory/>
+                <OrderHistory />
             </Route>
 
             {/* TODO. Admin Order View */}
             <Route path="/adminOrderView">
-                { user.userRole === "admin" ? <CustomerOrders/> : null }
+                {user.userRole === "admin" ? <CustomerOrders /> : null}
             </Route>
 
             {/* TODO. Admin Add Book View */}
-            { user.userRole === "admin" ? 
-            <Route path="/addBook">
-                <AddBook/>
-            </Route>
-            : null }
+            {user.userRole === "admin" ?
+                <Route path="/addBook">
+                    <AddBook />
+                </Route>
+                : null}
 
-            {/* TODO. Admin Edit Book View */}
+            {/* //Admin can update exists book fields */}
+            <Route path="/updateBook">
+                {user.userRole === "admin" ? <EditBook /> : null}
+
+            </Route>
+
+            {/* //Admin can view all books in table */}
+            <Route path="/viewAllBook">
+                {user.userRole === "admin" ? <ViewAllBooks /> : null}
+
+            </Route>
+
+            {/* TODO. Admin Edit Book View  */}
             {/* <Route path="/editBook">
                 <CustomerOrders/>
-            </Route> */}
+            </Route>  */}
 
             <Route path="/aboutUs">
-                <AboutUs/>
+                <AboutUs />
             </Route>
 
             <Route exact path="/currency" component={CurrencyConverter} />

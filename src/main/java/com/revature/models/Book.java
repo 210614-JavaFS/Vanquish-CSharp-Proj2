@@ -5,9 +5,11 @@ import java.util.Arrays;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 
@@ -24,7 +26,7 @@ public class Book {
 	private int bookId;
 	
 	@Column(name = "book_author")
-	private String Author;
+	private String author;
 	
 	
 	@Column(name = "book_name", nullable = false)
@@ -48,14 +50,12 @@ public class Book {
 	
 	@Column(name = "quantity")
 	private int bookStockQuantity;
-	
-	
 
 	public Book(int bookId, String author, String bookName, String bookDescription, String bookCategory, double costUSD,
 			String imgURL, int bookStockQuantity) {
 		super();
 		this.bookId = bookId;
-		Author = author;
+		this.author = author;
 		this.bookName = bookName;
 		this.bookDescription = bookDescription;
 		this.bookCategory = bookCategory;
@@ -63,13 +63,11 @@ public class Book {
 		this.imgURL = imgURL;
 		this.bookStockQuantity = bookStockQuantity;
 	}
-	
-	
 
 	public Book(String author, String bookName, String bookDescription, String bookCategory, double costUSD,
 			String imgURL, int bookStockQuantity) {
 		super();
-		Author = author;
+		this.author = author;
 		this.bookName = bookName;
 		this.bookDescription = bookDescription;
 		this.bookCategory = bookCategory;
@@ -77,16 +75,10 @@ public class Book {
 		this.imgURL = imgURL;
 		this.bookStockQuantity = bookStockQuantity;
 	}
-	
-	
-
-
 
 	public Book() {
 		super();
 	}
-
-
 
 	public int getBookId() {
 		return bookId;
@@ -97,11 +89,11 @@ public class Book {
 	}
 
 	public String getAuthor() {
-		return Author;
+		return author;
 	}
 
 	public void setAuthor(String author) {
-		Author = author;
+		this.author = author;
 	}
 
 	public String getBookName() {
@@ -151,8 +143,78 @@ public class Book {
 	public void setBookStockQuantity(int bookStockQuantity) {
 		this.bookStockQuantity = bookStockQuantity;
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((author == null) ? 0 : author.hashCode());
+		result = prime * result + ((bookCategory == null) ? 0 : bookCategory.hashCode());
+		result = prime * result + ((bookDescription == null) ? 0 : bookDescription.hashCode());
+		result = prime * result + bookId;
+		result = prime * result + ((bookName == null) ? 0 : bookName.hashCode());
+		result = prime * result + bookStockQuantity;
+		long temp;
+		temp = Double.doubleToLongBits(costUSD);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		result = prime * result + ((imgURL == null) ? 0 : imgURL.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Book other = (Book) obj;
+		if (author == null) {
+			if (other.author != null)
+				return false;
+		} else if (!author.equals(other.author))
+			return false;
+		if (bookCategory == null) {
+			if (other.bookCategory != null)
+				return false;
+		} else if (!bookCategory.equals(other.bookCategory))
+			return false;
+		if (bookDescription == null) {
+			if (other.bookDescription != null)
+				return false;
+		} else if (!bookDescription.equals(other.bookDescription))
+			return false;
+		if (bookId != other.bookId)
+			return false;
+		if (bookName == null) {
+			if (other.bookName != null)
+				return false;
+		} else if (!bookName.equals(other.bookName))
+			return false;
+		if (bookStockQuantity != other.bookStockQuantity)
+			return false;
+		if (Double.doubleToLongBits(costUSD) != Double.doubleToLongBits(other.costUSD))
+			return false;
+		if (imgURL == null) {
+			if (other.imgURL != null)
+				return false;
+		} else if (!imgURL.equals(other.imgURL))
+			return false;
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "Book [bookId=" + bookId + ", author=" + author + ", bookName=" + bookName + ", bookDescription="
+				+ bookDescription + ", bookCategory=" + bookCategory + ", costUSD=" + costUSD + ", imgURL=" + imgURL
+				+ ", bookStockQuantity=" + bookStockQuantity + "]";
+	}
 	
 	
+	
+	
+
 	
 
 
