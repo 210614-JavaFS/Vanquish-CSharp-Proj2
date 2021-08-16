@@ -8,19 +8,16 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.revature.models.Book;
 import com.revature.models.Invoice;
 import com.revature.models.Order;
-import com.revature.repos.InvoiceDAO;
 import com.revature.services.AdminService;
 
 @RestController
@@ -96,23 +93,17 @@ public class AdminController {
 //		return ResponseEntity.status(HttpStatus.ACCEPTED).build();
 //	}
 	
-	@PutMapping("/invoice/{id}/update")
-	public ResponseEntity<Invoice> updateInvoiceStatus(@RequestBody Invoice invoice){
-		adminService.reviewInvoice(invoice);
+	@PutMapping("/invoice/{id}/{status}")
+	public ResponseEntity<Invoice> updateInvoiceStatus(@PathVariable("id") int invoiceId, @PathVariable("status") String status){
+		adminService.statusUpdate(invoiceId, status);;
 		return ResponseEntity.status(HttpStatus.ACCEPTED).build();
 	}
 
 	
-<<<<<<< HEAD
-	@DeleteMapping
-	public ResponseEntity<Book> deleteBook(@RequestBody int bookId){
-		adminService.deleteBook(bookId);
-=======
 	@DeleteMapping("/delete")
-	public ResponseEntity<Book> deleteBook(@RequestBody Book book){
+	public ResponseEntity<Book> deleteBook(@RequestBody int bookId){
 		System.out.println("Deleting book");
-		adminService.deleteBook(book);
->>>>>>> f357b8e62ef2c1a62da68abac7c68a95df048bd3
+		adminService.deleteBook(bookId);
 		return ResponseEntity.status(HttpStatus.ACCEPTED).build();
 	}
 	

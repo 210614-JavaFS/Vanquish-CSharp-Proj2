@@ -51,9 +51,6 @@ public class AdminService {
 		return invoiceDAO.findInvoiceByuserId(userId);
 	}
 	
-//	public void updateOrder(Order order) {
-//		adminDAO.updateOrder(order);
-//	}
 	
 	public void reviewInvoice(Invoice invoice) {
 		adminDAO.reviewInvoice(invoice);
@@ -87,5 +84,8 @@ public class AdminService {
 		return invoiceDAO.allOrder();
 	}
 	
+	public void statusUpdate(int invoiceId, String status) {
+		invoiceDAO.updateStatusbyId(invoiceId, status);
+	}
 	
 }
