@@ -193,7 +193,7 @@ const GetBooks: React.FC<Props> = () => {
                                 </div>
                                 <div className="">
                                     <strong>Converted Price: </strong>
-                                    &nbsp; <strong style={{ color: "green" }}>{convertedPrice} </strong>
+                                    &nbsp; <strong style={{ color: "green" }}> {convertedPrice} </strong>
                                     &nbsp;
                                     <button className="btn btn-primary btn-sm" onClick={handleOrderButton}>Add to Order</button>
                                 </div>
