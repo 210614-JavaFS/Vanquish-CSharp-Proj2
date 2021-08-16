@@ -83,12 +83,6 @@ export const apiUpdateUser = async (user: User):Promise<User[]> => {
     }
 }
 
-export type OrderHistory = { 
-    userId: number,
-    bookId: number,
-    nativeAmount: number,
-}
-
 //get Current User Information
 export const apiGetOrderHistory = async (userId: number):Promise<unknown[]> => {
     const response = await userClient.get<unknown[]>('/seeOrders/'+userId, {withCredentials: true});
@@ -99,5 +93,24 @@ export const apiGetOrderHistory = async (userId: number):Promise<unknown[]> => {
         return response.data;
     } else {
         return [];
+    }
+}
+
+// update user order status
+export const apiUpdateUserOrder = async (invoiceId:number|undefined, status:String):Promise<null> => {
+    console.log("hit updated route");
+    
+    const response = await userClient.put<null>('/updateStatus/'+invoiceId+"/"+status, {withCredentials: true});
+
+    console.log(`Update response status is ${response.status}`)
+    if (response.status === 201) {
+        alert("Succesfully cancelled!")
+        console.log("successfully cancelled")
+        window.location.reload();
+        return response.data;
+    } else {
+        alert("Oops. Cancel request failed...")
+        console.log("failed to cancel")
+        return null;
     }
 }

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { selectUser } from "../../../features/userSlice";
 import Order from "../../../models/Order";
-import { apiGetOrderHistory } from "../../../remote/userApi";
+import { apiGetOrderHistory, apiUpdateUserOrder } from "../../../remote/userApi";
 
 type OrderHistory = { }
 export default function OrderHistory(): JSX.Element {
@@ -70,7 +70,15 @@ export default function OrderHistory(): JSX.Element {
                                             <td>{order.invoice?.nativeAmount}</td>
                                             <td>{order.user?.username}</td>
                                             <td>{order.book?.bookName}</td>
-                                            <td><button className="bttn-slant bttn-md bttn-danger bttn-no-outline">Cancel</button></td>
+                                            {
+                                                order.invoice?.invoiceStatus !== "cancelled" ? 
+                                                    <td><button 
+                                                            className="bttn-slant bttn-md bttn-danger bttn-no-outline"
+                                                            onClick={()=> apiUpdateUserOrder(order.invoice?.invoiceID, "cancelled")}
+                                                        >Cancel</button>
+                                                    </td>
+                                                : null
+                                            }
                                         </tr>
                                         
                                         )}
