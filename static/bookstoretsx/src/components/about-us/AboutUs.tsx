@@ -17,7 +17,7 @@ export default function AboutUs(): JSX.Element {
                             <ul>
                                 <li>Jack Phan</li>
                                 <li>Billy Toledo</li>
-                                <li>Ling </li>
+                                <li>Ling Ge Zeng</li>
                                 <li>Munib Khan</li>
                                 <li>Lou Estimar</li>
                             </ul>

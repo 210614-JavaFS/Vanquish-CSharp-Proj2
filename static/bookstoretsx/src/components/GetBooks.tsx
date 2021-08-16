@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useSelector } from 'react-redux';
 import { selectUser } from '../features/userSlice';
 import Books from '../models/Books';
@@ -17,7 +17,7 @@ const GetBooks: React.FC<Props> = () => {
     const baseURL = "http://localhost:8080/bookstore/admin/allbook";
 
     const [currencyOption, setCurrencyOptions] = useState([]);
-    const [symbol, setSymbol] = useState(user.currencyId);
+    const [symbol, setSymbol] = useState();
     const [toCurrency, setToCurrency] = useState("");
 
     const [getRate, SetGetRate] = useState<number | undefined>();
@@ -29,10 +29,11 @@ const GetBooks: React.FC<Props> = () => {
     const [nativeAmount, setnativeAmount2] = useState("");
     const [currencyName, setcurrencyName2] = useState(user.currencyID);
     const [userId, setuserID2] = useState();
-
+    // const holdSmbol = useRef(symbol);
+    // console.log(holdSmbol.current);
 
     async function addOrder() {
-        const URLaddorder = `http://localhost:8080/bookstore/user/addOrder/${userId}/${bookId}/${nativeAmount}/${currencyName}`;
+        const URLaddorder = `http://localhost:8080/bookstore/user/addOrder/${userId}/${bookId}/${nativeAmount}/${symbol}`;
         const request = await axios.post(URLaddorder, { withCredentials: true }).then(response => console.log(response))
     }
 
@@ -57,7 +58,8 @@ const GetBooks: React.FC<Props> = () => {
 
             async function getCurrencyList() {
 
-                const response = await axios.get("https://free.currconv.com/api/v7/currencies?apiKey=c728cb6404e7db7045e9");
+                // const response = await axios.get("https://free.currconv.com/api/v7/currencies?apiKey=c728cb6404e7db7045e9");
+                const response = await axios.get("https://prepaid.currconv.com/api/v7/currencies?apiKey=pr_4824fc0563d9440788473967ed6f8fd0");
                 console.log(response);
 
                 if (response != null) {
@@ -68,7 +70,7 @@ const GetBooks: React.FC<Props> = () => {
                     console.log(data2[user.currencyID]);
                     const userSymbol = data2[user.currencyID].currencySymbol
                     console.log(userSymbol);
-                    // setSymbol(userSymbol)
+                    setSymbol(userSymbol)
                     const userDcurrency = data2[user.currencyID].currencyName;
                     console.log(userDcurrency);
 
@@ -110,15 +112,20 @@ const GetBooks: React.FC<Props> = () => {
     const getCurrencyRate2 = (uppass: any) => {
 
         console.log(uppass);
-        setSymbol(uppass);
+        // setSymbol(uppass);
     }
     return (
-        <div className="">
-            <GetCurrencies getCurrencyRate={getCurrencyRate} defaultUserID={defaultUserID} getCurrencyRate2={getCurrencyRate2} />
-            <div className="">
-                Books:
-            </div>
+        <div className="container">
 
+            <div className="row">
+                <div className="col">
+                    <GetCurrencies getCurrencyRate={getCurrencyRate} defaultUserID={defaultUserID} getCurrencyRate2={getCurrencyRate2} />
+                    <div className="font-caps font-size-lg">
+                        Here are your favorite books on sales!
+                    </div>
+
+                </div>
+            </div>
             <div className="flexwrap justify">
                 {books.map((book) => {
 
@@ -151,7 +158,7 @@ const GetBooks: React.FC<Props> = () => {
 
 
                     return (
-                        <div className="padding1 " key={bookId} style={{
+                        <div className="padding1 col-sm3" key={bookId} style={{
 
                             width: "370px", height: "620px", border: "1px solid white",
                             margin: "5%",
@@ -164,37 +171,37 @@ const GetBooks: React.FC<Props> = () => {
                                 <div className="flex justify">
                                     <img src={imgURL} alt="book_image" style={{ minWidth: "310px", height: "310px" }} />
                                 </div>
-                                <div className="justify flex" style={{ color: "aqua" }}>
+                                <div className="justify flex font-caps font-size-md">
                                     {bookName}
                                 </div>
                                 <div className="justify flex">
                                     <hr />
                                 </div>
 
-                                <div className="">
-                                    <strong>author: </strong>      &nbsp; {author}
+                                <div className="share-font">
+                                    <strong>Author: </strong>      &nbsp; {author}
                                 </div>
-                                <div className="textoverflow">
+                                <div className="textoverflow share-font">
                                     <strong> Description: </strong>    &nbsp; {bookDescription}
                                 </div>
 
-                                <div className="">
+                                <div className="share-font">
                                     <strong>Catagory:  </strong>   &nbsp; {bookCategory}
                                 </div>
-                                <div className="">
+                                <div className="share-font">
                                     <strong>Quantity:  </strong>   &nbsp; {bookStockQuantity}
                                 </div>
 
-                                <div className="">
+                                <div className="share-font">
                                     <strong> USD Price:</strong>     &nbsp;${usdPrice}
 
                                 </div>
-                                <div className="">
+                                <div className="share-font">
                                     <strong>Converted Price: </strong>
-                                    &nbsp; <strong style={{ color: "green" }}>{symbol} {convertedPrice} </strong>
+                                    &nbsp; <strong style={{ color: "green" }}> {convertedPrice} </strong>
                                     &nbsp;
-                                    <button className="btn btn-primary btn-sm" onClick={handleOrderButton}>Add to Order</button>
                                 </div>
+                                    <button className="btn btn-primary btn-sm float-right" onClick={handleOrderButton}>Add to Order</button>
 
                             </div>
                         </div>

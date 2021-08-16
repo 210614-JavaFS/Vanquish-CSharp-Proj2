@@ -45,7 +45,7 @@ export const CurrencyRow = (props) => {
 
     useEffect(() => {
         async function getCurrencyList() {
-            const response = await axios.get("https://free.currconv.com/api/v7/currencies?apiKey=c728cb6404e7db7045e9");
+            const response = await axios.get("https://prepaid.currconv.com/api/v7/currencies?apiKey=pr_4824fc0563d9440788473967ed6f8fd0");
 
             // const response = await axios.get("https://free.currconv.com/api/v7/countries?apiKey=c728cb6404e7db7045e9");
             console.log(response);
@@ -96,7 +96,7 @@ export const CurrencyRow = (props) => {
 
                 </select>
                 <div className="flex justifyend">
-                    <button onClick={onChangeCurrency}>Convert</button>
+                    <button className="bttn-fill bttn-sm bttn-info bttn-no-outline user-box" onClick={onChangeCurrency}>Convert</button>
                 </div>
             </div>
 

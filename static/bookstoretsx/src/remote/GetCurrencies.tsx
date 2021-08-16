@@ -32,16 +32,18 @@ const GetCurrencies: React.FC<Props> = ({ getCurrencyRate, defaultUserID, getCur
 
     console.log(convertCurrency);
     getCurrencyRate2(convertCurrency);
-    const URL = `https://free.currconv.com/api/v7/convert?q=USD_${convertCurrency}&compact=ultra&apiKey=`
     // const URL = `https://free.currconv.com/api/v7/convert?q=USD_${convertCurrency}&compact=ultra&apiKey=`
-    const KEY = "c728cb6404e7db7045e9"
+    // const URL = `https://free.currconv.com/api/v7/convert?q=USD_${convertCurrency}&compact=ultra&apiKey=`
+    // const KEY = "c728cb6404e7db7045e9"
+    const URL = `https://prepaid.currconv.com/api/v7/convert?q=USD_${convertCurrency}&compact=ultra&apiKey=`
+    const KEY = "pr_4824fc0563d9440788473967ed6f8fd0"
     useEffect(() => {
 
 
 
 
         const URL1 = `https://free.currconv.com/api/v7/convert?q=USD_${convertCurrency},${convertCurrency}_USD&compact=ultra&apiKey= `;
-        const URL2 = "https://free.currconv.com/api/v7/currencies?apiKey=";
+        const URL2 = "https://prepaid.currconv.com/api/v7/currencies?apiKey=";
         const URL3 = "https://free.currconv.com/api/v7/countries?apiKey=";
 
 
