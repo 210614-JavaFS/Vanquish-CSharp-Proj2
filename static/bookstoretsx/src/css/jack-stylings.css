@@ -10,7 +10,7 @@ body {
 
 body {
     background: rgb(2, 0, 36);
-    background: linear-gradient(180deg, #deddf7 0%, #ebe7df 53%, #98a1bb 100%);
+    background: linear-gradient(180deg, #deddf7 0%, #e6ebdf 53%, #98a1bb 100%);
     color: #000000f1;
     font-family: 'Oxygen', sans-serif;
     background-repeat: no-repeat;
@@ -41,6 +41,12 @@ body {
 
 .transparent-nav {
     background-color: #0c203627;
+    margin: 0;
+}
+
+.transparent-modal {
+    background: rgb(2, 0, 36);
+    background: linear-gradient(180deg, #ceceffde 0%, #e6ebdff1 53%, #d4f1ffd8 100%);
     margin: 0;
 }
 
@@ -151,6 +157,10 @@ body {
     padding-left: 10px;
 }
 
+.padding-right-md {
+    padding-right: 25px;
+}
+
 .extra-box-space {
     padding: 40px;
 }
@@ -162,4 +172,8 @@ table {
 
 .icon-nav {
     padding-left: 15px;
+}
+
+.expand-icon:hover {
+    transform: scale(1.2);
 }

@@ -13,13 +13,10 @@ export default function MainSite(): JSX.Element {
             
             <div className="container padding-top-md">
                 <Switch>
-                    {/* <header className="App-header relative"> */}
                     <AppRoutes />
-                    {/* </header> */}
                 </Switch>
             </div>
 
-            {/* <Footer /> */}
             </div>
           </div>
     )
