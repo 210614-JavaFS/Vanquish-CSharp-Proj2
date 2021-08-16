@@ -83,6 +83,9 @@ export default function NavbarJ(): JSX.Element {
             </div>
 
             {/* <CurrencySelect /> */}
+            <div className="navbar-nav padding-right-md">
+                Welcome back, {user.username}
+            </div>
 
             <div className="navbar-nav padding-right-md">
                 <button
