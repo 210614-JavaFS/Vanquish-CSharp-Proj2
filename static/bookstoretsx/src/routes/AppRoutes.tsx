@@ -20,14 +20,14 @@ import ViewAllBooks from "../components/user/admin/ViewAllBooks"
 
 const AppRoutes: React.FC<any> = (): JSX.Element => {
     const user = useSelector(selectUser);
-    const [getRate, SetGetRate] = useState(0);
+    // const [getRate, SetGetRate] = useState(0);
 
 
-    const getCurrencyRate = (uppass: number) => {
+    // const getCurrencyRate = (uppass: number) => {
 
-        console.log(uppass);
-        SetGetRate(uppass);
-    }
+    //     console.log(uppass);
+    //     SetGetRate(uppass);
+    // }
 
     return (
         <div >
@@ -38,8 +38,8 @@ const AppRoutes: React.FC<any> = (): JSX.Element => {
 
             {/* TODO. main Index. Book listings */}
             <Route exact path="/">
-                <GetCurrencies getCurrencyRate={getCurrencyRate} />
-                <GetBooks getRate={getRate} />
+                {/* <GetCurrencies getCurrencyRate={getCurrencyRate} /> */}
+                <GetBooks />
             </Route>
 
             {/* TODO. User Pages */}
