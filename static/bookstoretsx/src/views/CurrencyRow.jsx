@@ -96,7 +96,7 @@ export const CurrencyRow = (props) => {
 
                 </select>
                 <div className="flex justifyend">
-                    <button onClick={onChangeCurrency}>Convert</button>
+                    <button className="bttn-fill bttn-sm bttn-info bttn-no-outline user-box" onClick={onChangeCurrency}>Convert</button>
                 </div>
             </div>
 
