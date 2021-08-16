@@ -9,10 +9,10 @@ export default function NavbarJ(): JSX.Element {
     const user = useSelector(selectUser);
 
     return (
-        <nav className="navbar navbar-light navbar-expand-lg fixed-top transparent-nav font-size-md arima-font ">
+        <nav className="navbar navbar-light navbar-expand-lg fixed-top transparent-nav font-size-md font-caps ">
 
-            <a className="navbar-brand" href="/">
-                <img src={logo} width={45} height={45} />
+            <a className="navbar-brand padding-left-sm" href="/">
+                <img src={logo} width={65} height={65} />
             </a>
             <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span className="navbar-toggler-icon"></span>
@@ -82,9 +82,9 @@ export default function NavbarJ(): JSX.Element {
                 </ul>
             </div>
 
-            <CurrencySelect />
+            {/* <CurrencySelect /> */}
 
-            <div className="navbar-nav">
+            <div className="navbar-nav padding-right-md">
                 <button
                     className="black-txt bttn-fill bttn-sm bttn-danger bttn-no-outline bttn-block round-border"
                     onClick={apiLogout}

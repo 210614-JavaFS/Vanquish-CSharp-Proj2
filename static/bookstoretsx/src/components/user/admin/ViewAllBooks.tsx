@@ -53,11 +53,11 @@ const ViewAllBooks = (props: Props) => {
     return (
         <div className="">
             <div className="">
-                <h3>View All Book List</h3>
+                <h3 className="font-caps">View All Book List</h3>
             </div>
             <Table striped bordered hover size="sm">
                 <thead>
-                    <tr className="">
+                    <tr className="font-caps font-size-sm ">
                         <th className="">#ID</th>
                         <th className="">Book Name</th>
                         <th className="">Author</th>
@@ -84,7 +84,7 @@ const ViewAllBooks = (props: Props) => {
                         } = book
 
                         return (
-                            <tr className="" key={bookId} >
+                            <tr className="black-txt cousine-font" key={bookId} >
                                 <td >{bookId}</td>
                                 <td >{bookName}</td>
                                 <td >{author} </td>

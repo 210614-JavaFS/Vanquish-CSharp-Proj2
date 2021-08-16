@@ -44,6 +44,12 @@ body {
     margin: 0;
 }
 
+.transparent-modal {
+    background: rgb(2, 0, 36);
+    background: linear-gradient(180deg, #ceceffde 0%, #e6ebdff1 53%, #d4f1ffd8 100%);
+    margin: 0;
+}
+
 .zindex {
     z-index: 1000;
 }
@@ -151,6 +157,10 @@ body {
     padding-left: 10px;
 }
 
+.padding-right-md {
+    padding-right: 25px;
+}
+
 .extra-box-space {
     padding: 40px;
 }
@@ -162,4 +172,8 @@ table {
 
 .icon-nav {
     padding-left: 15px;
+}
+
+.expand-icon:hover {
+    transform: scale(1.2);
 }

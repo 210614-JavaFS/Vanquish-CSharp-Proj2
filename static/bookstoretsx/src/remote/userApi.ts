@@ -103,7 +103,7 @@ export const apiUpdateUserOrder = async (invoiceId:number|undefined, status:Stri
     const response = await userClient.put<null>('/updateStatus/'+invoiceId+"/"+status, {withCredentials: true});
 
     console.log(`Update response status is ${response.status}`)
-    if (response.status === 201) {
+    if (response.status === 202) {
         alert("Succesfully updated!")
         console.log("successfully updated")
         window.location.reload();

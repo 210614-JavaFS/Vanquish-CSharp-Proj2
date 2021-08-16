@@ -2,7 +2,11 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { selectUser } from "../../../features/userSlice";
 import Order from "../../../models/Order";
+import { apiGetAllOrders } from "../../../remote/adminApi";
 import { apiUpdateUserOrder } from "../../../remote/userApi";
+
+import expandIcon from "../../../css/icons/expand-arrows-alt-solid.svg";
+import UserDetailsModal from "./UserDetailsModal";
 
 export default function Login(): JSX.Element { 
 
@@ -10,22 +14,22 @@ export default function Login(): JSX.Element {
 
     const [orders, setOrder] = useState<Order[]>([]);
 
-    // async function retrieveAllOrders() {
+    async function retrieveAllOrders() {
 
-    //     let orderObject:any = await apiGetAllOrders();
+        let orderObject:any = await apiGetAllOrders();
 
-    //     if (orderObject.length !== 0) {
-    //         console.log("I got all Orders");
-    //         console.log(orderObject);
-    //         setOrder(orderObject);
-    //     } else {
-    //         console.log("I haven't got any orders");
-    //     }
+        if (orderObject.length !== 0) {
+            console.log("I got all Orders");
+            console.log(orderObject);
+            setOrder(orderObject);
+        } else {
+            console.log("I haven't got any orders");
+        }
 
-    // }
-    // useEffect(() => {
-    //     retrieveAllOrders();
-    //   }, []); 
+    }
+    useEffect(() => {
+        retrieveAllOrders();
+      }, []); 
 
     return (
         <div className="container-fluid">
@@ -60,35 +64,50 @@ export default function Login(): JSX.Element {
                                     </tr>
                                 </thead>
                                 <tbody className="black-txt cousine-font">
-                                    {orders.map( order => 
-                                        
-                                        <tr>
-                                            <td>{order.orderId}</td>
-                                            <td>{order.invoice?.invoiceStatus}</td>
-                                            <td>{order.invoice?.usdAmount}</td>
-                                            <td>{order.invoice?.nativeCurrency}</td>
-                                            <td>{order.invoice?.nativeAmount}</td>
-                                            <td>{order.user?.username}</td>
-                                            <td>{order.book?.bookName}</td>
-                                            {
-                                                order.invoice?.invoiceStatus !== "cancelled" ? 
-                                                    <td><button 
-                                                            className="bttn-slant bttn-md bttn-danger bttn-no-outline"
-                                                            onClick={()=> apiUpdateUserOrder(order.invoice?.invoiceID, "approved")}
-                                                        >Approve</button>
-                                                    </td>
-                                                    // <td><button 
-                                                    //         className="bttn-slant bttn-md bttn-danger bttn-no-outline"
-                                                    //         onClick={()=> apiUpdateUserOrder(order.invoice?.invoiceID, "cancelled")}
-                                                    //     >Deny</button>
-                                                    // </td>
-                                                : null
-                                            }
-                                        </tr>
-                                        
+                                    {orders.map( (order, index) => 
+                                            <tr key={index}>
+                                                <td>{order.orderId}</td>
+                                                <td>{order.invoice?.invoiceStatus}</td>
+                                                <td>{order.invoice?.usdAmount}</td>
+                                                <td>{order.invoice?.nativeCurrency}</td>
+                                                <td>{order.invoice?.nativeAmount}</td>
+                                                <td>{order.user?.username} 
+                                                    <img 
+                                                        className="expand-icon" 
+                                                        src={expandIcon} 
+                                                        width={15} 
+                                                        height={15} 
+                                                        data-bs-toggle="modal"
+                                                        data-bs-target={`#modal${index}`}
+                                                        alt="expand"
+                                                        />
+                                                </td>
+                                                <td>{order.book?.bookName}</td>
+                                                {
+                                                    (order.invoice?.invoiceStatus !== "cancelled" && order.invoice?.invoiceStatus !== "approved") ? 
+                                                        <td><button 
+                                                                className="bttn-slant bttn-md bttn-success bttn-no-outline"
+                                                                onClick={()=> apiUpdateUserOrder(order.invoice?.invoiceID, "approved")}
+                                                            >Approve</button>
+                                                        </td>
+                                                    : null
+                                                }
+                                                {
+                                                    (order.invoice?.invoiceStatus !== "cancelled" && order.invoice?.invoiceStatus !== "rejected")? 
+                                                        <td><button 
+                                                                className="bttn-slant bttn-md bttn-danger bttn-no-outline"
+                                                                onClick={()=> apiUpdateUserOrder(order.invoice?.invoiceID, "rejected")}
+                                                            >Reject</button>
+                                                        </td>
+                                                    : null
+                                                }
+                                            </tr>
                                         )}
                                 </tbody>
                             </table>
+                            {orders.map( (order, index) => 
+                                <UserDetailsModal index={index} order={order}/>   
+                            )}
                         </div>
                     </div>
                     
