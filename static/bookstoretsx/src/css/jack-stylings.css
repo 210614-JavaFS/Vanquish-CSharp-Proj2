@@ -10,7 +10,7 @@ body {
 
 body {
     background: rgb(2, 0, 36);
-    background: linear-gradient(180deg, #deddf7 0%, #ebe7df 53%, #98a1bb 100%);
+    background: linear-gradient(180deg, #deddf7 0%, #e6ebdf 53%, #98a1bb 100%);
     color: #000000f1;
     font-family: 'Oxygen', sans-serif;
     background-repeat: no-repeat;

@@ -1,18 +1,23 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { selectUser } from "../../../features/userSlice";
+import Order from "../../../models/Order";
 import { apiGetOrderHistory } from "../../../remote/userApi";
 
+type OrderHistory = { }
 export default function OrderHistory(): JSX.Element {
     const user = useSelector(selectUser);
 
+    const [orders, setOrder] = useState<Order[]>([]);
+
     async function retrieveOrderHistory() {
 
-        let orderObject = await apiGetOrderHistory(user.userId);
+        let orderObject:any = await apiGetOrderHistory(user.userId);
 
-        if (orderObject.length() != 0) {
+        if (orderObject.length !== 0) {
             console.log("I got current Order");
             console.log(orderObject);
+            setOrder(orderObject);
         } else {
             console.log("I haven't got current user");
         }
@@ -44,7 +49,7 @@ export default function OrderHistory(): JSX.Element {
                             <table className="table">
                                 <thead>
                                     <tr className="font-caps font-size-sm ">
-                                        <th className="col-sm-1">Invoice ID</th>
+                                        <th className="col-sm-1">Order ID</th>
                                         <th className="col-sm-1">Status</th>
                                         <th className="col-sm-1">USD Amount</th>
                                         <th className="col-sm-2">Native Currency</th>
@@ -55,16 +60,20 @@ export default function OrderHistory(): JSX.Element {
                                     </tr>
                                 </thead>
                                 <tbody className="black-txt cousine-font">
-                                    <tr>
-                                        <td>{2}</td>
-                                        <td>Pending</td>
-                                        <td>53.22</td>
-                                        <td>40.55</td>
-                                        <td>EUR</td>
-                                        <td>{user.username}</td>
-                                        <td>The Lost Lamb</td>
-                                        <td><button className="bttn-slant bttn-md bttn-danger bttn-no-outline">Cancel</button></td>
-                                    </tr>
+                                    {orders.map( order => 
+                                        
+                                        <tr>
+                                            <td>{order.orderId}</td>
+                                            <td>{order.invoice?.invoiceStatus}</td>
+                                            <td>{order.invoice?.usdAmount}</td>
+                                            <td>{order.invoice?.nativeCurrency}</td>
+                                            <td>{order.invoice?.nativeAmount}</td>
+                                            <td>{order.user?.username}</td>
+                                            <td>{order.book?.bookName}</td>
+                                            <td><button className="bttn-slant bttn-md bttn-danger bttn-no-outline">Cancel</button></td>
+                                        </tr>
+                                        
+                                        )}
                                 </tbody>
                             </table>
                         </div>
