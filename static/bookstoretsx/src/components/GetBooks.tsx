@@ -19,10 +19,22 @@ const GetBooks: React.FC<Props> = () => {
     const [currencyOption, setCurrencyOptions] = useState([]);
     const [symbol, setSymbol] = useState("");
     const [toCurrency, setToCurrency] = useState("");
-    const [defaultUserCurrency, setDefaultUserCurrency] = useState("");
+
     const [getRate, SetGetRate] = useState<number | undefined>();
     const [defaultUserID, setDefaultUserID] = useState(user.currencyID);
 
+    const [author2, setauthor2] = useState();
+    const [userId2, setuserId2] = useState();
+    const [bookId, setbookId2] = useState();
+    const [nativeAmount, setnativeAmount2] = useState("");
+    const [currencyName, setcurrencyName2] = useState(user.currencyID);
+    const [userId, setuserID2] = useState();
+
+
+    async function addOrder() {
+        const URLaddorder = `http://localhost:8080/bookstore/user/addOrder/${userId}/${bookId}/${nativeAmount}/${currencyName}`;
+        const request = await axios.post(URLaddorder, { withCredentials: true }).then(response => console.log(response))
+    }
 
     useEffect(() => {
         console.log(getRate);
@@ -43,36 +55,36 @@ const GetBooks: React.FC<Props> = () => {
             }
             console.log(defaultUserID);
 
-            // async function getCurrencyList() {
+            async function getCurrencyList() {
 
-            //     const response = await axios.get("https://free.currconv.com/api/v7/currencies?apiKey=c728cb6404e7db7045e9");
-            //     console.log(response);
+                const response = await axios.get("https://free.currconv.com/api/v7/currencies?apiKey=c728cb6404e7db7045e9");
+                console.log(response);
 
-            //     if (response != null) {
-            //         let data2 = await response.data.results;
-            //         console.log(data2);
-            //         //    if(user3!=null){}
-            //         // setToCurrency()
-            //         if (user != null && user.currencyID) {
-            //             console.log(user);
-            //             console.log(data2[user.currencyID]);
-            //             const userSymbol = data2[user.currencyID].currencySymbol
-            //             console.log(userSymbol);
-            //             setSymbol(userSymbol)
-            //             const userDcurrency = data2[user.currencyID].currencyName;
-            //             console.log(userDcurrency);
-            //             setDefaultUserCurrency(userDcurrency);
-            //             // setSymbol(data2[user3.currencyID].currencyName)
+                if (response != null) {
+                    let data2 = await response.data.results;
+                    console.log(data2);
+                    //    if(user3!=null){}
+                    // setToCurrency()
 
-            //             // getCurrencySymbol(data2[user3.currencyID]);
-            //         }
-            //         // setCurrencyOptions(Object.keys(data2).map(function (key) {
-            //         //     return data2[key]
-            //         // }))
-            //     }
-            // }
+                    console.log(user);
+                    console.log(data2[user.currencyID]);
+                    const userSymbol = data2[user.currencyID].currencySymbol
+                    console.log(userSymbol);
+                    setSymbol(userSymbol)
+                    const userDcurrency = data2[user.currencyID].currencyName;
+                    console.log(userDcurrency);
+                    // setDefaultUserCurrency(userDcurrency);
+                    // setSymbol(data2[user3.currencyID].currencyName)
 
-            // getCurrencyList()
+                    // getCurrencySymbol(data2[user3.currencyID]);
+
+                    // setCurrencyOptions(Object.keys(data2).map(function (key) {
+                    //     return data2[key]
+                    // }))
+                }
+            }
+
+            getCurrencyList()
 
             return () => {
                 console.log("Cancelling api call");
@@ -82,7 +94,7 @@ const GetBooks: React.FC<Props> = () => {
         }
         fetchBooks();
     }, [])
-
+    console.log(author2);
     console.log(books)
     const ApiGetBooks = async (): Promise<BookApiResponse> => {
         const response = await booksClient.get<Books>("");
@@ -127,12 +139,18 @@ const GetBooks: React.FC<Props> = () => {
                     const usdPrice = costUSD;
 
 
-                    const convertedPrice = getRate ? (getRate * costUSD).toFixed(2) : 0;
+                    const convertedPrice = getRate ? (getRate * costUSD).toFixed(2) : "0";
 
 
-
-                    async function handleOrderButton() {
-
+                    function handleOrderButton(e: any) {
+                        console.log(e);
+                        setauthor2(author)
+                        setnativeAmount2(convertedPrice)
+                        setbookId2(bookId)
+                        setuserID2(user.userId)
+                        setuserID2(user.userId)
+                        // setcurrencyName2()    
+                        addOrder();
                     }
 
 

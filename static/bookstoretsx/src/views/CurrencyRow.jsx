@@ -71,24 +71,23 @@ export const CurrencyRow = (props) => {
 
     // }
 
-
     console.log(selectedCurrency);
 
-    console.log(user.currencyID);
+
+
     return (
         <div className="flex " style={{ justifyContent: "flex-end" }}>
             <div className="">
                 <h3>Currency List</h3>
-
-                {/* value={setConvertCurrency} */}
-                <select style={{ width: "300px" }} value={selectedCurrency} onChange={onChangeCurrency}>
+                {/* value={selectedCurrency} */}
+                <select style={{ width: "300px" }} onChange={onChangeCurrency}  >
 
                     {currencyOptions.map((option) => {
                         const {
                             currencyName,
                             id
                         } = option
-                        return (<option className="" key={id} value={currencyName}>
+                        return (<option className="" key={id} value={id}>
                             {currencyName}
                         </option>)
                     })}
