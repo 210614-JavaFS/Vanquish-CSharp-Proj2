@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.revature.models.Order;
@@ -151,12 +150,16 @@ public class UserController {
 		return ResponseEntity.status(HttpStatus.CREATED).build();
 	}
 	
-	@GetMapping("/seeorders/{userId}")
-	@ResponseBody
+	@GetMapping("/seeOrders/{userId}")
 	public List<Order> OrdersById(@PathVariable("userId") int userId) {
 		return userService.OrdersById(userId);
 	}
 	
+	@PutMapping("/updateStatus/{invoiceId}/{status}")
+	public  ResponseEntity<User> updateStatus(@PathVariable("invoiceId") int invoiceId, @PathVariable("status") String newStatus){
+		userService.statusUpdate(invoiceId, newStatus);
+		return ResponseEntity.status(HttpStatus.ACCEPTED).build();
+	}
 	
 	
 	

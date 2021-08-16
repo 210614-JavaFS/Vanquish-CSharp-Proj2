@@ -1,5 +1,8 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
+import { useSelector } from "react-redux";
+import { selectUser } from '../features/userSlice';
+
 
 type Props = {
 
@@ -7,9 +10,12 @@ type Props = {
 }
 
 const GetCurrencies: React.FC<Props> = ({ getCurrencyRate }) => {
+
+    const user = useSelector(selectUser);
+
     const [currencies, setCurrencies] = useState([]);
     const [defaultCurrency, setDefaultCurrency] = useState<string>("USD_");
-    const [converyCurrency, setConvertCurrency] = useState<string>("MYR");
+    const [converyCurrency, setConvertCurrency] = useState<string>(user.currencyID);
     const [rate, setRate] = useState({});
 
 
@@ -22,7 +28,7 @@ const GetCurrencies: React.FC<Props> = ({ getCurrencyRate }) => {
         const URL3 = "https://free.currconv.com/api/v7/countries?apiKey=";
         const KEY = "c728cb6404e7db7045e9"
         let source = axios.CancelToken.source();
-
+        console.log(user);
         try {
             const getCurriencies = async () => {
                 const response = await axios.get(URL2 + KEY, {
