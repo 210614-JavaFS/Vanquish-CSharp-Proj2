@@ -1,6 +1,99 @@
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { selectUser } from "../../../features/userSlice";
+import Order from "../../../models/Order";
+import { apiUpdateUserOrder } from "../../../remote/userApi";
+
 export default function Login(): JSX.Element { 
 
+    const user = useSelector(selectUser);
+
+    const [orders, setOrder] = useState<Order[]>([]);
+
+    // async function retrieveAllOrders() {
+
+    //     let orderObject:any = await apiGetAllOrders();
+
+    //     if (orderObject.length !== 0) {
+    //         console.log("I got all Orders");
+    //         console.log(orderObject);
+    //         setOrder(orderObject);
+    //     } else {
+    //         console.log("I haven't got any orders");
+    //     }
+
+    // }
+    // useEffect(() => {
+    //     retrieveAllOrders();
+    //   }, []); 
+
     return (
-        <h1>Admin page only. Show all customers orders</h1>
+        <div className="container-fluid">
+            <div className="row">
+                <div className="col">
+                    <div className="row ">
+                        <div className="col">
+                            <div className="d-flex justify-content-center">
+                                <h1 className="font-caps">Order History Page</h1>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="row modal-content padding-top-sm transparent-nav">
+                        <div className="justify-content-center modal-title cousine-font">
+                            <span>User:</span>
+                            <span className="padding-left-sm">{user.username}</span><br/>
+                        </div>
+                        <div className="justify-content-center modal-body">
+
+                            <table className="table">
+                                <thead>
+                                    <tr className="font-caps font-size-sm ">
+                                        <th className="col-sm-1">Order ID</th>
+                                        <th className="col-sm-1">Status</th>
+                                        <th className="col-sm-1">USD Amount</th>
+                                        <th className="col-sm-2">Native Currency</th>
+                                        <th className="col-sm-2">Native Amount</th>
+                                        <th className="col-sm-2">User</th>
+                                        <th className="col-sm-3">Book's Name</th>
+                                        <th className="col-sm-2"></th>
+                                    </tr>
+                                </thead>
+                                <tbody className="black-txt cousine-font">
+                                    {orders.map( order => 
+                                        
+                                        <tr>
+                                            <td>{order.orderId}</td>
+                                            <td>{order.invoice?.invoiceStatus}</td>
+                                            <td>{order.invoice?.usdAmount}</td>
+                                            <td>{order.invoice?.nativeCurrency}</td>
+                                            <td>{order.invoice?.nativeAmount}</td>
+                                            <td>{order.user?.username}</td>
+                                            <td>{order.book?.bookName}</td>
+                                            {
+                                                order.invoice?.invoiceStatus !== "cancelled" ? 
+                                                    <td><button 
+                                                            className="bttn-slant bttn-md bttn-danger bttn-no-outline"
+                                                            onClick={()=> apiUpdateUserOrder(order.invoice?.invoiceID, "approved")}
+                                                        >Approve</button>
+                                                    </td>
+                                                    // <td><button 
+                                                    //         className="bttn-slant bttn-md bttn-danger bttn-no-outline"
+                                                    //         onClick={()=> apiUpdateUserOrder(order.invoice?.invoiceID, "cancelled")}
+                                                    //     >Deny</button>
+                                                    // </td>
+                                                : null
+                                            }
+                                        </tr>
+                                        
+                                        )}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
     )
 }

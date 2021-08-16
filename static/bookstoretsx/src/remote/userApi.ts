@@ -104,13 +104,13 @@ export const apiUpdateUserOrder = async (invoiceId:number|undefined, status:Stri
 
     console.log(`Update response status is ${response.status}`)
     if (response.status === 201) {
-        alert("Succesfully cancelled!")
-        console.log("successfully cancelled")
+        alert("Succesfully updated!")
+        console.log("successfully updated")
         window.location.reload();
         return response.data;
     } else {
-        alert("Oops. Cancel request failed...")
-        console.log("failed to cancel")
+        alert("Oops. Update request failed...")
+        console.log("failed to update")
         return null;
     }
 }
