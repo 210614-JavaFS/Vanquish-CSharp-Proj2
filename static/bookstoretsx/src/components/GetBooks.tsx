@@ -17,7 +17,7 @@ const GetBooks: React.FC<Props> = () => {
     const baseURL = "http://localhost:8080/bookstore/admin/allbook";
 
     const [currencyOption, setCurrencyOptions] = useState([]);
-    const [symbol, setSymbol] = useState("");
+    const [symbol, setSymbol] = useState(user.currencyId);
     const [toCurrency, setToCurrency] = useState("");
 
     const [getRate, SetGetRate] = useState<number | undefined>();
@@ -63,24 +63,15 @@ const GetBooks: React.FC<Props> = () => {
                 if (response != null) {
                     let data2 = await response.data.results;
                     console.log(data2);
-                    //    if(user3!=null){}
-                    // setToCurrency()
 
                     console.log(user);
                     console.log(data2[user.currencyID]);
                     const userSymbol = data2[user.currencyID].currencySymbol
                     console.log(userSymbol);
-                    setSymbol(userSymbol)
+                    // setSymbol(userSymbol)
                     const userDcurrency = data2[user.currencyID].currencyName;
                     console.log(userDcurrency);
-                    // setDefaultUserCurrency(userDcurrency);
-                    // setSymbol(data2[user3.currencyID].currencyName)
 
-                    // getCurrencySymbol(data2[user3.currencyID]);
-
-                    // setCurrencyOptions(Object.keys(data2).map(function (key) {
-                    //     return data2[key]
-                    // }))
                 }
             }
 
@@ -110,14 +101,20 @@ const GetBooks: React.FC<Props> = () => {
 
         return { status: 404, message: "Failed to fetch Book" }
     }
-    const getCurrencyRate = (uppass: number) => {
+    const getCurrencyRate = (uppass: any) => {
 
         console.log(uppass);
         SetGetRate(uppass);
     }
+
+    const getCurrencyRate2 = (uppass: any) => {
+
+        console.log(uppass);
+        setSymbol(uppass);
+    }
     return (
         <div className="">
-            <GetCurrencies getCurrencyRate={getCurrencyRate} defaultUserID={defaultUserID} />
+            <GetCurrencies getCurrencyRate={getCurrencyRate} defaultUserID={defaultUserID} getCurrencyRate2={getCurrencyRate2} />
             <div className="">
                 Books:
             </div>
@@ -149,7 +146,6 @@ const GetBooks: React.FC<Props> = () => {
                         setbookId2(bookId)
                         setuserID2(user.userId)
                         setuserID2(user.userId)
-                        // setcurrencyName2()    
                         addOrder();
                     }
 
@@ -157,7 +153,7 @@ const GetBooks: React.FC<Props> = () => {
                     return (
                         <div className="padding1 " key={bookId} style={{
 
-                            width: "350px", height: "620px", border: "1px solid white",
+                            width: "370px", height: "620px", border: "1px solid white",
                             margin: "5%",
                             fontSize: "1rem",
                             textAlign: "start",

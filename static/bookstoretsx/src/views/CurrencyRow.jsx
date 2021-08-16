@@ -34,7 +34,8 @@ export const CurrencyRow = (props) => {
         onChangeCurrency,
         symbol,
         setConvertCurrency,
-        defaultUserCurrency
+        defaultUserCurrency,
+        setFromCurrency
 
     } = props;
 
@@ -64,6 +65,7 @@ export const CurrencyRow = (props) => {
 
         return () => {
 
+
         }
     }, [])
 
@@ -80,7 +82,7 @@ export const CurrencyRow = (props) => {
             <div className="">
                 <h3>Currency List</h3>
                 {/* value={selectedCurrency} */}
-                <select style={{ width: "300px" }} onChange={onChangeCurrency}  >
+                <select style={{ width: "300px" }} value={defaultUserCurrency} onChange={onChangeCurrency}  >
 
                     {currencyOptions.map((option) => {
                         const {
@@ -92,8 +94,10 @@ export const CurrencyRow = (props) => {
                         </option>)
                     })}
 
-
                 </select>
+                <div className="flex justifyend">
+                    <button onClick={onChangeCurrency}>Convert</button>
+                </div>
             </div>
 
         </div>

@@ -9,9 +9,10 @@ type Props = {
 
     defaultUserID: String,
     getCurrencyRate: (uppass: number) => void;
+    getCurrencyRate2: (uppass: String) => void;
 }
 
-const GetCurrencies: React.FC<Props> = ({ getCurrencyRate, defaultUserID }) => {
+const GetCurrencies: React.FC<Props> = ({ getCurrencyRate, defaultUserID, getCurrencyRate2 }) => {
 
     function textx() {
         return fromCurrency != null ? fromCurrency : defaultUserID;
@@ -19,33 +20,34 @@ const GetCurrencies: React.FC<Props> = ({ getCurrencyRate, defaultUserID }) => {
     console.log(defaultUserID);
     const user = useSelector(selectUser);
     // user.currencyID
-    const [fromCurrency, setFromCurrency] = useState("");
+    const [fromCurrency, setFromCurrency] = useState(defaultUserID);
     const [currencies, setCurrencies] = useState([]);
     let [test, setTest] = useState(textx);
     const [defaultCurrency, setDefaultCurrency] = useState<String>("USD");
-    const [convertCurrency, setConvertCurrency] = useState(defaultUserID);
+    const [convertCurrency, setConvertCurrency] = useState(fromCurrency);
     const [rate, setRate] = useState({});
 
-    console.log(test);
     const [defaultUserCurrency, setDefaultUserCurrency] = useState("");
 
 
     console.log(convertCurrency);
-    console.log(fromCurrency);
+    getCurrencyRate2(convertCurrency);
+    const URL = `https://free.currconv.com/api/v7/convert?q=USD_${convertCurrency}&compact=ultra&apiKey=`
     // const URL = `https://free.currconv.com/api/v7/convert?q=USD_${convertCurrency}&compact=ultra&apiKey=`
+    const KEY = "c728cb6404e7db7045e9"
     useEffect(() => {
 
 
 
-        const URL = `https://free.currconv.com/api/v7/convert?q=USD_${convertCurrency}&compact=ultra&apiKey=`
+
         const URL1 = `https://free.currconv.com/api/v7/convert?q=USD_${convertCurrency},${convertCurrency}_USD&compact=ultra&apiKey= `;
         const URL2 = "https://free.currconv.com/api/v7/currencies?apiKey=";
         const URL3 = "https://free.currconv.com/api/v7/countries?apiKey=";
 
 
-        const KEY = "c728cb6404e7db7045e9"
+
         let source = axios.CancelToken.source();
-        console.log(user);
+
         try {
             const getCurriencies = async () => {
                 const response = await axios.get(URL2 + KEY, {
@@ -74,46 +76,10 @@ const GetCurrencies: React.FC<Props> = ({ getCurrencyRate, defaultUserID }) => {
                     getCurrencyRate(data[key]);
                     return data[key]
                 }))
-                async function getCurrencyList() {
-
-                    const response = await axios.get("https://free.currconv.com/api/v7/currencies?apiKey=c728cb6404e7db7045e9");
-                    console.log(response);
-
-                    if (response != null) {
-                        let data2 = await response.data.results;
-                        console.log(data2);
-
-
-                        console.log(user);
-                        console.log(data2[user.currencyID]);
-                        const userSymbol = data2[user.currencyID].currencySymbol
-
-                        // const userDcurrency = data2[user.currencyID].currencyName;
-                        const userDcurrency = data2[user.currencyID].id;
-                        console.log(userDcurrency);
-                        setDefaultUserCurrency(userDcurrency);
-                        // setSymbol(data2[user3.currencyID].currencyName)
-
-                        // getCurrencySymbol(data2[user3.currencyID]);
-
-                        // setCurrencyOptions(Object.keys(data2).map(function (key) {
-                        //     return data2[key]
-                        // }))
-                    }
-                }
-
-                // getCurrencyList()
-
-
-
-                // for(key in data) {
-                //     if(data.hasOwnProperty(key)) {
-                //         let value = data[key];
-                //         setRate(value)
-                //     }
-                // }
-
             }
+
+
+
             convertCurrency();
 
         }
@@ -121,23 +87,62 @@ const GetCurrencies: React.FC<Props> = ({ getCurrencyRate, defaultUserID }) => {
         catch (error) {
             console.log(error);
         }
-        console.log(rate);
+
         return () => {
             console.log("Cancelling api call");
             source.cancel();
         }
     }, [])
     console.log(rate);
-    console.log(defaultUserCurrency);
+
+
+
+    const convertCurrency2 = async () => {
+        const response2 = await axios.get(URL + KEY);
+        const data = await response2.data;
+        console.log(data.data);
+        console.log(response2.data);
+
+        setRate(Object.keys(data).map(function (key) {
+            getCurrencyRate(data[key]);
+            return data[key]
+        }))
+    }
+    async function getCurrencyList2() {
+
+        const response = await axios.get("https://free.currconv.com/api/v7/currencies?apiKey=c728cb6404e7db7045e9");
+        console.log(response);
+
+        if (response != null) {
+            let data2 = await response.data.results;
+            console.log(data2);
+            let a: any = convertCurrency
+            const userSymbol = data2[a]
+
+            const userDcurrency = data2[user.currencyID].id;
+            console.log(userDcurrency);
+            setDefaultUserCurrency(userDcurrency);
+            const s = (data2[user.currencyID])
+
+            console.log(s);
+        }
+    }
 
     function handleChange(e: any) {
         setConvertCurrency(e.target.value)
+        // setFromCurrency(e.target.value)
+        callConverter();
     }
+
+    function callConverter() {
+        convertCurrency2();
+        // getCurrencyList2();
+    }
+
+
     return (<div>
         <CurrencyRow selectedCurrency={defaultUserCurrency} onChangeCurrency={handleChange} />
     </div>
     )
 }
-
-// onChangeCurrency={(e: any) => setConvertCurrency setFromCurrency(e.target.value)}
 export default GetCurrencies
