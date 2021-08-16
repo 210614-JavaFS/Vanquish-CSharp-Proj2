@@ -13,21 +13,30 @@ type Props = {
 
 const GetCurrencies: React.FC<Props> = ({ getCurrencyRate, defaultUserID }) => {
 
+    function textx() {
+        return fromCurrency != null ? fromCurrency : defaultUserID;
+    }
     console.log(defaultUserID);
     const user = useSelector(selectUser);
     // user.currencyID
+    const [fromCurrency, setFromCurrency] = useState("");
     const [currencies, setCurrencies] = useState([]);
+    let [test, setTest] = useState(textx);
     const [defaultCurrency, setDefaultCurrency] = useState<String>("USD");
     const [convertCurrency, setConvertCurrency] = useState(defaultUserID);
     const [rate, setRate] = useState({});
-    const [fromCurrency, setFromCurrency] = useState("");
 
+    console.log(test);
     const [defaultUserCurrency, setDefaultUserCurrency] = useState("");
 
 
     console.log(convertCurrency);
     console.log(fromCurrency);
+    // const URL = `https://free.currconv.com/api/v7/convert?q=USD_${convertCurrency}&compact=ultra&apiKey=`
     useEffect(() => {
+
+
+
         const URL = `https://free.currconv.com/api/v7/convert?q=USD_${convertCurrency}&compact=ultra&apiKey=`
         const URL1 = `https://free.currconv.com/api/v7/convert?q=USD_${convertCurrency},${convertCurrency}_USD&compact=ultra&apiKey= `;
         const URL2 = "https://free.currconv.com/api/v7/currencies?apiKey=";
@@ -79,7 +88,8 @@ const GetCurrencies: React.FC<Props> = ({ getCurrencyRate, defaultUserID }) => {
                         console.log(data2[user.currencyID]);
                         const userSymbol = data2[user.currencyID].currencySymbol
 
-                        const userDcurrency = data2[user.currencyID].currencyName;
+                        // const userDcurrency = data2[user.currencyID].currencyName;
+                        const userDcurrency = data2[user.currencyID].id;
                         console.log(userDcurrency);
                         setDefaultUserCurrency(userDcurrency);
                         // setSymbol(data2[user3.currencyID].currencyName)
@@ -92,7 +102,7 @@ const GetCurrencies: React.FC<Props> = ({ getCurrencyRate, defaultUserID }) => {
                     }
                 }
 
-                getCurrencyList()
+                // getCurrencyList()
 
 
 
@@ -111,18 +121,23 @@ const GetCurrencies: React.FC<Props> = ({ getCurrencyRate, defaultUserID }) => {
         catch (error) {
             console.log(error);
         }
-
+        console.log(rate);
         return () => {
             console.log("Cancelling api call");
             source.cancel();
         }
     }, [])
     console.log(rate);
+    console.log(defaultUserCurrency);
 
+    function handleChange(e: any) {
+        setConvertCurrency(e.target.value)
+    }
     return (<div>
-        <CurrencyRow selectedCurrency={defaultUserCurrency} onChangeCurrency={(e: any) => setFromCurrency(e.target.value)} />
+        <CurrencyRow selectedCurrency={defaultUserCurrency} onChangeCurrency={handleChange} />
     </div>
     )
 }
 
+// onChangeCurrency={(e: any) => setConvertCurrency setFromCurrency(e.target.value)}
 export default GetCurrencies
