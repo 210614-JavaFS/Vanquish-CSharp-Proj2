@@ -25,13 +25,13 @@ public class UserServiceTest {
 		userID = 6;
 	}
 	
-	@Test
-	public void testFindUser() {
-		System.out.println("Testing FindUserByID");
-		System.out.println("userID is " + userID);
-		//expected result
-		System.out.println(userService.findById(userID));
-		//Asking if userService.findById(userID) != null) will return a null. If not null then it's true, and the test case is passed.
-		assertTrue(userService.findById(userID) != null);
-	}
+//	@Test
+//	public void testFindUser() {
+//		System.out.println("Testing FindUserByID");
+//		System.out.println("userID is " + userID);
+//		//expected result
+//		System.out.println(userService.findById(userID));
+//		//Asking if userService.findById(userID) != null) will return a null. If not null then it's true, and the test case is passed.
+//		assertTrue(userService.findById(userID) != null);
+//	}
 }
