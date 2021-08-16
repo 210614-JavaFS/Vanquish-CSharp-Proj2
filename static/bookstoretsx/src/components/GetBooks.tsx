@@ -115,12 +115,17 @@ const GetBooks: React.FC<Props> = () => {
         // setSymbol(uppass);
     }
     return (
-        <div className="">
-            <GetCurrencies getCurrencyRate={getCurrencyRate} defaultUserID={defaultUserID} getCurrencyRate2={getCurrencyRate2} />
-            <div className="">
-                Books:
-            </div>
+        <div className="container">
 
+            <div className="row">
+                <div className="col">
+                    <GetCurrencies getCurrencyRate={getCurrencyRate} defaultUserID={defaultUserID} getCurrencyRate2={getCurrencyRate2} />
+                    <div className="font-caps font-size-lg">
+                        Here are your favorite books on sales!
+                    </div>
+
+                </div>
+            </div>
             <div className="flexwrap justify">
                 {books.map((book) => {
 
@@ -153,7 +158,7 @@ const GetBooks: React.FC<Props> = () => {
 
 
                     return (
-                        <div className="padding1 " key={bookId} style={{
+                        <div className="padding1 col-sm3" key={bookId} style={{
 
                             width: "370px", height: "620px", border: "1px solid white",
                             margin: "5%",
@@ -166,37 +171,37 @@ const GetBooks: React.FC<Props> = () => {
                                 <div className="flex justify">
                                     <img src={imgURL} alt="book_image" style={{ minWidth: "310px", height: "310px" }} />
                                 </div>
-                                <div className="justify flex" style={{ color: "aqua" }}>
+                                <div className="justify flex font-caps font-size-md">
                                     {bookName}
                                 </div>
                                 <div className="justify flex">
                                     <hr />
                                 </div>
 
-                                <div className="">
-                                    <strong>author: </strong>      &nbsp; {author}
+                                <div className="share-font">
+                                    <strong>Author: </strong>      &nbsp; {author}
                                 </div>
-                                <div className="textoverflow">
+                                <div className="textoverflow share-font">
                                     <strong> Description: </strong>    &nbsp; {bookDescription}
                                 </div>
 
-                                <div className="">
+                                <div className="share-font">
                                     <strong>Catagory:  </strong>   &nbsp; {bookCategory}
                                 </div>
-                                <div className="">
+                                <div className="share-font">
                                     <strong>Quantity:  </strong>   &nbsp; {bookStockQuantity}
                                 </div>
 
-                                <div className="">
+                                <div className="share-font">
                                     <strong> USD Price:</strong>     &nbsp;${usdPrice}
 
                                 </div>
-                                <div className="">
+                                <div className="share-font">
                                     <strong>Converted Price: </strong>
                                     &nbsp; <strong style={{ color: "green" }}> {convertedPrice} </strong>
                                     &nbsp;
-                                    <button className="btn btn-primary btn-sm" onClick={handleOrderButton}>Add to Order</button>
                                 </div>
+                                    <button className="btn btn-primary btn-sm float-right" onClick={handleOrderButton}>Add to Order</button>
 
                             </div>
                         </div>
