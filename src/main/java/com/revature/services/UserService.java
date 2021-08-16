@@ -65,9 +65,4 @@ public class UserService {
 		return invoiceDAO.findOrderByuserId(userId);
 	}
 	
-	
-	
-	
-	
-	
 }
